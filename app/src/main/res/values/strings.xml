@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tv_shows_most_popular">TV Shows | Most Popular</string>
+    <string name="read_more">Read More</string>
+    <string name="read_less">Read Less</string>
+    <string name="u2022">•</string>
+    <string name="website">Website</string>
+    <string name="episodes">Episodes</string>
+    <string name="movie">Movie</string>
+    <string name="tv_show">TV Show</string>
 </resources>
