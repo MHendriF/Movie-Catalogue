@@ -1,28 +1,28 @@
 package com.hendri.movie.catalogue.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.DataEntity
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
-import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
+import com.hendri.movie.catalogue.ui.activities.DetailActivity
+import com.hendri.movie.catalogue.ui.adapters.ContentAdapter
 import com.hendri.movie.catalogue.ui.listeners.ItemListener
-import com.hendri.movie.catalogue.ui.repositories.MovieRepository
-import com.hendri.movie.catalogue.ui.viewmodels.MovieViewModel
+import com.hendri.movie.catalogue.ui.viewmodels.ContentViewModel
 import timber.log.Timber
 
 
 class MovieFragment : Fragment(), ItemListener {
 
     private lateinit var movieBinding: FragmentMovieBinding
-    private lateinit var viewModel: MovieViewModel
-    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var viewModel: ContentViewModel
+    private lateinit var movieAdapter: ContentAdapter
     private lateinit var movies : List<DataEntity>
 
     override fun onCreateView(
@@ -40,16 +40,19 @@ class MovieFragment : Fragment(), ItemListener {
     }
 
     private fun doInitialization() {
-        viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ContentViewModel::class.java)
         movies = viewModel.getMovies()
-        movieAdapter = MovieAdapter(this)
-        movieAdapter.addMovies(movies)
+        movieAdapter = ContentAdapter(this)
+        movieAdapter.setData(movies)
         movieBinding.rvMovie.setHasFixedSize(true)
         movieBinding.rvMovie.adapter = movieAdapter
     }
 
     override fun onItemClicked(dataEntity: DataEntity) {
         Timber.d("Trace :: data(${dataEntity.title})")
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_DATA, dataEntity)
+        requireActivity().startActivity(intent)
     }
 
 }
