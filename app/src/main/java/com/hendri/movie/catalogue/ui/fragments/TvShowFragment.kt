@@ -51,6 +51,7 @@ class TvShowFragment : Fragment(), ItemListener {
         Timber.d("Trace :: data(${dataEntity.title})")
         val intent = Intent(requireContext(), DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_DATA, dataEntity)
+        intent.putExtra(DetailActivity.EXTRA_TYPE, "TvShow")
         requireActivity().startActivity(intent)
     }
 }

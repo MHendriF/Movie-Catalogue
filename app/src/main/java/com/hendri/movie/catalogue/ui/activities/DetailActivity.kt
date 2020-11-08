@@ -8,17 +8,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.DataEntity
 import com.hendri.movie.catalogue.databinding.ActivityDetailBinding
-import com.hendri.movie.catalogue.ui.viewmodels.ContentViewModel
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
+import com.hendri.movie.catalogue.utils.Constants.TYPE_MOVIE
 import timber.log.Timber
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var detailBinding: ActivityDetailBinding
     private lateinit var viewModel: DetailViewModel
+    private lateinit var data: DataEntity
 
     companion object {
-        const val EXTRA_DATA = "data_entity"
+        const val EXTRA_DATA = "extra_data"
+        const val EXTRA_TYPE = "extra_type"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +38,13 @@ class DetailActivity : AppCompatActivity() {
     private fun getDataDetails() {
         detailBinding.isLoading = true
         val dataEntity: DataEntity? = intent.getParcelableExtra(EXTRA_DATA)
+        val type: String? = intent.getStringExtra(EXTRA_TYPE)
+        if (dataEntity != null) {
+            data = viewModel.getDataById(dataEntity.id, type)
+        }
         Timber.d("Trace :: data(${dataEntity})")
 
-        detailBinding.model = dataEntity
+        detailBinding.model = data
         detailBinding.tvReadMore.setOnClickListener {
             if (detailBinding.tvReadMore.text.toString() == "Read More") {
                 detailBinding.tvDescription.maxLines = Int.MAX_VALUE

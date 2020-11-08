@@ -5,16 +5,11 @@ import com.hendri.movie.catalogue.data.DataEntity
 import com.hendri.movie.catalogue.utils.DataDummy
 
 class DetailViewModel : ViewModel() {
-    private lateinit var Id: String
 
     private fun getMovies(): List<DataEntity> = DataDummy.generateDummyMovies() as ArrayList<DataEntity>
     private fun getTvShows(): List<DataEntity> = DataDummy.generateDummyTvShows() as ArrayList<DataEntity>
 
-    fun setId(Id: String) {
-        this.Id = Id
-    }
-
-    fun getDataById(Id: String, Type: String): DataEntity {
+    fun getDataById(Id: String?, Type: String?): DataEntity {
         lateinit var result: DataEntity
         if (Type.equals("Movie", ignoreCase = true)) {
             val listMovie = getMovies()
@@ -33,6 +28,6 @@ class DetailViewModel : ViewModel() {
                 }
             }
         }
-        return  result
+        return result
     }
 }
