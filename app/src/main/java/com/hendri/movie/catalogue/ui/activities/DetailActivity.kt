@@ -56,8 +56,6 @@ class DetailActivity : AppCompatActivity() {
                 detailBinding.tvReadMore.setText(R.string.read_more)
             }
         }
-
         detailBinding.isLoading = false
-
     }
 }

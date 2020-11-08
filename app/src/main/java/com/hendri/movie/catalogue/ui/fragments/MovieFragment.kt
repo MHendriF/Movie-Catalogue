@@ -20,9 +20,9 @@ import timber.log.Timber
 
 class MovieFragment : Fragment(), ItemListener {
 
-    private lateinit var movieBinding: FragmentMovieBinding
+    private lateinit var fragmentBinding: FragmentMovieBinding
     private lateinit var viewModel: ContentViewModel
-    private lateinit var movieAdapter: ContentAdapter
+    private lateinit var contentAdapter: ContentAdapter
     private lateinit var movies : List<DataEntity>
 
     override fun onCreateView(
@@ -30,8 +30,8 @@ class MovieFragment : Fragment(), ItemListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        movieBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie, container, false)
-        return movieBinding.root
+        fragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie, container, false)
+        return fragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -42,10 +42,10 @@ class MovieFragment : Fragment(), ItemListener {
     private fun doInitialization() {
         viewModel = ViewModelProvider(this).get(ContentViewModel::class.java)
         movies = viewModel.getMovies()
-        movieAdapter = ContentAdapter(this)
-        movieAdapter.setData(movies)
-        movieBinding.rvMovie.setHasFixedSize(true)
-        movieBinding.rvMovie.adapter = movieAdapter
+        contentAdapter = ContentAdapter(this)
+        contentAdapter.setData(movies)
+        fragmentBinding.rvMovie.setHasFixedSize(true)
+        fragmentBinding.rvMovie.adapter = contentAdapter
     }
 
     override fun onItemClicked(dataEntity: DataEntity) {
