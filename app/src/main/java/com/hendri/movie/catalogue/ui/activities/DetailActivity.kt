@@ -9,13 +9,13 @@ import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.DataEntity
 import com.hendri.movie.catalogue.databinding.ActivityDetailBinding
 import com.hendri.movie.catalogue.ui.viewmodels.ContentViewModel
+import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 import timber.log.Timber
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var detailBinding: ActivityDetailBinding
-    private lateinit var viewModel: ContentViewModel
-    private lateinit var dataEntity: DataEntity
+    private lateinit var viewModel: DetailViewModel
 
     companion object {
         const val EXTRA_DATA = "data_entity"
@@ -28,23 +28,17 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun doInitialization() {
-        viewModel = ViewModelProvider(this).get(ContentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         detailBinding.ivBack.setOnClickListener { onBackPressed() }
         getDataDetails()
     }
 
     private fun getDataDetails() {
         detailBinding.isLoading = true
-        dataEntity = intent.getParcelableExtra(EXTRA_DATA)!!
+        val dataEntity: DataEntity? = intent.getParcelableExtra(EXTRA_DATA)
         Timber.d("Trace :: data(${dataEntity})")
 
-        detailBinding.title = dataEntity.title
-        detailBinding.releaseDate = dataEntity.releaseDate
-        detailBinding.genre = dataEntity.genre
-        detailBinding.description = dataEntity.description
-        detailBinding.score = dataEntity.score
-        detailBinding.imgPoster = dataEntity.imgPoster
-        detailBinding.imgBackground = dataEntity.imgBackground
+        detailBinding.model = dataEntity
         detailBinding.tvReadMore.setOnClickListener {
             if (detailBinding.tvReadMore.text.toString() == "Read More") {
                 detailBinding.tvDescription.maxLines = Int.MAX_VALUE

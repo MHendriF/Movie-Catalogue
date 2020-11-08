@@ -8,26 +8,8 @@
             name="isLoading"
             type="Boolean" />
         <variable
-            name="title"
-            type="String" />
-        <variable
-            name="genre"
-            type="String" />
-        <variable
-            name="releaseDate"
-            type="String" />
-        <variable
-            name="score"
-            type="String" />
-        <variable
-            name="description"
-            type="String" />
-        <variable
-            name="imgPoster"
-            type="int" />
-        <variable
-            name="imgBackground"
-            type="int" />
+            name="model"
+            type="com.hendri.movie.catalogue.data.DataEntity" />
 
         <import type="android.view.View" />
     </data>
@@ -52,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_160sdp"
                 android:orientation="horizontal"
-                app:imageResource="@{imgBackground}"
+                app:imageResource="@{model.imgBackground}"
                 android:scaleType="fitXY"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +57,7 @@
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_150sdp"
                 android:layout_marginStart="@dimen/_10sdp"
-                app:imageResource="@{imgPoster}"
+                app:imageResource="@{model.imgPoster}"
                 app:layout_constraintBottom_toBottomOf="@id/ivBackground"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivBackground"
@@ -91,7 +73,7 @@
                 android:fontFamily="@font/ubuntu_bold"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text="@{title}"
+                android:text="@{model.title}"
                 android:textColor="@color/colorTextIcons"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +89,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text="@{genre}"
+                android:text="@{model.genre}"
                 android:textColor="@color/colorTextOther"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
@@ -123,7 +105,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text='@{score+"%"}'
+                android:text='@{model.score+"%"}'
                 android:textColor="@android:color/holo_green_light"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
@@ -139,7 +121,7 @@
                 android:fontFamily="@font/ubuntu_regular"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text='@{"Release on :" +releaseDate}'
+                android:text='@{"Release on :" +model.releaseDate}'
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitle"
@@ -158,7 +140,7 @@
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="@dimen/_2sdp"
                 android:maxLines="4"
-                android:text='@{description}'
+                android:text='@{model.description}'
                 android:textColor="@color/colorTextIcons"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintTop_toBottomOf="@id/ivTvShow" />
