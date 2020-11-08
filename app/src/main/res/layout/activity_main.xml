@@ -42,15 +42,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
         app:layout_constraintVertical_bias="0.0"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
-        app:tabTextColor="@android:color/white" />
+        app:tabIndicatorColor="@color/colorTextPrimary"
+        app:tabSelectedTextColor="@color/colorTextIcons"
+        app:tabTextColor="@color/colorTextPrimary"
+        android:background="@color/colorPrimaryLight"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
