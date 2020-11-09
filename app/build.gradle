@@ -53,23 +53,8 @@ dependencies {
     // Material Design
     implementation 'com.google.android.material:material:1.2.1'
 
-    // Retrofit & Gson
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-    // Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
     // Lifecycle component
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
-    // Room & RX Java Support
-    implementation 'androidx.room:room-runtime:2.2.5'
-    annotationProcessor 'androidx.room:room-compiler:2.2.5'
-    implementation 'androidx.room:room-rxjava2:2.2.5'
-
-    // RX Java
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     // Scalable Size Unit
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
@@ -80,8 +65,4 @@ dependencies {
 
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
-}
-
-repositories {
-    mavenCentral()
 }

@@ -135,7 +135,7 @@ object DataDummy {
 
         tvShows.add(
             DataEntity(
-                "TVSHOW_1",
+                "TV_1",
                 "The Arrow",
                 "Panah adalah menceritakan kembali petualangan dari legendaris DC pahlawan Green Arrow",
                 "Kejahatan, Drama, Misteri",
@@ -147,7 +147,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_2",
+                "TV_2",
                 "Doom Patrol",
                 "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
                 "Sci-fi & Fantasy, Aksi & Petualangan",
@@ -159,7 +159,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_3",
+                "TV_3",
                 "Family Guy",
                 "Seri animasi animasi Freakin 'Sweet yang sakit, terpelintir, dan salah, menampilkan petualangan keluarga Griffin yang disfungsional. Peter yang kikuk dan Lois yang sudah lama menderita memiliki tiga anak. Stewie (bayi yang brilian tetapi sadis yang bertekad membunuh ibunya dan mengambil alih dunia), Meg (yang tertua, dan merupakan gadis yang paling tidak populer di kota) dan Chris (anak tengah, dia tidak terlalu cerdas tetapi memiliki hasrat untuk film ).",
                 "Animasi, Komedi",
@@ -171,7 +171,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_4",
+                "TV_4",
                 "The Flash",
                 "Setelah akselerator partikel menyebabkan badai aneh, Penyelidik CSI Barry Allen disambar petir dan jatuh koma. Beberapa bulan kemudian dia terbangun dengan kekuatan kecepatan super, memberinya kemampuan untuk bergerak melalui Central City seperti malaikat penjaga yang tak terlihat. Untuk saat ini, hanya beberapa teman dekat dan rekan yang tahu bahwa Barry secara harfiah adalah manusia tercepat, tetapi tidak lama sebelum dunia mengetahui apa yang menjadi Barry Allen ... The Flash.",
                 "Drama, Sci-fi & Fantasy",
@@ -183,7 +183,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_5",
+                "TV_5",
                 "Gotham",
                 "Semua orang tahu nama Komisaris Gordon. Dia adalah salah satu musuh terbesar dunia kejahatan, seorang pria yang reputasinya identik dengan hukum dan ketertiban. Tapi apa yang diketahui tentang kisah Gordon dan kenaikannya dari detektif pemula ke Komisaris Polisi? Apa yang diperlukan untuk menavigasi berbagai lapisan korupsi yang diam-diam memerintah Kota Gotham, tempat bertelurnya penjahat paling ikonik di dunia? Dan keadaan apa yang menciptakan mereka.",
                 "Drama, Fantasi, Kejahatan",
@@ -195,7 +195,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_6",
+                "TV_6",
                 "Grey's Anatomy",
                 "Ikuti kehidupan pribadi dan profesional sekelompok dokter di Rumah Sakit Gray Sloan Memorial di Seattle.",
                 "Drama",
@@ -207,7 +207,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_7",
+                "TV_7",
                 "Hanna",
                 "This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright film.",
                 "Aksi & Petualangan, Drama",
@@ -219,7 +219,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_8",
+                "TV_8",
                 "Naruto Shippuden",
                 "Naruto Shippuuden adalah kelanjutan dari serial TV animasi asli Naruto. Kisah ini berkisah tentang Uzumaki Naruto yang lebih tua dan sedikit lebih matang dan upayanya untuk menyelamatkan temannya Uchiha Sasuke dari cengkeraman Shinobi seperti ular, Orochimaru. Setelah 2 setengah tahun, Naruto akhirnya kembali ke desanya Konoha, dan mulai mewujudkan ambisinya, meskipun itu tidak akan mudah, karena Ia telah mengumpulkan beberapa musuh (lebih berbahaya), seperti organisasi shinobi. ; Akatsuki.",
                 "Animasi, Komedi, Drama",
@@ -231,7 +231,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_9",
+                "TV_9",
                 "NCIS",
                 "From murder and espionage to terrorism and stolen submarines, a team of special agents investigates any crime that has a shred of evidence connected to Navy and Marine Corps personnel, regardless of rank or position.",
                 "Aksi & Petualangan, Kejahatan, Drama",
@@ -243,7 +243,7 @@ object DataDummy {
         )
         tvShows.add(
             DataEntity(
-                "TVSHOW_10",
+                "TV_10",
                 "The Simpsons",
                 "Bertempat di Springfield, kota rata-rata di Amerika, pertunjukan ini berfokus pada kejenakaan dan petualangan sehari-hari keluarga Simpson; Homer, Marge, Bart, Lisa dan Maggie, serta ribuan pemain virtual. Sejak awal, serial ini telah menjadi ikon budaya pop, menarik ratusan selebriti menjadi bintang tamu. Acara ini juga menjadi terkenal karena satirnya yang tak kenal takut terhadap kehidupan politik, media, dan Amerika secara umum.",
                 "Animasi, Komedi, Keluarga, Drama",
