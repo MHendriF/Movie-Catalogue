@@ -24,6 +24,7 @@ class DetailViewModelTest {
     @Test
     fun getDataMovieById() {
         val movie = viewModel.getDataById(movieId, TYPE_MOVIE)
+        assertNotNull(movie)
         assertEquals(dummyMovie.title, movie.title)
         assertEquals(dummyMovie.description, movie.description)
         assertEquals(dummyMovie.genre, movie.genre)
@@ -36,6 +37,7 @@ class DetailViewModelTest {
     @Test
     fun getDataTvShowById() {
         val tvShow = viewModel.getDataById(tvShowId, TYPE_TVSHOW)
+        assertNotNull(tvShow)
         assertEquals(dummyTvShow.title, tvShow.title)
         assertEquals(dummyTvShow.description, tvShow.description)
         assertEquals(dummyTvShow.genre, tvShow.genre)
