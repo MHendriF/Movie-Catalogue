@@ -45,17 +45,19 @@ class DetailActivity : AppCompatActivity() {
         Timber.d("Trace :: data(${dataEntity})")
 
         detailBinding.model = data
-        detailBinding.tvReadMore.setOnClickListener {
-            if (detailBinding.tvReadMore.text.toString() == "Read More") {
-                detailBinding.tvDescription.maxLines = Int.MAX_VALUE
-                detailBinding.tvDescription.ellipsize = null
-                detailBinding.tvReadMore.setText(R.string.read_less)
-            } else {
-                detailBinding.tvDescription.maxLines = 4
-                detailBinding.tvDescription.ellipsize = TextUtils.TruncateAt.END
-                detailBinding.tvReadMore.setText(R.string.read_more)
+        with(detailBinding) {
+            tvReadMore.setOnClickListener {
+                if (tvReadMore.text.toString() == "Read More") {
+                    tvDescription.maxLines = Int.MAX_VALUE
+                    tvDescription.ellipsize = null
+                    tvReadMore.setText(R.string.read_less)
+                } else {
+                    tvDescription.maxLines = 4
+                    tvDescription.ellipsize = TextUtils.TruncateAt.END
+                    tvReadMore.setText(R.string.read_more)
+                }
             }
+            isLoading = false
         }
-        detailBinding.isLoading = false
     }
 }

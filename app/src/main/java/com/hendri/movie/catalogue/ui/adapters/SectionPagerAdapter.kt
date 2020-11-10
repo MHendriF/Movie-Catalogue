@@ -32,6 +32,6 @@ class SectionPagerAdapter (private val mContext: Context, fm: FragmentManager) :
     }
 
     override fun getCount(): Int {
-        return 2
+        return tabTitle.size
     }
 }

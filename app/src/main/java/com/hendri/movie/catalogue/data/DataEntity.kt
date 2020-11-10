@@ -5,12 +5,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class DataEntity (
-    var id: String,
-    var title: String,
-    var description: String,
-    var genre: String,
-    var releaseDate: String,
-    var imgPoster: Int,
-    var imgBackground: Int,
-    var score: String
+    val id: String,
+    val title: String,
+    val description: String,
+    val genre: String,
+    val releaseDate: String,
+    val imgPoster: Int,
+    val imgBackground: Int,
+    val score: String
 ) : Parcelable
