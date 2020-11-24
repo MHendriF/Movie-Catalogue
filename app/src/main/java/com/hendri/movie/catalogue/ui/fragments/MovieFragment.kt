@@ -17,6 +17,7 @@ import com.hendri.movie.catalogue.data.api.RetrofitBuilder
 import com.hendri.movie.catalogue.data.local.DatabaseBuilder
 import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
 import com.hendri.movie.catalogue.data.response.Movie
+import com.hendri.movie.catalogue.data.response.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.ui.base.ViewModelFactory
@@ -67,7 +68,7 @@ class MovieFragment : Fragment(), ItemListener {
     }
 
     private fun setupObserver() {
-        viewModel.getMovieFromApi().observe(viewLifecycleOwner, Observer {
+        viewModel.getMovieFromApi().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
@@ -94,6 +95,10 @@ class MovieFragment : Fragment(), ItemListener {
 
     override fun onItemClicked(movie: Movie) {
         Timber.d("Trace :: data(${movie.title})")
+    }
+
+    override fun onItemClicked(tvShow: TvShow) {
+        TODO("Not yet implemented")
     }
 
     private fun Context.toast(message: String) {
