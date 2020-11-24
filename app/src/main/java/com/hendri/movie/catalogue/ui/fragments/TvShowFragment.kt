@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.DataEntity
+import com.hendri.movie.catalogue.data.response.Movie
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.ContentAdapter
@@ -48,10 +49,14 @@ class TvShowFragment : Fragment(), ItemListener {
     }
 
     override fun onItemClicked(dataEntity: DataEntity) {
-        Timber.d("Trace :: data(${dataEntity.title})")
-        val intent = Intent(requireContext(), DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_DATA, dataEntity)
-        intent.putExtra(DetailActivity.EXTRA_TYPE, "TvShow")
-        requireActivity().startActivity(intent)
+//        Timber.d("Trace :: data(${dataEntity.title})")
+//        val intent = Intent(requireContext(), DetailActivity::class.java)
+//        intent.putExtra(DetailActivity.EXTRA_DATA, dataEntity)
+//        intent.putExtra(DetailActivity.EXTRA_TYPE, "TvShow")
+//        requireActivity().startActivity(intent)
+    }
+
+    override fun onItemClicked(movie: Movie) {
+        TODO("Not yet implemented")
     }
 }

@@ -1,12 +1,12 @@
 package com.hendri.movie.catalogue.ui.adapters
 
+import MovieFragment
 import android.content.Context
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.ui.fragments.MovieFragment
 import com.hendri.movie.catalogue.ui.fragments.TvShowFragment
 
 class SectionPagerAdapter (private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

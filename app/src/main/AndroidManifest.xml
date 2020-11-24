@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hendri.movie.catalogue">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".utils.logging.App"
         android:allowBackup="true"

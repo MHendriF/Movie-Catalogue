@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.DataEntity
+import com.hendri.movie.catalogue.data.response.Movie
 import com.hendri.movie.catalogue.databinding.ItemContainerMovieBinding
 import com.hendri.movie.catalogue.ui.listeners.ItemListener
 

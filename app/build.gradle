@@ -22,6 +22,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     buildFeatures {
         dataBinding true
     }
@@ -53,8 +57,8 @@ dependencies {
     // Material Design
     implementation 'com.google.android.material:material:1.2.1'
 
-    // Lifecycle component
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Scalable Size Unit
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
@@ -65,4 +69,27 @@ dependencies {
 
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+
+    // Room components
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.archLifecycleVersion"
+
+    // Network
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+
 }
