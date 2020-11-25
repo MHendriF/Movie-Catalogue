@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.response.Movie
 import com.hendri.movie.catalogue.databinding.ItemContainerMoviesBinding
-import com.hendri.movie.catalogue.ui.listeners.ItemListener
+import com.hendri.movie.catalogue.ui.listeners.MovieListener
 
-class MovieAdapter(private val itemListener: ItemListener): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val itemListener: MovieListener): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private lateinit var movies: List<Movie>
     private lateinit var layoutInflater: LayoutInflater

@@ -22,12 +22,11 @@ class SectionPagerAdapter (private val mContext: Context, fm: FragmentManager) :
             0 -> fragment = MovieFragment()
             1 -> fragment = TvShowFragment()
         }
-
-        return  fragment as Fragment
+        return fragment as Fragment
     }
 
     @Nullable
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return mContext.resources.getString(tabTitle[position])
     }
 

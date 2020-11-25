@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.response.TvShow
 import com.hendri.movie.catalogue.databinding.ItemContainerTvShowsBinding
-import com.hendri.movie.catalogue.ui.listeners.ItemListener
+import com.hendri.movie.catalogue.ui.listeners.TvShowListener
 
-class TvShowAdapter(private val itemListener: ItemListener): RecyclerView.Adapter<TvShowAdapter.MovieViewHolder>() {
+class TvShowAdapter(private val itemListener: TvShowListener): RecyclerView.Adapter<TvShowAdapter.MovieViewHolder>() {
 
     private lateinit var tvShows: List<TvShow>
     private lateinit var layoutInflater: LayoutInflater

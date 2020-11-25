@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.hendri.movie.catalogue.utils.Constants.DATABASE_NAME
 
 object DatabaseBuilder {
+    @Volatile
     private var INSTANCE: AppDatabase? = null
 
     fun getInstance(context: Context): AppDatabase {

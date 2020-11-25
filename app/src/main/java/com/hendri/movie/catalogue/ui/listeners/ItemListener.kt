@@ -6,8 +6,4 @@ import com.hendri.movie.catalogue.data.response.TvShow
 
 interface ItemListener {
     fun onItemClicked(dataEntity: DataEntity)
-
-    fun onItemClicked(movie: Movie)
-
-    fun onItemClicked(tvShow: TvShow)
 }

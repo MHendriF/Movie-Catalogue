@@ -9,42 +9,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.DataEntity
 import com.hendri.movie.catalogue.data.api.ApiHelperImp
 import com.hendri.movie.catalogue.data.api.RetrofitBuilder
 import com.hendri.movie.catalogue.data.local.DatabaseBuilder
 import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
-import com.hendri.movie.catalogue.data.response.Movie
 import com.hendri.movie.catalogue.data.response.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
-import com.hendri.movie.catalogue.ui.activities.DetailActivity
-import com.hendri.movie.catalogue.ui.adapters.ContentAdapter
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.ui.base.ViewModelFactory
-import com.hendri.movie.catalogue.ui.listeners.ItemListener
-import com.hendri.movie.catalogue.ui.viewmodels.ContentViewModel
-import com.hendri.movie.catalogue.ui.viewmodels.MovieViewModel
+import com.hendri.movie.catalogue.ui.listeners.TvShowListener
 import com.hendri.movie.catalogue.ui.viewmodels.TvShowViewModel
 import com.hendri.movie.catalogue.utils.Status
 import timber.log.Timber
 import java.util.ArrayList
 
-class TvShowFragment : Fragment(), ItemListener {
+class TvShowFragment : Fragment(), TvShowListener {
 
     private lateinit var fragmentBinding: FragmentTvShowBinding
     private lateinit var viewModel: TvShowViewModel
     private lateinit var tvShowAdapter: TvShowAdapter
-    private var tvShows : List<TvShow> = ArrayList()
+    private var tvShows: List<TvShow> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        fragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_tv_show, container, false)
+        fragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_tv_show, container, false)
         return fragmentBinding.root
     }
 
@@ -63,10 +56,11 @@ class TvShowFragment : Fragment(), ItemListener {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, ViewModelFactory(
-            ApiHelperImp(RetrofitBuilder.apiService),
-            DatabaseHelperImp(DatabaseBuilder.getInstance(requireContext().applicationContext))
-        )
+        viewModel = ViewModelProvider(
+            this, ViewModelFactory(
+                ApiHelperImp(RetrofitBuilder.apiService),
+                DatabaseHelperImp(DatabaseBuilder.getInstance(requireContext().applicationContext))
+            )
         ).get(TvShowViewModel::class.java)
     }
 
@@ -92,20 +86,12 @@ class TvShowFragment : Fragment(), ItemListener {
         })
     }
 
-    override fun onItemClicked(dataEntity: DataEntity) {
-//        Timber.d("Trace :: data(${dataEntity.title})")
+    override fun onItemClicked(tvShow: TvShow) {
+        Timber.d("Trace :: data(${tvShow.name})")
 //        val intent = Intent(requireContext(), DetailActivity::class.java)
 //        intent.putExtra(DetailActivity.EXTRA_DATA, dataEntity)
 //        intent.putExtra(DetailActivity.EXTRA_TYPE, "TvShow")
 //        requireActivity().startActivity(intent)
-    }
-
-    override fun onItemClicked(movie: Movie) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onItemClicked(tvShow: TvShow) {
-        TODO("Not yet implemented")
     }
 
     private fun Context.toast(message: String) {

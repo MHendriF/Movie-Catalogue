@@ -2,11 +2,11 @@ package com.hendri.movie.catalogue.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.hendri.movie.catalogue.data.repository.TvShowRepository
+import com.hendri.movie.catalogue.data.repository.MainRepository
 import com.hendri.movie.catalogue.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
-class TvShowViewModel(private val repository: TvShowRepository) : ViewModel() {
+class TvShowViewModel(private val repository: MainRepository) : ViewModel() {
     fun getTvShowFromApi() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
