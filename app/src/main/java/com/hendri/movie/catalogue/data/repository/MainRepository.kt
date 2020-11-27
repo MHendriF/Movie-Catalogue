@@ -37,4 +37,19 @@ class MainRepository(
     suspend fun getTvShowsFromDB(): List<TvShow> {
         return dbHelper.getTvShows()
     }
+
+    suspend fun getMovieByIdFromApi(id: Int): Response<Movie> {
+        Timber.d("Trace :: getMoviesFromApi")
+        return withContext(Dispatchers.IO) {
+            apiHelper.getMovieById(id)
+        }
+    }
+
+    suspend fun getTvShowByIdFromApi(id: Int): Response<TvShow> {
+        Timber.d("Trace :: getTvShowsFromApi")
+        return withContext(Dispatchers.IO) {
+            apiHelper.getTvShowById(id)
+        }
+    }
+
 }

@@ -17,10 +17,12 @@ import com.hendri.movie.catalogue.data.local.DatabaseBuilder
 import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
 import com.hendri.movie.catalogue.data.response.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
+import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.ui.base.ViewModelFactory
 import com.hendri.movie.catalogue.ui.listeners.TvShowListener
 import com.hendri.movie.catalogue.ui.viewmodels.TvShowViewModel
+import com.hendri.movie.catalogue.utils.Constants
 import com.hendri.movie.catalogue.utils.Status
 import timber.log.Timber
 import java.util.ArrayList
@@ -65,7 +67,7 @@ class TvShowFragment : Fragment(), TvShowListener {
     }
 
     private fun setupObserver() {
-        viewModel.getTvShowFromApi().observe(viewLifecycleOwner, {
+        viewModel.getTvShowsFromApi().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
@@ -88,10 +90,10 @@ class TvShowFragment : Fragment(), TvShowListener {
 
     override fun onItemClicked(tvShow: TvShow) {
         Timber.d("Trace :: data(${tvShow.name})")
-//        val intent = Intent(requireContext(), DetailActivity::class.java)
-//        intent.putExtra(DetailActivity.EXTRA_DATA, dataEntity)
-//        intent.putExtra(DetailActivity.EXTRA_TYPE, "TvShow")
-//        requireActivity().startActivity(intent)
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
+        intent.putExtra(DetailActivity.EXTRA_TYPE, Constants.TYPE_TV_SHOW)
+        requireActivity().startActivity(intent)
     }
 
     private fun Context.toast(message: String) {

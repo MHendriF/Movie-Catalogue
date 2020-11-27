@@ -7,7 +7,7 @@ import com.hendri.movie.catalogue.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class MovieViewModel(private val repository: MainRepository) : ViewModel() {
-    fun getMovieFromApi() = liveData(Dispatchers.IO) {
+    fun getMoviesFromApi() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
             val response = repository.getMoviesFromApi()

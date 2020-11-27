@@ -1,4 +1,5 @@
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,12 @@ import com.hendri.movie.catalogue.data.local.DatabaseBuilder
 import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
 import com.hendri.movie.catalogue.data.response.Movie
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
+import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.ui.base.ViewModelFactory
 import com.hendri.movie.catalogue.ui.listeners.MovieListener
 import com.hendri.movie.catalogue.ui.viewmodels.MovieViewModel
+import com.hendri.movie.catalogue.utils.Constants
 import com.hendri.movie.catalogue.utils.Status
 import timber.log.Timber
 import java.util.ArrayList
@@ -64,7 +67,7 @@ class MovieFragment : Fragment(), MovieListener {
     }
 
     private fun setupObserver() {
-        viewModel.getMovieFromApi().observe(viewLifecycleOwner, {
+        viewModel.getMoviesFromApi().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
@@ -87,6 +90,10 @@ class MovieFragment : Fragment(), MovieListener {
 
     override fun onItemClicked(movie: Movie) {
         Timber.d("Trace :: data(${movie.title})")
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_ID, movie.id)
+        intent.putExtra(DetailActivity.EXTRA_TYPE, Constants.TYPE_MOVIE)
+        requireActivity().startActivity(intent)
     }
 
     private fun Context.toast(message: String) {
