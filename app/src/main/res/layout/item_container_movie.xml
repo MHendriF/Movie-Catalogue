@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
             type="com.hendri.movie.catalogue.data.DataEntity" />
@@ -33,6 +34,7 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginStart="@dimen/_10sdp"
+            android:contentDescription="@string/img_bg"
             android:scaleType="centerCrop"
             app:imageResource="@{model.imgPoster}"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +50,8 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:fontFamily="@font/ubuntu_medium"
             android:includeFontPadding="false"
-            android:text="@{model.title}"
             android:paddingTop="@dimen/_8sdp"
+            android:text="@{model.title}"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +99,6 @@
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintTop_toBottomOf="@id/tvStarted" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

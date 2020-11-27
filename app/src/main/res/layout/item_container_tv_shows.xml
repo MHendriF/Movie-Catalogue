@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
             type="com.hendri.movie.catalogue.data.response.TvShow" />
@@ -33,8 +34,9 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginStart="@dimen/_10sdp"
-            android:scaleType="centerCrop"
+            android:contentDescription="@string/img_bg"
             android:posterURL="@{model.posterPath}"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/_4sdp" />
@@ -48,8 +50,8 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:fontFamily="@font/ubuntu_medium"
             android:includeFontPadding="false"
-            android:text="@{model.name}"
             android:paddingTop="@dimen/_8sdp"
+            android:text="@{model.name}"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"

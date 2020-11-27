@@ -30,6 +30,27 @@
             android:textColor="@color/colorTextIcons"
             android:textSize="@dimen/_14sdp" />
 
+        <ImageView
+            android:id="@+id/ivWatchList"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:contentDescription="@string/img_icon"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/ic_watchlist"
+            app:tint="@color/colorTextIcons" />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:contentDescription="@string/img_icon"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/ic_search"
+            app:tint="@color/colorTextIcons" />
+
+
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout

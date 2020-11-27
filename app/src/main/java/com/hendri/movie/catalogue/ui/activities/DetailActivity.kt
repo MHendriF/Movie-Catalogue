@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -80,7 +81,7 @@ class DetailActivity : AppCompatActivity() {
                             tvReleaseDate.text = data.releaseDate
                             BindingAdapters.setPosterURL(ivPoster, data.posterPath)
                             BindingAdapters.setBackdropURL(ivBackground, data.backdropPath)
-                            Timber.d(String.format("Trace :: %s", data.backdropPath))
+                            visibleView()
 
                             tvReadMore.setOnClickListener {
                                 if (tvReadMore.text.toString() == "Read More") {
@@ -122,6 +123,7 @@ class DetailActivity : AppCompatActivity() {
                             tvReleaseDate.text = data.firstAirDate
                             BindingAdapters.setPosterURL(ivPoster, data.posterPath)
                             BindingAdapters.setBackdropURL(ivBackground, data.backdropPath)
+                            visibleView()
 
                             tvReadMore.setOnClickListener {
                                 if (tvReadMore.text.toString() == "Read More") {
@@ -147,6 +149,19 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    
+    private fun visibleView() {
+        with(detailBinding) {
+            tvTitle.visibility = View.VISIBLE
+            tvOverview.visibility = View.VISIBLE
+            tvLanguage.visibility = View.VISIBLE
+            tvScore.visibility = View.VISIBLE
+            tvReleaseDate.visibility = View.VISIBLE
+            ivPoster.visibility = View.VISIBLE
+            ivBackground.visibility = View.VISIBLE
+            tvReadMore.visibility = View.VISIBLE
+        }
     }
 
     private fun Context.toast(message: String) {
