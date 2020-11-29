@@ -1,12 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.10"
+    ext.kotlin_version = "1.4.20"
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.2"
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -35,4 +35,9 @@ ext {
     glideVersion = '4.11.0'
     gsonVersion = '2.8.6'
     timberVersion = '4.7.1'
+    roundedimageviewVersion = '2.3.0'
+    picassoVersion = '2.71828'
+    materialVersion = '1.2.1'
+    sdpAndroidVersion = '1.0.6'
+    sspAndroidVersion = '1.0.6'
 }

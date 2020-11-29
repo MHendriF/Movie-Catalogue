@@ -47,7 +47,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Testing
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
@@ -55,20 +55,20 @@ dependencies {
     androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
 
     // Material Design
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
 
     // Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 
     // Scalable Size Unit
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    implementation "com.intuit.sdp:sdp-android:$rootProject.sdpAndroidVersion"
+    implementation "com.intuit.ssp:ssp-android:$rootProject.sspAndroidVersion"
 
     // Rounded Image View
-    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation "com.makeramen:roundedimageview:$rootProject.roundedimageviewVersion"
 
     // Logging
-    implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
 
     // Room components
