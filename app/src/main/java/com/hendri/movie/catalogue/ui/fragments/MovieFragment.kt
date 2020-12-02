@@ -67,7 +67,7 @@ class MovieFragment : Fragment(), MovieListener {
     }
 
     private fun setupObserver() {
-        viewModel.getMoviesFromApi().observe(viewLifecycleOwner, {
+        viewModel.getMovies().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
