@@ -9,20 +9,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.DataEntity
-import com.hendri.movie.catalogue.data.api.ApiHelperImp
-import com.hendri.movie.catalogue.data.api.RetrofitBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
+import com.hendri.movie.catalogue.data.source.remote.vo.Status
 import com.hendri.movie.catalogue.databinding.ActivityDetailBinding
-import com.hendri.movie.catalogue.ui.base.ViewModelFactory
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
-import com.hendri.movie.catalogue.ui.viewmodels.MovieViewModel
 import com.hendri.movie.catalogue.utils.BindingAdapters
-import com.hendri.movie.catalogue.utils.Constants
 import com.hendri.movie.catalogue.utils.Constants.TYPE_MOVIE
-import com.hendri.movie.catalogue.utils.Status
-import timber.log.Timber
+import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
 
@@ -47,12 +39,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, ViewModelFactory(
-            ApiHelperImp(RetrofitBuilder.apiService),
-            DatabaseHelperImp(DatabaseBuilder.getInstance(this.applicationContext))
-        )).get(DetailViewModel::class.java)
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
     }
-
 
     private fun getDataDetails() {
         detailBinding.isLoading = true
@@ -67,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupObserverMovie(id: Int) {
-        viewModel.getMovieFromApi(id).observe(this, {
+        viewModel.getMovieById(id).observe(this, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data ->
@@ -110,7 +99,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupObserverTvShow(id: Int) {
-        viewModel.getTvShowFromApi(id).observe(this, {
+        viewModel.getTvShowById(id).observe(this, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data ->

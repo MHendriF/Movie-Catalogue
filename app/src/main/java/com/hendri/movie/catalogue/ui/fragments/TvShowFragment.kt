@@ -8,31 +8,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.api.ApiHelperImp
-import com.hendri.movie.catalogue.data.api.RetrofitBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
-import com.hendri.movie.catalogue.data.response.TvShow
+import com.hendri.movie.catalogue.data.source.local.entity.Movie
+import com.hendri.movie.catalogue.data.source.local.entity.TvShow
+import com.hendri.movie.catalogue.data.source.remote.vo.Status
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
-import com.hendri.movie.catalogue.ui.base.ViewModelFactory
 import com.hendri.movie.catalogue.ui.listeners.TvShowListener
 import com.hendri.movie.catalogue.ui.viewmodels.TvShowViewModel
 import com.hendri.movie.catalogue.utils.Constants
-import com.hendri.movie.catalogue.utils.Status
+import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
 import timber.log.Timber
-import java.util.ArrayList
 
 class TvShowFragment : Fragment(), TvShowListener {
 
     private lateinit var fragmentBinding: FragmentTvShowBinding
     private lateinit var viewModel: TvShowViewModel
     private lateinit var tvShowAdapter: TvShowAdapter
-    private var tvShows: List<TvShow> = ArrayList()
+    private var tvShows = mutableListOf<TvShow>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,21 +55,17 @@ class TvShowFragment : Fragment(), TvShowListener {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this, ViewModelFactory(
-                ApiHelperImp(RetrofitBuilder.apiService),
-                DatabaseHelperImp(DatabaseBuilder.getInstance(requireContext().applicationContext))
-            )
-        ).get(TvShowViewModel::class.java)
+        val factory = ViewModelFactory.getInstance(activity as AppCompatActivity)
+        viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
     }
 
     private fun setupObserver() {
-        viewModel.getTvShowsFromApi().observe(viewLifecycleOwner, {
+        viewModel.getTvShows().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
                         fragmentBinding.isLoading = false
-                        tvShows = it1
+                        tvShows = it.data as MutableList<TvShow>
                         tvShowAdapter.setData(tvShows)
                         tvShowAdapter.notifyDataSetChanged()
                     }

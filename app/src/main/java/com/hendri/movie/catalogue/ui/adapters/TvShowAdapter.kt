@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.response.TvShow
+import com.hendri.movie.catalogue.data.source.local.entity.TvShow
 import com.hendri.movie.catalogue.databinding.ItemContainerTvShowsBinding
 import com.hendri.movie.catalogue.ui.listeners.TvShowListener
 

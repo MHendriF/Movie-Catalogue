@@ -40,4 +40,5 @@ ext {
     materialVersion = '1.2.1'
     sdpAndroidVersion = '1.0.6'
     sspAndroidVersion = '1.0.6'
+    pagingVersion = '2.1.2'
 }

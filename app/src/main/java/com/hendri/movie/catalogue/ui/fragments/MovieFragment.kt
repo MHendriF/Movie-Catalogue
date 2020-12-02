@@ -5,25 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.api.ApiHelperImp
-import com.hendri.movie.catalogue.data.api.RetrofitBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
-import com.hendri.movie.catalogue.data.response.Movie
+import com.hendri.movie.catalogue.data.source.local.entity.Movie
+import com.hendri.movie.catalogue.data.source.remote.vo.Status
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
-import com.hendri.movie.catalogue.ui.base.ViewModelFactory
 import com.hendri.movie.catalogue.ui.listeners.MovieListener
 import com.hendri.movie.catalogue.ui.viewmodels.MovieViewModel
 import com.hendri.movie.catalogue.utils.Constants
-import com.hendri.movie.catalogue.utils.Status
+import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
 import timber.log.Timber
-import java.util.ArrayList
 
 
 class MovieFragment : Fragment(), MovieListener {
@@ -31,7 +27,7 @@ class MovieFragment : Fragment(), MovieListener {
     private lateinit var fragmentBinding: FragmentMovieBinding
     private lateinit var viewModel: MovieViewModel
     private lateinit var movieAdapter: MovieAdapter
-    private var movies: List<Movie> = ArrayList()
+    private var movies = mutableListOf<Movie>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,22 +54,18 @@ class MovieFragment : Fragment(), MovieListener {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this, ViewModelFactory(
-                ApiHelperImp(RetrofitBuilder.apiService),
-                DatabaseHelperImp(DatabaseBuilder.getInstance(requireContext().applicationContext))
-            )
-        ).get(MovieViewModel::class.java)
+        val factory = ViewModelFactory.getInstance(activity as AppCompatActivity)
+        viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
     }
 
     private fun setupObserver() {
-        viewModel.getMoviesFromApi().observe(viewLifecycleOwner, {
+
+        viewModel.getMovies().observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
                         fragmentBinding.isLoading = false
-                        movies = it1
-                        movieAdapter.setData(movies)
+                        movieAdapter.setData(it.data)
                         movieAdapter.notifyDataSetChanged()
                     }
                 }
@@ -86,6 +78,8 @@ class MovieFragment : Fragment(), MovieListener {
                 }
             }
         })
+
+
     }
 
     override fun onItemClicked(movie: Movie) {

@@ -1,34 +1,22 @@
 package com.hendri.movie.catalogue.ui.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.hendri.movie.catalogue.data.repository.MainRepository
-import com.hendri.movie.catalogue.utils.Resource
-import kotlinx.coroutines.Dispatchers
+import com.hendri.movie.catalogue.data.source.MainRepository
+import com.hendri.movie.catalogue.data.source.local.entity.Favorite
+import com.hendri.movie.catalogue.data.source.local.entity.Movie
+import com.hendri.movie.catalogue.data.source.local.entity.TvShow
+import com.hendri.movie.catalogue.data.source.remote.vo.Resource
 
-class DetailViewModel(private val repository: MainRepository) : ViewModel() {
+class DetailViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
-    fun getMovieFromApi(id: Int) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            val response = repository.getMovieByIdFromApi(id)
-            if (response.isSuccessful){
-                emit(Resource.success(data = response.body()))
-            }
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
+    fun getMovieById(id: Int): LiveData<Resource<Movie>> = mainRepository.getMovieById(id)
 
-    fun getTvShowFromApi(id: Int) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            val response = repository.getTvShowByIdFromApi(id)
-            if (response.isSuccessful){
-                emit(Resource.success(data = response.body()))
-            }
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
+    fun getTvShowById(id: Int): LiveData<Resource<TvShow>> = mainRepository.getTvShowById(id)
+
+    fun insertFavorite(item: Favorite) = mainRepository.insertFavorite(item)
+
+    fun deleteFavorite(item: Favorite) = mainRepository.deleteFavorite(item)
+
+    fun getFavoriteById(id: Int): LiveData<Favorite> = mainRepository.getFavoriteById(id)
 }

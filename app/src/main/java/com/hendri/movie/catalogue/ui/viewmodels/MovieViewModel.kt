@@ -1,21 +1,11 @@
 package com.hendri.movie.catalogue.ui.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.hendri.movie.catalogue.data.repository.MainRepository
-import com.hendri.movie.catalogue.utils.Resource
-import kotlinx.coroutines.Dispatchers
+import com.hendri.movie.catalogue.data.source.MainRepository
+import com.hendri.movie.catalogue.data.source.local.entity.Movie
+import com.hendri.movie.catalogue.data.source.remote.vo.Resource
 
-class MovieViewModel(private val repository: MainRepository) : ViewModel() {
-    fun getMoviesFromApi() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            val response = repository.getMoviesFromApi()
-            if (response.isSuccessful){
-                emit(Resource.success(data = response.body()?.results))
-            }
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
+class MovieViewModel(private val mainRepository: MainRepository) : ViewModel() {
+    fun getMovies(): LiveData<Resource<List<Movie>>> = mainRepository.getMovies()
 }
