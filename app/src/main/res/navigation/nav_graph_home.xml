@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/fragment_tv"
-        android:name="com.hendri.movie.catalogue.ui.fragments.MovieFragment"
+        android:name="com.hendri.movie.catalogue.ui.fragments.TvShowFragment"
         tools:layout="@layout/fragment_tv_show"
         android:label="@string/tv_show" />
 

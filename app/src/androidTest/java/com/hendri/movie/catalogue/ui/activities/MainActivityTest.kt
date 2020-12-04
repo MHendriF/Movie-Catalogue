@@ -1,67 +1,61 @@
 package com.hendri.movie.catalogue.ui.activities
 
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import android.app.Activity
+import android.content.Context
+import androidx.navigation.findNavController
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.hendri.movie.catalogue.R
+import com.hendri.movie.catalogue.utils.EspressoIdlingResource
+import org.junit.*
 
-import org.junit.runner.RunWith
-
-@RunWith(AndroidJUnit4ClassRunner::class)
 class MainActivityTest {
-//
-//    private val dummyMovie = DataDummy.generateDummyMovies()
-//    private val dummyTvShow = DataDummy.generateDummyTvShows()
-//
-//    @get:Rule
-//    var activityRule = ActivityTestRule(MainActivity::class.java)
-//
-//    @Test
-//    fun loadMovie() {
-//        Espresso.onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.rvMovie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovie.size))
-//    }
-//
-//    @Test
-//    fun loadDetailMovie() {
-//        Espresso.onView(withId(R.id.rvMovie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
-//        Espresso.onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvTitle)).check(matches(withText(dummyMovie[0].title)))
-//        Espresso.onView(withId(R.id.tvDescription)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvDescription)).check(matches(withText(dummyMovie[0].description)))
-//        Espresso.onView(withId(R.id.tvReleaseDate)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvReleaseDate)).check(matches(withText("Release on : ${dummyMovie[0].releaseDate}")))
-//        Espresso.onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvGenre)).check(matches(withText(dummyMovie[0].genre)))
-//        Espresso.onView(withId(R.id.tvScore)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvScore)).check(matches(withText("${dummyMovie[0].score}%")))
-//        Espresso.onView(withId(R.id.ivPoster)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.ivBackground)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvReadMore)).perform(ViewActions.click())
-//        Espresso.onView(withId(R.id.ivBack)).perform(ViewActions.click())
-//    }
-//
-//    @Test
-//    fun loadTvShow() {
-//        Espresso.onView(withText("TV Show")).perform(ViewActions.click())
-//        Espresso.onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.rvTvShow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShow.size))
-//    }
-//
-//    @Test
-//    fun loadDetailTvShow() {
-//        Espresso.onView(withText("TV Show")).perform(ViewActions.click())
-//        Espresso.onView(withId(R.id.rvTvShow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, ViewActions.click()))
-//        Espresso.onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvTitle)).check(matches(withText(dummyTvShow[0].title)))
-//        Espresso.onView(withId(R.id.tvDescription)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvDescription)).check(matches(withText(dummyTvShow[0].description)))
-//        Espresso.onView(withId(R.id.tvReleaseDate)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvReleaseDate)).check(matches(withText("Release on : ${dummyTvShow[0].releaseDate}")))
-//        Espresso.onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvGenre)).check(matches(withText(dummyTvShow[0].genre)))
-//        Espresso.onView(withId(R.id.tvScore)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvScore)).check(matches(withText("${dummyTvShow[0].score}%")))
-//        Espresso.onView(withId(R.id.ivPoster)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.ivBackground)).check(matches(isDisplayed()))
-//        Espresso.onView(withId(R.id.tvReadMore)).perform(ViewActions.click())
-//        Espresso.onView(withId(R.id.ivBack)).perform(ViewActions.click())
-//    }
+    private val ctx = ApplicationProvider.getApplicationContext<Context>()
+    private val currentDes =
+        { activity: Activity -> activity.findNavController(R.id.nav_host_main_fragment).currentDestination }
+
+    @get:Rule
+    val asr = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+    }
+
+    @Test
+    fun main_activity_loaded() {
+        asr.scenario.onActivity {
+            Assert.assertEquals(ctx.getString(R.string.movie), currentDes(it)?.label)
+        }
+
+        Espresso.onView(withId(R.id.bottom_navigation_view))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.fragment_movie))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.rvMovie))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun bottom_navigation_move_to_tv() {
+        Espresso.onView(withId(R.id.fragment_tv)).perform(ViewActions.click())
+        asr.scenario.onActivity {
+            Assert.assertEquals(ctx.getString(R.string.tv_show), currentDes(it)?.label)
+        }
+        Espresso.onView(withId(R.id.fragment_tv))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.rvTvShow))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
 }
