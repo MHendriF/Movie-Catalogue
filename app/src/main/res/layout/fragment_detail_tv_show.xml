@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isLoading"
             type="Boolean" />
+
         <variable
             name="model"
             type="com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse" />
+
         <import type="android.view.View" />
     </data>
 
@@ -33,6 +36,7 @@
                     android:layout_height="@dimen/_160sdp"
                     android:contentDescription="@string/img_bg"
                     android:scaleType="fitXY"
+                    android:backdropURL="@{model.backdrop_path}"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -55,6 +59,7 @@
                     android:layout_height="@dimen/_150sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:contentDescription="@string/img_bg"
+                    android:posterURL="@{model.poster_path}"
                     app:layout_constraintBottom_toBottomOf="@id/ivBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivBackground"
