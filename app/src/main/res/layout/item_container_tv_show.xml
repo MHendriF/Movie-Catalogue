@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
-            type="com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.MovieResult" />
+            type="com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +51,7 @@
             android:fontFamily="@font/ubuntu_medium"
             android:includeFontPadding="false"
             android:paddingTop="@dimen/_8sdp"
-            android:text="@{model.title}"
+            android:text="@{model.name}"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +79,7 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/ubuntu_regular"
             android:includeFontPadding="false"
-            android:text='@{"Release on: "+ model.release_date}'
+            android:text='@{"Release on: "+ model.first_air_date}'
             android:textColor="@color/colorTextSecondary"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"

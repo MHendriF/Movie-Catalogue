@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/fragment_movie">
+
+    <fragment
+        android:id="@+id/fragment_movie"
+        android:name="com.hendri.movie.catalogue.ui.fragments.MovieFragment"
+        tools:layout="@layout/fragment_movie"
+        android:label="@string/movie" />
+
+    <fragment
+        android:id="@+id/fragment_tv"
+        android:name="com.hendri.movie.catalogue.ui.fragments.MovieFragment"
+        tools:layout="@layout/fragment_tv_show"
+        android:label="@string/tv_show" />
+
+</navigation>

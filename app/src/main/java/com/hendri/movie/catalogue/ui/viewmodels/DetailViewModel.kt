@@ -1,34 +1,32 @@
 package com.hendri.movie.catalogue.ui.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.hendri.movie.catalogue.data.repository.MainRepository
-import com.hendri.movie.catalogue.utils.Resource
-import kotlinx.coroutines.Dispatchers
+import com.hendri.movie.catalogue.data.source.MainRepository
+import com.hendri.movie.catalogue.data.source.Resource
+import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
+import javax.inject.Inject
 
-class DetailViewModel(private val repository: MainRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(
+    private val repository: MainRepository
+) : ViewModel() {
 
-    fun getMovieFromApi(id: Int) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            val response = repository.getMovieByIdFromApi(id)
-            if (response.isSuccessful){
-                emit(Resource.success(data = response.body()))
-            }
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
+    private lateinit var dataExtra: MutableList<Int>
+
+    var dataMovie: LiveData<Resource<MovieDetailResponse>>? = null
+    var dataTv: LiveData<Resource<TvDetailResponse>>? = null
+
+    fun getDataExtra(data: Int) = this.dataExtra[data]
+
+    fun setDataExtra(dataDes: Int, dataId: Int) {
+        dataExtra = mutableListOf(dataDes, dataId)
+        if (dataTv == null) dataTv = repository.getDataTvById(dataExtra[DATA_ID])
+        if (dataMovie == null) dataMovie = repository.getDataMovieById(dataExtra[DATA_ID])
     }
 
-    fun getTvShowFromApi(id: Int) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            val response = repository.getTvShowByIdFromApi(id)
-            if (response.isSuccessful){
-                emit(Resource.success(data = response.body()))
-            }
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
+    companion object {
+        const val DATA_DESTINATION = 0
+        const val DATA_ID = 1
     }
 }

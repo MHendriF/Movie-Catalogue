@@ -1,102 +1,68 @@
 package com.hendri.movie.catalogue.ui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.api.ApiHelperImp
-import com.hendri.movie.catalogue.data.api.RetrofitBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseBuilder
-import com.hendri.movie.catalogue.data.local.DatabaseHelperImp
-import com.hendri.movie.catalogue.data.response.TvShow
+import com.hendri.movie.catalogue.base.BaseFragment
+import com.hendri.movie.catalogue.base.adapter.ItemListener
+import com.hendri.movie.catalogue.data.source.Resource
+import com.hendri.movie.catalogue.data.source.remote.response.TvResponse
+import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvResult
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
-import com.hendri.movie.catalogue.ui.base.ViewModelFactory
-import com.hendri.movie.catalogue.ui.listeners.TvShowListener
-import com.hendri.movie.catalogue.ui.viewmodels.TvShowViewModel
-import com.hendri.movie.catalogue.utils.Constants
-import com.hendri.movie.catalogue.utils.Status
-import timber.log.Timber
-import java.util.ArrayList
+import com.hendri.movie.catalogue.ui.viewmodels.MainViewModel
+import javax.inject.Inject
 
-class TvShowFragment : Fragment(), TvShowListener {
+class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvResult> {
 
-    private lateinit var fragmentBinding: FragmentTvShowBinding
-    private lateinit var viewModel: TvShowViewModel
-    private lateinit var tvShowAdapter: TvShowAdapter
-    private var tvShows: List<TvShow> = ArrayList()
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        fragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_tv_show, container, false)
-        return fragmentBinding.root
-    }
+    private lateinit var adapter: TvShowAdapter
+    private val viewModel by navGraphViewModels<MainViewModel>(R.id.nav_graph_main) { viewModelFactory }
+
+    override val layoutFragment: Int = R.layout.fragment_tv_show
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupViewModel()
-        setupObserver()
-        doInitialization()
+
+        adapter = TvShowAdapter().apply {
+            setHasStableIds(true)
+            onItemListener = this@TvShowFragment
+            binding.rvTvShow.setHasFixedSize(true)
+            binding.rvTvShow.layoutManager = LinearLayoutManager(context)
+            binding.rvTvShow.adapter = this
+        }
+
+        viewModel.getDataTv.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun doInitialization() {
-        tvShowAdapter = TvShowAdapter(this)
-        tvShowAdapter.setData(tvShows)
-        fragmentBinding.rvTvShow.setHasFixedSize(true)
-        fragmentBinding.rvTvShow.adapter = tvShowAdapter
-    }
-
-    private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this, ViewModelFactory(
-                ApiHelperImp(RetrofitBuilder.apiService),
-                DatabaseHelperImp(DatabaseBuilder.getInstance(requireContext().applicationContext))
-            )
-        ).get(TvShowViewModel::class.java)
-    }
-
-    private fun setupObserver() {
-        viewModel.getTvShowsFromApi().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.let { it1 ->
-                        fragmentBinding.isLoading = false
-                        tvShows = it1
-                        tvShowAdapter.setData(tvShows)
-                        tvShowAdapter.notifyDataSetChanged()
-                    }
-                }
-                Status.LOADING -> {
-                    fragmentBinding.isLoading = true
-                }
-                Status.ERROR -> {
-                    fragmentBinding.isLoading = false
-                    it.message?.let { it1 -> requireContext().toast(it1) }
-                }
+    private fun handleStat(resource: Resource<TvResponse>) {
+        when (resource) {
+            is Resource.Loading -> binding.isLoading = true
+            is Resource.Empty -> binding.isLoading = false
+            is Resource.Success -> {
+                binding.isLoading = false
+                resource.data.let { data -> adapter.data = data.results.toMutableList() }
             }
-        })
+            is Resource.Error -> {
+                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                binding.isLoading = false
+                Toast.makeText(requireContext(), resource.errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    override fun onItemClicked(tvShow: TvShow) {
-        Timber.d("Trace :: data(${tvShow.name})")
-        val intent = Intent(requireContext(), DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
-        intent.putExtra(DetailActivity.EXTRA_TYPE, Constants.TYPE_TV_SHOW)
+    override fun onItemClick(entity: TvResult) {
+        val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv, entity.id))
+        }
         requireActivity().startActivity(intent)
-    }
-
-    private fun Context.toast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
