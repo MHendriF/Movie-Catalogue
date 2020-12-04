@@ -1,4 +1,4 @@
-package com.hendri.movie.catalogue.utils.logging
+package com.hendri.movie.catalogue.utils
 
 import android.util.Log
 import timber.log.Timber

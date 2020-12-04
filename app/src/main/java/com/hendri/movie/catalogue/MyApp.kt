@@ -1,8 +1,7 @@
 package com.hendri.movie.catalogue
 
-import android.app.Application
 import com.hendri.movie.catalogue.di.DaggerAppComponent
-import com.hendri.movie.catalogue.utils.logging.ReleaseTree
+import com.hendri.movie.catalogue.utils.ReleaseTree
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber

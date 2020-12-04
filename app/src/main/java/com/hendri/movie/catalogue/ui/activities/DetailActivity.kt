@@ -35,10 +35,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(), SwipeRefreshLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         intent.getIntegerArrayListExtra(DATA_EXTRA)?.apply {
             viewModel.setDataExtra(get(DATA_DESTINATION), get(DATA_ID))
         }
