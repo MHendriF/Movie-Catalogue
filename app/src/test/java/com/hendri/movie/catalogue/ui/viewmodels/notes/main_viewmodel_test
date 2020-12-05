@@ -1,0 +1,41 @@
+# getResourceMovieSuccess()
+- Melakukan request data movie melalui fake repository yang telah dibuat
+- Mengambil data movie dari hasil request
+- Melakukan observasi pada view model
+- Memastikan jika hasil dari respon resource adalah sukses
+- Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
+
+# getResourceMovieError()
+- Melakukan request data movie melalui fake repository yang telah dibuat
+- Mengambil data movie dari hasil request
+- Melakukan observasi pada view model
+- Memastikan jika hasil dari respon resource adalah error
+- Memastikan pesan error sesuai dengan yang diharapkan
+
+# getResourceMovieEmpty()
+- Melakukan request data movie melalui fake repository yang telah dibuat
+- Mengambil data movie dari hasil request
+- Melakukan observasi pada view model
+- Memastikan jika hasil dari respon resource adalah empty
+- Memastikan data yang diperoleh kosong
+
+# getResourceTvShowSuccess()
+- Melakukan request data movie melalui fake repository yang telah dibuat
+- Mengambil data tv show dari hasil request
+- Melakukan observasi pada view model
+- Memastikan jika hasil dari respon resource adalah sukses
+- Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
+
+# getResourceTvShowError()
+- Melakukan request data movie melalui fake repository yang telah dibuat
+- Mengambil data tv show dari hasil request
+- Melakukan observasi pada view model
+- Memastikan jika hasil dari respon resource adalah error
+- Memastikan pesan error sesuai dengan yang diharapkan
+
+# getResourceTvShowEmpty()
+- Melakukan request data movie melalui fake repository yang telah dibuat
+- Mengambil data tv show dari hasil request
+- Melakukan observasi pada view model
+- Memastikan jika hasil dari respon resource adalah empty
+- Memastikan data yang diperoleh kosong

@@ -18,14 +18,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/detail_tv"
+        android:id="@+id/detail_tv_show"
         android:name="com.hendri.movie.catalogue.ui.fragments.DetailTvShowFragment"
         tools:layout="@layout/fragment_detail_tv_show">
         <action
-            android:id="@id/detail_tv"
-            app:destination="@id/detail_tv"
+            android:id="@id/detail_tv_show"
+            app:destination="@id/detail_tv_show"
             app:launchSingleTop="true"
-            app:popUpTo="@id/detail_tv"
+            app:popUpTo="@id/detail_tv_show"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
@@ -60,7 +59,7 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
 
     override fun onItemClick(entity: TvShow) {
         val intent = Intent(requireContext(), DetailActivity::class.java).apply {
-            putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv, entity.id))
+            putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv_show, entity.id))
         }
         requireActivity().startActivity(intent)
     }

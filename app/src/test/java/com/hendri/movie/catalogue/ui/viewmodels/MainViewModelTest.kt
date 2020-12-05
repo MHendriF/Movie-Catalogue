@@ -30,10 +30,10 @@ class MainViewModelTest {
     lateinit var mainRepository: MainRepository
 
     @Mock
-    lateinit var observerResourceMovie: Observer<Resource<MovieResponse>>
+    lateinit var observerMovie: Observer<Resource<MovieResponse>>
 
     @Mock
-    lateinit var observerResourceTvShow: Observer<Resource<TvShowResponse>>
+    lateinit var observerTvShow: Observer<Resource<TvShowResponse>>
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -44,15 +44,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_movie_resource_success() {
+    fun getResourceMovieSuccess() {
         Mockito.`when`(mainRepository.getMovies()).thenReturn(MutableLiveData(Resource.Success(dummyDataMovie)))
-
         val resource = getValue(mainViewModel.getMovies)
         Mockito.verify(mainRepository).getMovies()
-
-        mainViewModel.getMovies.observeForever(observerResourceMovie)
-        Mockito.verify(observerResourceMovie).onChanged(Resource.Success(dummyDataMovie))
-
+        mainViewModel.getMovies.observeForever(observerMovie)
+        Mockito.verify(observerMovie).onChanged(Resource.Success(dummyDataMovie))
         assertTrue(resource is Resource.Success)
         when (resource) {
             is Resource.Success -> {
@@ -62,15 +59,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_movie_resource_error() {
+    fun getResourceMovieError() {
         Mockito.`when`(mainRepository.getMovies()).thenReturn(MutableLiveData(Resource.Error(errorMessage)))
-
         val resource = getValue(mainViewModel.getMovies)
         Mockito.verify(mainRepository).getMovies()
-
-        mainViewModel.getMovies.observeForever(observerResourceMovie)
-        Mockito.verify(observerResourceMovie).onChanged(Resource.Error(errorMessage))
-
+        mainViewModel.getMovies.observeForever(observerMovie)
+        Mockito.verify(observerMovie).onChanged(Resource.Error(errorMessage))
         assertTrue(resource is Resource.Error)
         when (resource) {
             is Resource.Error -> {
@@ -80,15 +74,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_movie_resource_empty() {
+    fun getResourceMovieEmpty() {
         Mockito.`when`(mainRepository.getMovies()).thenReturn(MutableLiveData(Resource.Empty(null)))
-
         val resource = getValue(mainViewModel.getMovies)
         Mockito.verify(mainRepository).getMovies()
-
-        mainViewModel.getMovies.observeForever(observerResourceMovie)
-        Mockito.verify(observerResourceMovie).onChanged(Resource.Empty(null))
-
+        mainViewModel.getMovies.observeForever(observerMovie)
+        Mockito.verify(observerMovie).onChanged(Resource.Empty(null))
         assertTrue(resource is Resource.Empty)
         when (resource) {
             is Resource.Empty -> {
@@ -98,15 +89,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_tv_show_resource_success() {
+    fun getResourceTvShowSuccess() {
         Mockito.`when`(mainRepository.getTvShows()).thenReturn(MutableLiveData(Resource.Success(dummyDataTvShow)))
-
         val resource = getValue(mainViewModel.getTvShows)
         Mockito.verify(mainRepository).getTvShows()
-
-        mainViewModel.getTvShows.observeForever(observerResourceTvShow)
-        Mockito.verify(observerResourceTvShow).onChanged(Resource.Success(dummyDataTvShow))
-
+        mainViewModel.getTvShows.observeForever(observerTvShow)
+        Mockito.verify(observerTvShow).onChanged(Resource.Success(dummyDataTvShow))
         assertTrue(resource is Resource.Success)
         when (resource) {
             is Resource.Success -> {
@@ -116,16 +104,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_tv_show_resource_error() {
-        Mockito.`when`(mainRepository.getTvShows())
-            .thenReturn(MutableLiveData(Resource.Error(errorMessage)))
-
+    fun getResourceTvShowError() {
+        Mockito.`when`(mainRepository.getTvShows()).thenReturn(MutableLiveData(Resource.Error(errorMessage)))
         val resource = getValue(mainViewModel.getTvShows)
         Mockito.verify(mainRepository).getTvShows()
-
-        mainViewModel.getTvShows.observeForever(observerResourceTvShow)
-        Mockito.verify(observerResourceTvShow).onChanged(Resource.Error(errorMessage))
-
+        mainViewModel.getTvShows.observeForever(observerTvShow)
+        Mockito.verify(observerTvShow).onChanged(Resource.Error(errorMessage))
         assertTrue(resource is Resource.Error)
         when (resource) {
             is Resource.Error -> {
@@ -135,16 +119,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_tv_show_resource_empty() {
-        Mockito.`when`(mainRepository.getTvShows())
-            .thenReturn(MutableLiveData(Resource.Empty(null)))
-
+    fun getResourceTvShowEmpty() {
+        Mockito.`when`(mainRepository.getTvShows()).thenReturn(MutableLiveData(Resource.Empty(null)))
         val resource = getValue(mainViewModel.getTvShows)
         Mockito.verify(mainRepository).getTvShows()
-
-        mainViewModel.getTvShows.observeForever(observerResourceTvShow)
-        Mockito.verify(observerResourceTvShow).onChanged(Resource.Empty(null))
-
+        mainViewModel.getTvShows.observeForever(observerTvShow)
+        Mockito.verify(observerTvShow).onChanged(Resource.Empty(null))
         assertTrue(resource is Resource.Empty)
         when (resource) {
             is Resource.Empty -> {
