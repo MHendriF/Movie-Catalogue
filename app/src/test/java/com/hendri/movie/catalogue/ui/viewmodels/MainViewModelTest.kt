@@ -7,7 +7,7 @@ import com.hendri.movie.catalogue.data.source.MainRepository
 import com.hendri.movie.catalogue.data.source.Resource
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSourceTest.Companion.errorMessage
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvResponse
+import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 import com.hendri.movie.catalogue.utils.DummyDataResponse
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil.getValue
 import org.junit.Assert.*
@@ -25,7 +25,7 @@ class MainViewModelTest {
     private lateinit var mainViewModel: MainViewModel
 
     private val dummyDataMovie = DummyDataResponse.movieResponse()
-    private val dummyDataTv = DummyDataResponse.tvResponse()
+    private val dummyDataTvShow = DummyDataResponse.tvShowResponse()
 
     @Mock
     lateinit var mainRepository: MainRepository
@@ -34,7 +34,7 @@ class MainViewModelTest {
     lateinit var observerResourceMovie: Observer<Resource<MovieResponse>>
 
     @Mock
-    lateinit var observerResourceTv: Observer<Resource<TvResponse>>
+    lateinit var observerResourceTvShow: Observer<Resource<TvShowResponse>>
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -45,14 +45,13 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_data_movie_resource_success() {
-        Mockito.`when`(mainRepository.getDataMovie())
-            .thenReturn(MutableLiveData(Resource.Success(dummyDataMovie)))
+    fun get_movie_resource_success() {
+        Mockito.`when`(mainRepository.getMovies()).thenReturn(MutableLiveData(Resource.Success(dummyDataMovie)))
 
-        val resource = getValue(mainViewModel.getDataMovie)
-        Mockito.verify(mainRepository).getDataMovie()
+        val resource = getValue(mainViewModel.getMovies)
+        Mockito.verify(mainRepository).getMovies()
 
-        mainViewModel.getDataMovie.observeForever(observerResourceMovie)
+        mainViewModel.getMovies.observeForever(observerResourceMovie)
         Mockito.verify(observerResourceMovie).onChanged(Resource.Success(dummyDataMovie))
 
         assertTrue(resource is Resource.Success)
@@ -64,14 +63,13 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_data_movie_resource_error() {
-        Mockito.`when`(mainRepository.getDataMovie())
-            .thenReturn(MutableLiveData(Resource.Error(errorMessage)))
+    fun get_movie_resource_error() {
+        Mockito.`when`(mainRepository.getMovies()).thenReturn(MutableLiveData(Resource.Error(errorMessage)))
 
-        val resource = getValue(mainViewModel.getDataMovie)
-        Mockito.verify(mainRepository).getDataMovie()
+        val resource = getValue(mainViewModel.getMovies)
+        Mockito.verify(mainRepository).getMovies()
 
-        mainViewModel.getDataMovie.observeForever(observerResourceMovie)
+        mainViewModel.getMovies.observeForever(observerResourceMovie)
         Mockito.verify(observerResourceMovie).onChanged(Resource.Error(errorMessage))
 
         assertTrue(resource is Resource.Error)
@@ -83,14 +81,13 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_data_movie_resource_empty() {
-        Mockito.`when`(mainRepository.getDataMovie())
-            .thenReturn(MutableLiveData(Resource.Empty(null)))
+    fun get_movie_resource_empty() {
+        Mockito.`when`(mainRepository.getMovies()).thenReturn(MutableLiveData(Resource.Empty(null)))
 
-        val resource = getValue(mainViewModel.getDataMovie)
-        Mockito.verify(mainRepository).getDataMovie()
+        val resource = getValue(mainViewModel.getMovies)
+        Mockito.verify(mainRepository).getMovies()
 
-        mainViewModel.getDataMovie.observeForever(observerResourceMovie)
+        mainViewModel.getMovies.observeForever(observerResourceMovie)
         Mockito.verify(observerResourceMovie).onChanged(Resource.Empty(null))
 
         assertTrue(resource is Resource.Empty)
@@ -102,34 +99,33 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_data_tv_resource_success() {
-        Mockito.`when`(mainRepository.getDataTv())
-            .thenReturn(MutableLiveData(Resource.Success(dummyDataTv)))
+    fun get_tv_show_resource_success() {
+        Mockito.`when`(mainRepository.getTvShows()).thenReturn(MutableLiveData(Resource.Success(dummyDataTvShow)))
 
-        val resource = getValue(mainViewModel.getDataTv)
-        Mockito.verify(mainRepository).getDataTv()
+        val resource = getValue(mainViewModel.getTvShows)
+        Mockito.verify(mainRepository).getTvShows()
 
-        mainViewModel.getDataTv.observeForever(observerResourceTv)
-        Mockito.verify(observerResourceTv).onChanged(Resource.Success(dummyDataTv))
+        mainViewModel.getTvShows.observeForever(observerResourceTvShow)
+        Mockito.verify(observerResourceTvShow).onChanged(Resource.Success(dummyDataTvShow))
 
         assertTrue(resource is Resource.Success)
         when (resource) {
             is Resource.Success -> {
-                assertEquals(dummyDataTv, resource.data)
+                assertEquals(dummyDataTvShow, resource.data)
             }
         }
     }
 
     @Test
-    fun get_data_tv_resource_error() {
-        Mockito.`when`(mainRepository.getDataTv())
+    fun get_tv_show_resource_error() {
+        Mockito.`when`(mainRepository.getTvShows())
             .thenReturn(MutableLiveData(Resource.Error(errorMessage)))
 
-        val resource = getValue(mainViewModel.getDataTv)
-        Mockito.verify(mainRepository).getDataTv()
+        val resource = getValue(mainViewModel.getTvShows)
+        Mockito.verify(mainRepository).getTvShows()
 
-        mainViewModel.getDataTv.observeForever(observerResourceTv)
-        Mockito.verify(observerResourceTv).onChanged(Resource.Error(errorMessage))
+        mainViewModel.getTvShows.observeForever(observerResourceTvShow)
+        Mockito.verify(observerResourceTvShow).onChanged(Resource.Error(errorMessage))
 
         assertTrue(resource is Resource.Error)
         when (resource) {
@@ -140,15 +136,15 @@ class MainViewModelTest {
     }
 
     @Test
-    fun get_data_tv_resource_empty() {
-        Mockito.`when`(mainRepository.getDataTv())
+    fun get_tv_show_resource_empty() {
+        Mockito.`when`(mainRepository.getTvShows())
             .thenReturn(MutableLiveData(Resource.Empty(null)))
 
-        val resource = getValue(mainViewModel.getDataTv)
-        Mockito.verify(mainRepository).getDataTv()
+        val resource = getValue(mainViewModel.getTvShows)
+        Mockito.verify(mainRepository).getTvShows()
 
-        mainViewModel.getDataTv.observeForever(observerResourceTv)
-        Mockito.verify(observerResourceTv).onChanged(Resource.Empty(null))
+        mainViewModel.getTvShows.observeForever(observerResourceTvShow)
+        Mockito.verify(observerResourceTvShow).onChanged(Resource.Empty(null))
 
         assertTrue(resource is Resource.Empty)
         when (resource) {

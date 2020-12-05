@@ -4,6 +4,7 @@ import com.hendri.movie.catalogue.data.source.MainRepository
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.data.source.remote.network.ApiService
 import com.hendri.movie.catalogue.data.source.remote.network.RetrofitBuilder
+import com.hendri.movie.catalogue.utils.Constants
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,19 +13,19 @@ import javax.inject.Singleton
 class ApiModule {
     @Provides
     @Singleton
-    internal fun provideApiServiceTheMovieDB(): ApiService {
-        return RetrofitBuilder.service(ApiService.BASE_URL, ApiService::class.java)
+    internal fun provideApiService(): ApiService {
+        return RetrofitBuilder.service(Constants.TMDB_BASE_URL, ApiService::class.java)
     }
 
     @Provides
     @Singleton
-    internal fun provideRemoteDataSource(apiServiceTheMovieDB: ApiService): RemoteDataSource {
-        return RemoteDataSource.getInstance(apiServiceTheMovieDB)
+    internal fun provideRemoteDataSource(apiService: ApiService): RemoteDataSource {
+        return RemoteDataSource.getInstance(apiService)
     }
 
     @Provides
     @Singleton
-    internal fun provideTheMovieDbRepository(remoteDataSource: RemoteDataSource): MainRepository {
+    internal fun provideMainRepository(remoteDataSource: RemoteDataSource): MainRepository {
         return MainRepository.getInstance(remoteDataSource)
     }
 }

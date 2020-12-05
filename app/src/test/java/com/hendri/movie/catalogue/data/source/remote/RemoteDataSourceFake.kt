@@ -4,35 +4,35 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse
 import com.hendri.movie.catalogue.data.source.remote.network.ApiService
-import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
+import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RemoteDataSourceFake(private val apiService: ApiService) : IRemoteDataSource {
-    override fun getDataMovie(): LiveData<ApiResponse<MovieResponse>> {
+    override fun getMovies(): LiveData<ApiResponse<MovieResponse>> {
         val data = MutableLiveData<ApiResponse<MovieResponse>>()
         apiService.getDataMovie()?.enqueue(enqueueCallback(data))
         return data
     }
 
-    override fun getDataTv(): LiveData<ApiResponse<TvResponse>> {
-        val data = MutableLiveData<ApiResponse<TvResponse>>()
+    override fun getTvShows(): LiveData<ApiResponse<TvShowResponse>> {
+        val data = MutableLiveData<ApiResponse<TvShowResponse>>()
         apiService.getDataTv()?.enqueue(enqueueCallback(data))
         return data
     }
 
-    override fun getDataMovieById(id: Int): LiveData<ApiResponse<MovieDetailResponse>> {
-        val data = MutableLiveData<ApiResponse<MovieDetailResponse>>()
+    override fun getMovieById(id: Int): LiveData<ApiResponse<DetailMovieResponse>> {
+        val data = MutableLiveData<ApiResponse<DetailMovieResponse>>()
         apiService.getDataMovieById(id).enqueue(enqueueCallback(data))
         return data
     }
 
-    override fun getDataTvById(id: Int): LiveData<ApiResponse<TvDetailResponse>> {
-        val data = MutableLiveData<ApiResponse<TvDetailResponse>>()
+    override fun getTvShowById(id: Int): LiveData<ApiResponse<DetailTvShowResponse>> {
+        val data = MutableLiveData<ApiResponse<DetailTvShowResponse>>()
         apiService.getDataTvById(id).enqueue(enqueueCallback(data))
         return data
     }

@@ -1,6 +1,6 @@
 package com.hendri.movie.catalogue.data.source.remote.response.the_movie_db
 
-data class TvResult(
+data class TvShow(
     val original_name: String = "",
     val genre_ids: List<Int>,
     val name: String = "",

@@ -11,7 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.SingleNavigationActivity
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.MovieResult
+import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -39,7 +39,7 @@ class MovieFragmentTest {
         Espresso.onView(withId(R.id.rvMovie))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-        val data = mutableListOf<MovieResult>()
+        val data = mutableListOf<Movie>()
         asr.scenario.onActivity {
             data.addAll((it.rvMovie.adapter as MovieAdapter).data)
         }

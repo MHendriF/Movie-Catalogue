@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse
-import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
+import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 
 class MainRepository private constructor(private val remoteDataSource: RemoteDataSource){
     companion object {
@@ -33,31 +33,31 @@ class MainRepository private constructor(private val remoteDataSource: RemoteDat
         return result
     }
 
-    fun getDataMovie(): LiveData<Resource<MovieResponse>> {
+    fun getMovies(): LiveData<Resource<MovieResponse>> {
         return result(
             MediatorLiveData<Resource<MovieResponse>>(),
-            remoteDataSource.getDataMovie()
+            remoteDataSource.getMovies()
         )
     }
 
-    fun getDataTv(): LiveData<Resource<TvResponse>> {
+    fun getTvShows(): LiveData<Resource<TvShowResponse>> {
         return result(
-            MediatorLiveData<Resource<TvResponse>>(),
-            remoteDataSource.getDataTv()
+            MediatorLiveData<Resource<TvShowResponse>>(),
+            remoteDataSource.getTvShows()
         )
     }
 
-    fun getDataTvById(id: Int): LiveData<Resource<TvDetailResponse>> {
+    fun getMovieById(id: Int): LiveData<Resource<DetailMovieResponse>> {
         return result(
-            MediatorLiveData<Resource<TvDetailResponse>>(),
-            remoteDataSource.getDataTvById(id)
+            MediatorLiveData<Resource<DetailMovieResponse>>(),
+            remoteDataSource.getMovieById(id)
         )
     }
 
-    fun getDataMovieById(id: Int): LiveData<Resource<MovieDetailResponse>> {
+    fun getTvShowById(id: Int): LiveData<Resource<DetailTvShowResponse>> {
         return result(
-            MediatorLiveData<Resource<MovieDetailResponse>>(),
-            remoteDataSource.getDataMovieById(id)
+            MediatorLiveData<Resource<DetailTvShowResponse>>(),
+            remoteDataSource.getTvShowById(id)
         )
     }
 }

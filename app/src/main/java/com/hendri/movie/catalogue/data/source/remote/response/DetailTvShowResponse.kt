@@ -2,7 +2,7 @@ package com.hendri.movie.catalogue.data.source.remote.response
 
 import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.*
 
-data class TvDetailResponse(
+data class DetailTvShowResponse(
 
     val backdrop_path: String? = "",
     val created_by: List<Created> = listOf(),

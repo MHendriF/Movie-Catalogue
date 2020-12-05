@@ -2,7 +2,7 @@ package com.hendri.movie.catalogue.data.source.remote.response
 
 import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.*
 
-data class MovieDetailResponse(
+data class DetailMovieResponse(
     val adult: Boolean = false,
     val backdrop_path: String? = "",
     val belongs_to_collection: BelongsToCollection? = null,

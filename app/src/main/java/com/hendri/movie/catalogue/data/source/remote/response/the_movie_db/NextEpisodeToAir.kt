@@ -16,5 +16,4 @@ data class NextEpisodeToAir(
     val still_path: String = "",
     val vote_average: Float = 0.0f,
     val vote_count: Int = 0
-
 ) : Parcelable

@@ -11,7 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.SingleNavigationActivity
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvResult
+import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvShow
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_tv_show.*
@@ -45,7 +45,7 @@ class TvShowFragmentTest {
         Espresso.onView(withId(R.id.rvTvShow))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-        val data = mutableListOf<TvResult>()
+        val data = mutableListOf<TvShow>()
         asr.scenario.onActivity {
             data.addAll((it.rvTvShow.adapter as TvShowAdapter).data)
         }

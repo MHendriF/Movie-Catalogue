@@ -9,7 +9,7 @@
             type="Boolean" />
         <variable
             name="model"
-            type="com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse" />
+            type="com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse" />
         <import type="android.view.View" />
     </data>
 

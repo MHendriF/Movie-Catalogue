@@ -12,14 +12,14 @@ import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
 import com.hendri.movie.catalogue.data.source.Resource
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.MovieResult
+import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.ui.viewmodels.MainViewModel
 import javax.inject.Inject
 
-class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<MovieResult> {
+class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<Movie> {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -41,7 +41,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<MovieRe
             binding.rvMovie.adapter = this
         }
 
-        viewModel.getDataMovie.observe(viewLifecycleOwner, { handleStat(it) })
+        viewModel.getMovies.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
     private fun handleStat(resource: Resource<MovieResponse>) {
@@ -60,7 +60,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<MovieRe
         }
     }
 
-    override fun onItemClick(entity: MovieResult) {
+    override fun onItemClick(entity: Movie) {
         val intent = Intent(requireContext(), DetailActivity::class.java).apply {
             putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_movie, entity.id))
         }

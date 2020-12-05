@@ -1,7 +1,6 @@
 package com.hendri.movie.catalogue.data.source.remote.response.the_movie_db
 
 data class LastEpisodeToAir(
-
     val air_date: String = "",
     val episode_number: Int = 0,
     val id: Int,

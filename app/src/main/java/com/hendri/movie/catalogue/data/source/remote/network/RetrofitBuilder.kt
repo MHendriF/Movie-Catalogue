@@ -1,5 +1,6 @@
 package com.hendri.movie.catalogue.data.source.remote.network
 
+import com.hendri.movie.catalogue.utils.Constants.TIME_OUT
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,7 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
-    const val TIME_OUT: Long = 60
 
     private fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()

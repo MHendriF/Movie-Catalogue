@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.MovieResult" />
+            type="com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

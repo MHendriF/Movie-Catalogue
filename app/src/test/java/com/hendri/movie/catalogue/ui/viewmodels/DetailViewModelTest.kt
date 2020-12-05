@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.source.MainRepository
 import com.hendri.movie.catalogue.data.source.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import com.hendri.movie.catalogue.utils.DummyDataResponse
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil.getValue
 import com.nhaarman.mockitokotlin2.verify
@@ -28,10 +28,10 @@ class DetailViewModelTest{
     lateinit var repository: MainRepository
 
     @Mock
-    lateinit var observerMovieDetail: Observer<Resource<MovieDetailResponse>>
+    lateinit var observerDetailMovie: Observer<Resource<DetailMovieResponse>>
 
     @Mock
-    lateinit var observerTvDetail: Observer<Resource<TvDetailResponse>>
+    lateinit var observerDetailTvShow: Observer<Resource<DetailTvShowResponse>>
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -42,22 +42,21 @@ class DetailViewModelTest{
     }
 
     @Test
-    fun detail_data_movie_resource_success() {
-        val dummyData = DummyDataResponse.movieDetailResponse()
+    fun detail_movie_resource_success() {
+        val dummyData = DummyDataResponse.detailMovieResponse()
         val dataDes = R.id.detail_movie
         val dataId = dummyData.id
 
-        Mockito.`when`(repository.getDataMovieById(dataId))
-            .thenReturn(MutableLiveData(Resource.Success(dummyData)))
+        Mockito.`when`(repository.getMovieById(dataId)).thenReturn(MutableLiveData(Resource.Success(dummyData)))
 
         detailViewModel.setDataExtra(dataDes, dataId)
         assertEquals(dataDes, detailViewModel.getDataExtra(DetailViewModel.DATA_DESTINATION))
         assertEquals(dataId, detailViewModel.getDataExtra(DetailViewModel.DATA_ID))
-        verify(repository).getDataMovieById(dataId)
+        verify(repository).getMovieById(dataId)
         assertNotNull(detailViewModel.dataMovie)
 
-        detailViewModel.dataMovie?.observeForever(observerMovieDetail)
-        verify(observerMovieDetail).onChanged(Resource.Success(dummyData))
+        detailViewModel.dataMovie?.observeForever(observerDetailMovie)
+        verify(observerDetailMovie).onChanged(Resource.Success(dummyData))
 
         val resource = getValue(detailViewModel.dataMovie)
         assertNotNull(resource)
@@ -71,24 +70,23 @@ class DetailViewModelTest{
     }
 
     @Test
-    fun detail_data_tv_resource_success() {
-        val dummyData = DummyDataResponse.tvDetailResponse()
+    fun detail_tv_show_resource_success() {
+        val dummyData = DummyDataResponse.detailTvShowResponse()
         val dataDes = R.id.detail_tv
         val dataId = dummyData.id
 
-        Mockito.`when`(repository.getDataTvById(dataId))
-            .thenReturn(MutableLiveData(Resource.Success(dummyData)))
+        Mockito.`when`(repository.getTvShowById(dataId)).thenReturn(MutableLiveData(Resource.Success(dummyData)))
 
         detailViewModel.setDataExtra(dataDes, dataId)
         assertEquals(dataDes, detailViewModel.getDataExtra(DetailViewModel.DATA_DESTINATION))
         assertEquals(dataId, detailViewModel.getDataExtra(DetailViewModel.DATA_ID))
-        verify(repository).getDataTvById(dataId)
-        assertNotNull(detailViewModel.dataTv)
+        verify(repository).getTvShowById(dataId)
+        assertNotNull(detailViewModel.dataTvShow)
 
-        detailViewModel.dataTv?.observeForever(observerTvDetail)
-        verify(observerTvDetail).onChanged(Resource.Success(dummyData))
+        detailViewModel.dataTvShow?.observeForever(observerDetailTvShow)
+        verify(observerDetailTvShow).onChanged(Resource.Success(dummyData))
 
-        val resource = getValue(detailViewModel.dataTv)
+        val resource = getValue(detailViewModel.dataTvShow)
         assertNotNull(resource)
         assertTrue(resource is Resource.Success)
         when (resource) {

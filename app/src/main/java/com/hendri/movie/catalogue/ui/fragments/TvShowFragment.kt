@@ -11,15 +11,15 @@ import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
 import com.hendri.movie.catalogue.data.source.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.TvResponse
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvResult
+import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
+import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.ui.viewmodels.MainViewModel
 import javax.inject.Inject
 
-class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvResult> {
+class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvShow> {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,10 +40,10 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvRes
             binding.rvTvShow.adapter = this
         }
 
-        viewModel.getDataTv.observe(viewLifecycleOwner, { handleStat(it) })
+        viewModel.getTvShows.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun handleStat(resource: Resource<TvResponse>) {
+    private fun handleStat(resource: Resource<TvShowResponse>) {
         when (resource) {
             is Resource.Loading -> binding.isLoading = true
             is Resource.Empty -> binding.isLoading = false
@@ -59,7 +59,7 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvRes
         }
     }
 
-    override fun onItemClick(entity: TvResult) {
+    override fun onItemClick(entity: TvShow) {
         val intent = Intent(requireContext(), DetailActivity::class.java).apply {
             putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv, entity.id))
         }

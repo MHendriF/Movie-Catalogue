@@ -4,12 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.activityViewModels
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.data.source.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.databinding.FragmentDetailMovieBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 
@@ -25,7 +24,7 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
         viewModel.dataMovie?.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun handleStat(resource: Resource<MovieDetailResponse>) {
+    private fun handleStat(resource: Resource<DetailMovieResponse>) {
         when (resource) {
             is Resource.Loading -> binding.isLoading = true
             is Resource.Empty -> binding.isLoading = false

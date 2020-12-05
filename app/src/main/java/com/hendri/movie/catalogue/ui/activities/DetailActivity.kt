@@ -52,7 +52,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(), SwipeRefreshLayout
     }
 
     override fun onRefresh() {
-        viewModel.dataTv = null
+        viewModel.dataTvShow = null
         viewModel.dataMovie = null
         val dataDes = viewModel.getDataExtra(DATA_DESTINATION)
         val dataId = viewModel.getDataExtra(DATA_ID)

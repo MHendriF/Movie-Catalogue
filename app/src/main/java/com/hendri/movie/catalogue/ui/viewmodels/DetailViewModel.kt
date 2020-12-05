@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hendri.movie.catalogue.data.source.MainRepository
 import com.hendri.movie.catalogue.data.source.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
@@ -14,15 +14,15 @@ class DetailViewModel @Inject constructor(
 
     private lateinit var dataExtra: MutableList<Int>
 
-    var dataMovie: LiveData<Resource<MovieDetailResponse>>? = null
-    var dataTv: LiveData<Resource<TvDetailResponse>>? = null
+    var dataMovie: LiveData<Resource<DetailMovieResponse>>? = null
+    var dataTvShow: LiveData<Resource<DetailTvShowResponse>>? = null
 
     fun getDataExtra(data: Int) = this.dataExtra[data]
 
     fun setDataExtra(dataDes: Int, dataId: Int) {
         dataExtra = mutableListOf(dataDes, dataId)
-        if (dataTv == null) dataTv = repository.getDataTvById(dataExtra[DATA_ID])
-        if (dataMovie == null) dataMovie = repository.getDataMovieById(dataExtra[DATA_ID])
+        if (dataMovie == null) dataMovie = repository.getMovieById(dataExtra[DATA_ID])
+        if (dataTvShow == null) dataTvShow = repository.getTvShowById(dataExtra[DATA_ID])
     }
 
     companion object {

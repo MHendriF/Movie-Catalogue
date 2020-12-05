@@ -1,15 +1,15 @@
 package com.hendri.movie.catalogue.utils
 
-import com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
-import com.hendri.movie.catalogue.data.source.remote.response.TvResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
+import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.*
 
 object DummyDataResponse {
     fun movieResponse(): MovieResponse {
-        val list: List<MovieResult> = listOf(
-            MovieResult(
+        val list: List<Movie> = listOf(
+            Movie(
                 popularity = 2151.476,
                 vote_count = 22,
                 poster_path = "/6CoRTJTmijhBLJTUNoVSUNxZMEI.jpg",
@@ -23,7 +23,7 @@ object DummyDataResponse {
                 release_date = "2020-09-29",
                 overview = "A professional thief with $40 million in debt and his family's life on the line must commit one final heist - rob a futuristic airborne casino filled with the world's most dangerous criminals."
             ),
-            MovieResult(
+            Movie(
                 popularity = 1218.495,
                 vote_count = 86,
                 poster_path = "/ugZW8ocsrfgI95pnQ7wrmKDxIe.jpg",
@@ -41,9 +41,9 @@ object DummyDataResponse {
         return MovieResponse(1, (list.size - 1), 1, list)
     }
 
-    fun tvResponse(): TvResponse {
-        val list: List<TvResult> = listOf(
-            TvResult(
+    fun tvShowResponse(): TvShowResponse {
+        val list: List<TvShow> = listOf(
+            TvShow(
                 original_name = "The Boys",
                 genre_ids = listOf(10759, 10765),
                 name = "The Boys",
@@ -58,7 +58,7 @@ object DummyDataResponse {
                 overview = "A group of vigilantes known informally as “The Boys” set out to take down corrupt superheroes with no more than blue-collar grit and a willingness to fight dirty.",
                 poster_path = "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg"
             ),
-            TvResult(
+            TvShow(
                 original_name = "Lucifer",
                 genre_ids = listOf(80, 10765),
                 name = "Lucifer",
@@ -74,11 +74,11 @@ object DummyDataResponse {
                 poster_path = "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg"
             ),
         )
-        return TvResponse(1, (list.size - 1), 1, list)
+        return TvShowResponse(1, (list.size - 1), 1, list)
     }
 
-    fun movieDetailResponse(): MovieDetailResponse {
-        return MovieDetailResponse(
+    fun detailMovieResponse(): DetailMovieResponse {
+        return DetailMovieResponse(
             backdrop_path = "/pq0JSpwyT2URytdFG0euztQPAyR.jpg",
             genres = listOf(Genres(28, "Action")),
             id = 694919,
@@ -108,8 +108,8 @@ object DummyDataResponse {
         )
     }
 
-    fun tvDetailResponse(): TvDetailResponse {
-        return TvDetailResponse(
+    fun detailTvShowResponse(): DetailTvShowResponse {
+        return DetailTvShowResponse(
             backdrop_path = "/mGVrXeIjyecj6TKmwPVpHlscEmw.jpg",
             created_by = listOf(
                 Created(

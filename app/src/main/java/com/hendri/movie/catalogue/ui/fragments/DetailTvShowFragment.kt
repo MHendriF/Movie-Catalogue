@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.data.source.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.TvDetailResponse
+import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import com.hendri.movie.catalogue.databinding.FragmentDetailTvShowBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 
@@ -22,10 +22,10 @@ class DetailTvShowFragment : BaseFragment<FragmentDetailTvShowBinding>() {
         super.onActivityCreated(savedInstanceState)
 
         binding.ivBack.setOnClickListener { activity?.onBackPressed() }
-        viewModel.dataTv?.observe(viewLifecycleOwner, { handleStat(it) })
+        viewModel.dataTvShow?.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun handleStat(resource: Resource<TvDetailResponse>) {
+    private fun handleStat(resource: Resource<DetailTvShowResponse>) {
 
         when (resource) {
             is Resource.Loading -> binding.isLoading = true
