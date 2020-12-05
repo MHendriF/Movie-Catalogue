@@ -81,7 +81,7 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/ubuntu_regular"
             android:includeFontPadding="false"
-            android:text='@{"Release on: "+ model.first_air_date}'
+            android:text='@{"Release on : "+ model.first_air_date}'
             android:textColor="@color/colorTextSecondary"
             android:textSize="@dimen/_12ssp"
             tools:text="Release date"

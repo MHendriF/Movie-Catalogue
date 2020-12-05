@@ -1,0 +1,6 @@
+# loadFragmentMovie()
+- Memastikan recyclerview movies dalam keadaan tampil
+- Gulir recyclerview movies ke posisi data terakhir
+- Memberi tindakan klik pada data pertama di recyclerview movies
+- Memberi tindakan klik pada text Read more
+- Memberi tindakan klik pada tombol ivBack

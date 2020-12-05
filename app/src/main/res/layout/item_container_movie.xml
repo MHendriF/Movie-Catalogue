@@ -80,7 +80,7 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/ubuntu_regular"
             android:includeFontPadding="false"
-            android:text='@{"Release on: "+ model.release_date}'
+            android:text='@{"Release on : "+ model.release_date}'
             android:textColor="@color/colorTextSecondary"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"

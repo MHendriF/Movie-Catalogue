@@ -5,7 +5,6 @@ import com.hendri.movie.catalogue.base.adapter.BaseAdapter
 import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie
 import com.hendri.movie.catalogue.databinding.ItemContainerMovieBinding
 
-
 class MovieAdapter : BaseAdapter<Movie, ItemContainerMovieBinding>(R.layout.item_container_movie) {
     override fun onBindViewHolder(holder: Holder<ItemContainerMovieBinding>, position: Int) {
         holder.binding?.let { bind ->

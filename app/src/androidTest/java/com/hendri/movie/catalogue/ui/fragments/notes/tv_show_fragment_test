@@ -1,0 +1,6 @@
+# loadFragmentTvShow()
+- Memastikan recyclerview tv show dalam keadaan tampil
+- Gulir recyclerview tv show ke posisi data terakhir
+- Memberi tindakan klik pada data pertama di recyclerview tv show
+- Memberi tindakan klik pada text Read more
+- Memberi tindakan klik pada tombol ivBack

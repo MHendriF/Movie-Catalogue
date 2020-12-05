@@ -1,0 +1,11 @@
+# loadDetailMovie()
+- Menampilkan data detail movie pada detail activity
+- Memastikan data detail movie sama dengan resource data yang di kirim
+- Memberi tindakan klik pada text Read more
+- Memberi tindakan klik pada tombol ivBack
+
+# loadDetailTvShow()
+- Menampilkan data detail tv show pada detail activity
+- Memastikan data detail tv show sama dengan resource data yang di kirim
+- Memberi tindakan klik pada text Read more
+- Memberi tindakan klik pada tombol ivBack

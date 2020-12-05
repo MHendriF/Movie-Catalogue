@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DetailActivityTest {
-    private lateinit var scenario: ActivityScenario<DetailActivity>
+    private lateinit var scenarioRule: ActivityScenario<DetailActivity>
     private val context = ApplicationProvider.getApplicationContext<Context>()
 
     @Before
@@ -36,8 +36,8 @@ class DetailActivityTest {
 
     @Test
     fun loadDetailMovie() {
-        val data = DummyDataResponse.movieDetailResponse()
-        scenario = ActivityScenario.launch(
+        val data = DummyDataResponse.detailMovieResponse()
+        scenarioRule = ActivityScenario.launch(
             Intent(context, DetailActivity::class.java).apply {
                 putExtra(DATA_EXTRA, arrayListOf(R.id.detail_movie, data.id))
             }
@@ -55,8 +55,8 @@ class DetailActivityTest {
 
     @Test
     fun loadDetailTvShow() {
-        val data = DummyDataResponse.tvDetailResponse()
-        scenario = ActivityScenario.launch(
+        val data = DummyDataResponse.detailTvShowResponse()
+        scenarioRule = ActivityScenario.launch(
             Intent(context, DetailActivity::class.java).apply {
                 putExtra(DATA_EXTRA, arrayListOf(R.id.detail_tv, data.id))
             }

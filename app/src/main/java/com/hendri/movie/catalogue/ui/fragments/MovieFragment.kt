@@ -37,7 +37,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<Movie> 
             setHasStableIds(true)
             onItemListener = this@MovieFragment
             binding.rvMovie.setHasFixedSize(true)
-            binding.rvMovie.layoutManager = LinearLayoutManager(context)
             binding.rvMovie.adapter = this
         }
 

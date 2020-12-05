@@ -11,7 +11,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-
     @GET("discover/movie?api_key=${Constants.TMDB_API_KEY}")
     fun getDataMovie(
         @Query("language") language: String? = "en-US",

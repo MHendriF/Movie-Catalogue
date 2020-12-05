@@ -8,7 +8,9 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -25,7 +27,7 @@ class MainActivityTest {
         { activity: Activity -> activity.findNavController(R.id.nav_host_main_fragment).currentDestination }
 
     @get:Rule
-    val scenario = ActivityScenarioRule(MainActivity::class.java)
+    val scenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun setUp() {
@@ -38,23 +40,23 @@ class MainActivityTest {
     }
 
     @Test
-    fun main_activity_loaded() {
-        scenario.scenario.onActivity {
+    fun loadMainActivity() {
+        scenarioRule.scenario.onActivity {
             Assert.assertEquals(context.getString(R.string.movie), currentDes(it)?.label)
         }
-
-        Espresso.onView(withId(R.id.bottom_navigation_view)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.fragment_movie)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rvMovie)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.bottom_navigation_view)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.fragment_movie)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun bottom_navigation_move_to_tv() {
+    fun movingBottomNavigation() {
         Espresso.onView(withId(R.id.fragment_tv)).perform(ViewActions.click())
-        scenario.scenario.onActivity {
+        scenarioRule.scenario.onActivity {
             Assert.assertEquals(context.getString(R.string.tv_show), currentDes(it)?.label)
         }
-        Espresso.onView(withId(R.id.fragment_tv)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rvTvShow)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.bottom_navigation_view)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.fragment_tv)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
     }
 }

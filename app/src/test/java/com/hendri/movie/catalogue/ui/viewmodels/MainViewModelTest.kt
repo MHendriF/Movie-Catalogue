@@ -23,7 +23,6 @@ import org.mockito.junit.MockitoJUnitRunner
 class MainViewModelTest {
 
     private lateinit var mainViewModel: MainViewModel
-
     private val dummyDataMovie = DummyDataResponse.movieResponse()
     private val dummyDataTvShow = DummyDataResponse.tvShowResponse()
 

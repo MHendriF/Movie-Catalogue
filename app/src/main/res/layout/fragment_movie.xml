@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@color/colorPrimary"
-        tools:context=".ui.fragments.MovieFragment">
+        tools:context="com.hendri.movie.catalogue.ui.fragments.MovieFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMovie"

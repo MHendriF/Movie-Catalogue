@@ -36,7 +36,6 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
             setHasStableIds(true)
             onItemListener = this@TvShowFragment
             binding.rvTvShow.setHasFixedSize(true)
-            binding.rvTvShow.layoutManager = LinearLayoutManager(context)
             binding.rvTvShow.adapter = this
         }
 
