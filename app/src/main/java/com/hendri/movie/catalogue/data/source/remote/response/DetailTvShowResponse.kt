@@ -1,11 +1,9 @@
 package com.hendri.movie.catalogue.data.source.remote.response
 
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.*
+import com.hendri.movie.catalogue.data.source.remote.response.models.*
 
 data class DetailTvShowResponse(
-
     val backdrop_path: String? = "",
-    val created_by: List<Created> = listOf(),
     val episode_run_time: List<Int> = listOf(),
     val first_air_date: String? = "",
     val genres: List<Genres> = listOf(),
@@ -14,10 +12,7 @@ data class DetailTvShowResponse(
     val in_production: Boolean = false,
     val languages: List<String?> = listOf(),
     val last_air_date: String? = "",
-    val last_episode_to_air: LastEpisodeToAir? = null,
     val name: String? = "",
-    val next_episode_to_air: NextEpisodeToAir? = null,
-    val networks: List<Networks> = listOf(),
     val number_of_episodes: Int = 0,
     val number_of_seasons: Int = 0,
     val origin_country: List<String?> = listOf(),
@@ -26,9 +21,8 @@ data class DetailTvShowResponse(
     val overview: String? = "",
     val popularity: Double = 0.0,
     val poster_path: String? = "",
-    val production_companies: List<ProductionCompanies> = listOf(),
-    val seasons: List<Seasons> = listOf(),
     val status: String? = "",
+    val tagline: String? = "",
     val type: String? = "",
     val vote_average: Float = 0.0f,
     val vote_count: Int = 0

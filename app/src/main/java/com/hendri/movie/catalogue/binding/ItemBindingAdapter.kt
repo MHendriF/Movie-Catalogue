@@ -2,7 +2,7 @@ package com.hendri.movie.catalogue.binding
 
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Genres
+import com.hendri.movie.catalogue.data.source.remote.response.models.Genres
 
 object ItemBindingAdapter {
     val genres: MutableMap<Int, String> = mutableMapOf()

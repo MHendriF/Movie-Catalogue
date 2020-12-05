@@ -1,7 +1,7 @@
 package com.hendri.movie.catalogue.data.source.remote.response
 
 import android.os.Parcelable
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie
+import com.hendri.movie.catalogue.data.source.remote.response.models.Movie
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

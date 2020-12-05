@@ -1,6 +1,6 @@
 package com.hendri.movie.catalogue.data.source.remote.response
 
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvShow
+import com.hendri.movie.catalogue.data.source.remote.response.models.TvShow
 
 data class TvShowResponse(
     val page: Int,

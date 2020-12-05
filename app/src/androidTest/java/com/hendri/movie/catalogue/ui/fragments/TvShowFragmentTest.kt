@@ -3,7 +3,6 @@ package com.hendri.movie.catalogue.ui.fragments
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
@@ -13,7 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.SingleNavigationActivity
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvShow
+import com.hendri.movie.catalogue.data.source.remote.response.models.TvShow
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_tv_show.*

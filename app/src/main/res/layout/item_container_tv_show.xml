@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvShow" />
+            type="com.hendri.movie.catalogue.data.source.remote.response.models.TvShow" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

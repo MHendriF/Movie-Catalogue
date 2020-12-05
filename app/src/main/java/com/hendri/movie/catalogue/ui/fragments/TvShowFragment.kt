@@ -11,7 +11,7 @@ import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
 import com.hendri.movie.catalogue.data.source.Resource
 import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.TvShow
+import com.hendri.movie.catalogue.data.source.remote.response.models.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter

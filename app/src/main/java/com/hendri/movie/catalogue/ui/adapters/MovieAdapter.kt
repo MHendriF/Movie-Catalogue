@@ -2,7 +2,7 @@ package com.hendri.movie.catalogue.ui.adapters
 
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.adapter.BaseAdapter
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie
+import com.hendri.movie.catalogue.data.source.remote.response.models.Movie
 import com.hendri.movie.catalogue.databinding.ItemContainerMovieBinding
 
 class MovieAdapter : BaseAdapter<Movie, ItemContainerMovieBinding>(R.layout.item_container_movie) {

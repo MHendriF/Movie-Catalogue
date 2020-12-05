@@ -19,7 +19,7 @@ class ApiServiceTest {
 
     @Test
     fun getMovieFromApi() {
-        apiService.getDataMovie()?.enqueue(object : Callback<MovieResponse> {
+        apiService.getMovies()?.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 contDownLatch.countDown()
                 print(response.body()?.results)
@@ -36,7 +36,7 @@ class ApiServiceTest {
 
     @Test
     fun getTvShowFromApi() {
-        apiService.getDataTv()?.enqueue(object : Callback<TvShowResponse> {
+        apiService.getTvShows()?.enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, showResponse: Response<TvShowResponse>) {
                 contDownLatch.countDown()
                 print(showResponse.body()?.results)
@@ -50,7 +50,7 @@ class ApiServiceTest {
 
     @Test
     fun getMovieByIdFromApi() {
-        apiService.getDataMovieById(5).enqueue(object : Callback<DetailMovieResponse> {
+        apiService.getMovieById(650747).enqueue(object : Callback<DetailMovieResponse> {
             override fun onResponse(
                 call: Call<DetailMovieResponse>, movieResponse: Response<DetailMovieResponse>
             ) {
@@ -66,7 +66,7 @@ class ApiServiceTest {
 
     @Test
     fun getTvShowByIdFromApi() {
-        apiService.getDataTvById(76479).enqueue(object : Callback<DetailTvShowResponse> {
+        apiService.getTvShowById(71712).enqueue(object : Callback<DetailTvShowResponse> {
             override fun onResponse(
                 call: Call<DetailTvShowResponse>, tvShowResponse: Response<DetailTvShowResponse>
             ) {

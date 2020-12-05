@@ -12,7 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.SingleNavigationActivity
-import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Movie
+import com.hendri.movie.catalogue.data.source.remote.response.models.Movie
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_movie.*

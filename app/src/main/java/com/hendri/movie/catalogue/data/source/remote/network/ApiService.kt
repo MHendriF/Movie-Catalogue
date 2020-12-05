@@ -12,24 +12,18 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("discover/movie?api_key=${Constants.TMDB_API_KEY}")
-    fun getDataMovie(
-        @Query("language") language: String? = "en-US",
-    ): Call<MovieResponse>?
+    fun getMovies(): Call<MovieResponse>?
 
     @GET("discover/tv?api_key=${Constants.TMDB_API_KEY}")
-    fun getDataTv(
-        @Query("language") language: String? = "en-US",
-    ): Call<TvShowResponse>?
+    fun getTvShows(): Call<TvShowResponse>?
 
     @GET("movie/{id}?api_key=${Constants.TMDB_API_KEY}")
-    fun getDataMovieById(
+    fun getMovieById(
         @Path("id") id: Int,
-        @Query("language") language: String? = "en-US",
     ): Call<DetailMovieResponse>
 
     @GET("tv/{id}?api_key=${Constants.TMDB_API_KEY}")
-    fun getDataTvById(
+    fun getTvShowById(
         @Path("id") id: Int,
-        @Query("language") language: String? = "en-US",
     ): Call<DetailTvShowResponse>
 }
