@@ -58,7 +58,7 @@ class DetailActivityTest {
         val data = DummyDataResponse.detailTvShowResponse()
         scenarioRule = ActivityScenario.launch(
             Intent(context, DetailActivity::class.java).apply {
-                putExtra(DATA_EXTRA, arrayListOf(R.id.detail_tv, data.id))
+                putExtra(DATA_EXTRA, arrayListOf(R.id.detail_tv_show, data.id))
             }
         )
 

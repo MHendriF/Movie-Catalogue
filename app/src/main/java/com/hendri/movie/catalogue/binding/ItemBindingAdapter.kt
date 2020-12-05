@@ -2,8 +2,9 @@ package com.hendri.movie.catalogue.binding
 
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
+import com.hendri.movie.catalogue.data.source.remote.response.the_movie_db.Genres
 
-object HomeItemBindingAdapter {
+object ItemBindingAdapter {
     val genres: MutableMap<Int, String> = mutableMapOf()
 
     init {
@@ -37,11 +38,21 @@ object HomeItemBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("set_home_item_genre")
-    fun setTextGenre(view: AppCompatTextView, idListGenre: List<Int>?) {
+    @BindingAdapter("android:listGenre")
+    fun setListGenre(view: AppCompatTextView, idListGenre: List<Int>?) {
         val genre = StringBuilder()
         idListGenre?.forEachIndexed { index, key ->
             genre.append(if (index != idListGenre.size - 1) "${genres[key]}, " else genres[key])
+        }
+        view.text = genre.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("android:genres")
+    fun setGenre(view: AppCompatTextView, it: List<Genres>?) {
+        val genre = StringBuilder()
+        it?.forEachIndexed { i, v ->
+            genre.append(if (i != it.size - 1) "${v.name}, " else v.name)
         }
         view.text = genre.toString()
     }

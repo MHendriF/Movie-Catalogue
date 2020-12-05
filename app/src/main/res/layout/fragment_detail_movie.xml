@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isLoading"
             type="Boolean" />
+
         <variable
             name="model"
             type="com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse" />
+
         <import type="android.view.View" />
     </data>
 
@@ -31,9 +34,9 @@
                     android:id="@+id/ivBackground"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_160sdp"
+                    android:backdropURL="@{model.backdrop_path}"
                     android:contentDescription="@string/img_bg"
                     android:scaleType="fitXY"
-                    android:backdropURL="@{model.backdrop_path}"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -67,33 +70,36 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/ubuntu_bold"
                     android:includeFontPadding="false"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="@{model.title}"
                     android:textColor="@color/colorTextIcons"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/ivPoster"
-                    app:layout_constraintTop_toBottomOf="@id/ivBackground" />
+                    app:layout_constraintTop_toBottomOf="@id/ivBackground"
+                    tools:text="Title" />
 
-                <TextView
-                    android:id="@+id/tvLanguage"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvGenre"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:ellipsize="end"
                     android:fontFamily="@font/ubuntu_regular"
+                    android:genres="@{model.genres}"
                     android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:text="@{model.original_language}"
+                    android:maxLines="2"
                     android:textColor="@color/colorTextOther"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@id/tvTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                    tools:text="Genre" />
 
                 <TextView
                     android:id="@+id/tvScore"
@@ -109,7 +115,8 @@
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@id/tvTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tvLanguage" />
+                    app:layout_constraintTop_toBottomOf="@id/tvGenre"
+                    tools:text="8" />
 
                 <TextView
                     android:id="@+id/tvReleaseDate"
@@ -120,7 +127,7 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text='@{"Release on: "+ model.release_date}'
+                    android:text='@{"Release on : "+ model.release_date}'
                     android:textColor="@color/colorTextSecondary"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"
@@ -143,7 +150,8 @@
                     android:text='@{model.overview}'
                     android:textColor="@color/colorTextIcons"
                     android:textSize="@dimen/_11ssp"
-                    app:layout_constraintTop_toBottomOf="@id/ivPoster" />
+                    app:layout_constraintTop_toBottomOf="@id/ivPoster"
+                    tools:text="Overview" />
 
                 <TextView
                     android:id="@+id/tvReadMore"

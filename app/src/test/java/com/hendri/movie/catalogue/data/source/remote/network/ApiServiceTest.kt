@@ -18,7 +18,7 @@ class ApiServiceTest {
     private val contDownLatch = CountDownLatch(1)
 
     @Test
-    fun api_service_get_data_movie() {
+    fun getMovieFromApi() {
         apiService.getDataMovie()?.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 contDownLatch.countDown()
@@ -35,23 +35,21 @@ class ApiServiceTest {
     }
 
     @Test
-    fun api_service_get_data_tv() {
+    fun getTvShowFromApi() {
         apiService.getDataTv()?.enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, showResponse: Response<TvShowResponse>) {
                 contDownLatch.countDown()
                 print(showResponse.body()?.results)
             }
-
             override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
                 t.printStackTrace()
             }
-
         })
         contDownLatch.await(TIME_OUT, TimeUnit.SECONDS)
     }
 
     @Test
-    fun api_service_get_data_movie_by_id() {
+    fun getMovieByIdFromApi() {
         apiService.getDataMovieById(5).enqueue(object : Callback<DetailMovieResponse> {
             override fun onResponse(
                 call: Call<DetailMovieResponse>, movieResponse: Response<DetailMovieResponse>
@@ -59,7 +57,6 @@ class ApiServiceTest {
                 contDownLatch.countDown()
                 print(movieResponse.body())
             }
-
             override fun onFailure(call: Call<DetailMovieResponse>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -68,7 +65,7 @@ class ApiServiceTest {
     }
 
     @Test
-    fun api_service_get_data_tv_by_id() {
+    fun getTvShowByIdFromApi() {
         apiService.getDataTvById(76479).enqueue(object : Callback<DetailTvShowResponse> {
             override fun onResponse(
                 call: Call<DetailTvShowResponse>, tvShowResponse: Response<DetailTvShowResponse>
@@ -76,7 +73,6 @@ class ApiServiceTest {
                 contDownLatch.countDown()
                 print(tvShowResponse.body())
             }
-
             override fun onFailure(call: Call<DetailTvShowResponse>, t: Throwable) {
                 t.printStackTrace()
             }

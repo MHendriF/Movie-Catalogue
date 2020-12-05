@@ -55,24 +55,25 @@
             android:text="@{model.original_name}"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/_13ssp"
-            tools:text="Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivPoster"
-            app:layout_constraintTop_toTopOf="@id/ivPoster" />
+            app:layout_constraintTop_toTopOf="@id/ivPoster"
+            tools:text="Title" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvGenre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/ubuntu_regular"
             android:includeFontPadding="false"
+            android:listGenre="@{model.genre_ids}"
             android:textColor="@color/colorTextOther"
             android:textSize="@dimen/_12ssp"
-            tools:text="Genre"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="Genre" />
 
         <TextView
             android:id="@+id/tvReleaseDate"
@@ -84,10 +85,10 @@
             android:text='@{"Release on : "+ model.first_air_date}'
             android:textColor="@color/colorTextSecondary"
             android:textSize="@dimen/_12ssp"
-            tools:text="Release date"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvGenre" />
+            app:layout_constraintTop_toBottomOf="@id/tvGenre"
+            tools:text="Release date" />
 
         <TextView
             android:id="@+id/tvScore"
@@ -99,10 +100,10 @@
             android:text='@{model.vote_average + ""}'
             android:textColor="@android:color/holo_green_light"
             android:textSize="@dimen/_12ssp"
-            tools:text="5"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate" />
+            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
+            tools:text="5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

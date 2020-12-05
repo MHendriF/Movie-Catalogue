@@ -7,7 +7,6 @@
         <variable
             name="isLoading"
             type="Boolean" />
-
         <import type="android.view.View"/>
     </data>
 
