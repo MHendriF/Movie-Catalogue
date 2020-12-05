@@ -6,10 +6,10 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.ui.activities.DetailActivity.Companion.DATA_EXTRA
 import com.hendri.movie.catalogue.utils.DummyDataResponse
@@ -17,10 +17,12 @@ import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4ClassRunner::class)
 class DetailActivityTest {
     private lateinit var scenario: ActivityScenario<DetailActivity>
-    private val ctx = ApplicationProvider.getApplicationContext<Context>()
+    private val context = ApplicationProvider.getApplicationContext<Context>()
 
     @Before
     fun setUp() {
@@ -33,40 +35,41 @@ class DetailActivityTest {
     }
 
     @Test
-    fun detailMovieLoaded() {
+    fun loadDetailMovie() {
         val data = DummyDataResponse.movieDetailResponse()
         scenario = ActivityScenario.launch(
-            Intent(ctx, DetailActivity::class.java).apply {
+            Intent(context, DetailActivity::class.java).apply {
                 putExtra(DATA_EXTRA, arrayListOf(R.id.detail_movie, data.id))
             }
         )
 
-        Espresso.onView(withText(data.title))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withText(data.title))
-            .check(ViewAssertions.matches(withId(R.id.tvTitle)))
-        Espresso.onView(withText(data.overview))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withText(data.overview))
-            .check(ViewAssertions.matches(withId(R.id.tvOverview)))
+        Espresso.onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.tvTitle)).check(matches(withText(data.title)))
+        Espresso.onView(withId(R.id.tvOverview)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.tvOverview)).check(matches(withText(data.overview)))
+        Espresso.onView(withId(R.id.ivPoster)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.ivBackground)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.tvReadMore)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.ivBack)).perform(ViewActions.click())
     }
 
     @Test
-    fun detailTvLoaded() {
+    fun loadDetailTvShow() {
         val data = DummyDataResponse.tvDetailResponse()
         scenario = ActivityScenario.launch(
-            Intent(ctx, DetailActivity::class.java).apply {
+            Intent(context, DetailActivity::class.java).apply {
                 putExtra(DATA_EXTRA, arrayListOf(R.id.detail_tv, data.id))
             }
         )
 
-        Espresso.onView(withText(data.original_name))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withText(data.original_name))
-            .check(ViewAssertions.matches(withId(R.id.tvTitle)))
-        Espresso.onView(withText(data.overview))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withText(data.overview))
-            .check(ViewAssertions.matches(withId(R.id.tvOverview)))
+        Espresso.onView(withId(R.id.tvTitle)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.tvTitle)).check(matches(withText(data.original_name)))
+        Espresso.onView(withId(R.id.tvOverview)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.tvOverview)).check(matches(withText(data.overview)))
+        Espresso.onView(withId(R.id.ivPoster)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.ivBackground)).check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.tvReadMore)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.ivBack)).perform(ViewActions.click())
+
     }
 }

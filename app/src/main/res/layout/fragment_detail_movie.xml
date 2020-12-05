@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="isLoading"
             type="Boolean" />
-
         <variable
             name="model"
             type="com.hendri.movie.catalogue.data.source.remote.response.MovieDetailResponse" />
-
         <import type="android.view.View" />
     </data>
 
