@@ -3,36 +3,37 @@ package com.hendri.movie.catalogue.ui.activities
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseActivity
 import com.hendri.movie.catalogue.databinding.ActivityDetailBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
-import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel.Companion.DATA_DESTINATION
-import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel.Companion.DATA_ID
+import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
-class DetailActivity : BaseActivity<ActivityDetailBinding>(), SwipeRefreshLayout.OnRefreshListener {
+class DetailActivity : BaseActivity<ActivityDetailBinding>() {
 
     companion object {
+        const val DATA_DESTINATION = 0
+        const val DATA_ID = 1
         const val DATA_EXTRA = "DATA_EXTRA"
         const val DATA_EXTRA_ID = "DATA_EXTRA_ID"
     }
 
     @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+    internal lateinit var factory: ViewModelFactory
 
     private lateinit var navController: NavController
 
-    private val viewModel by viewModels<DetailViewModel> { viewModelFactory }
+    private val viewModel by viewModels<DetailViewModel> { factory }
 
     override val layoutActivity: Int = R.layout.activity_detail
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApp).appComponent.inject(this)
         super.onCreate(savedInstanceState)
 
         intent.getIntegerArrayListExtra(DATA_EXTRA)?.apply {
@@ -50,14 +51,4 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(), SwipeRefreshLayout
             }
         }
     }
-
-    override fun onRefresh() {
-        viewModel.dataTvShow = null
-        viewModel.dataMovie = null
-        val dataDes = viewModel.getDataExtra(DATA_DESTINATION)
-        val dataId = viewModel.getDataExtra(DATA_ID)
-        viewModel.setDataExtra(dataDes, dataId)
-        navController.navigate(dataDes, bundleOf(DATA_EXTRA_ID to dataId))
-    }
-
 }

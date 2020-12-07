@@ -1,6 +1,7 @@
 package com.hendri.movie.catalogue.ui.activities
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -21,7 +22,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setupWithNavController(binding.bottomNavigationView, navController)
         setupActionBarWithNavController(
             navController,
-            AppBarConfiguration.Builder(R.id.fragment_movie, R.id.fragment_tv).build()
+            AppBarConfiguration.Builder(R.id.fragment_movie, R.id.fragment_tv, R.id.fragment_favorite).build()
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.sort_menu, menu)
+        return true
     }
 }

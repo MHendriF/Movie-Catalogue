@@ -8,7 +8,7 @@ data class MovieGenreRelation(
     val movieEntity: MovieEntity,
 
     @Relation(
-        parentColumn = MovieEntity.ID_MOVIE_RESULT,
+        parentColumn = MovieEntity.ID_MOVIE,
         entityColumn = GenreMovieEntity.FOREIGN_KEY_MOVIE_GENRE,
         entity = GenreMovieEntity::class
     )

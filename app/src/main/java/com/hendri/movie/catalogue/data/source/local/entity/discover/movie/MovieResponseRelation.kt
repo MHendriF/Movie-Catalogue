@@ -9,7 +9,7 @@ data class MovieResponseRelation(
 
     @Relation(
         parentColumn = MovieResponseEntity.ID_MOVIE_RESPONSE,
-        entityColumn = MovieEntity.ID_MOVIE_RESULT_FOREIGN,
+        entityColumn = MovieEntity.ID_MOVIE_FOREIGN,
         entity = MovieEntity::class
     )
     val resultWithGenre: List<MovieGenreRelation>

@@ -4,11 +4,14 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.source.MainRepository
 import com.hendri.movie.catalogue.data.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
-import com.hendri.movie.catalogue.utils.DummyDataResponse
+import com.hendri.movie.catalogue.data.model.DetailMovie
+import com.hendri.movie.catalogue.data.model.DetailTvShow
+import com.hendri.movie.catalogue.data.repository.MovieRepository
+import com.hendri.movie.catalogue.data.repository.TvShowRepository
+import com.hendri.movie.catalogue.ui.activities.DetailActivity.Companion.DATA_DESTINATION
+import com.hendri.movie.catalogue.ui.activities.DetailActivity.Companion.DATA_ID
+import com.hendri.movie.catalogue.utils.DummyData
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil.getValue
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.*
@@ -25,40 +28,43 @@ class DetailViewModelTest{
     private lateinit var viewModel: DetailViewModel
 
     @Mock
-    lateinit var repository: MainRepository
+    lateinit var movieRepo: MovieRepository
 
     @Mock
-    lateinit var observerMovie: Observer<Resource<DetailMovieResponse>>
+    lateinit var tvShowRepo: TvShowRepository
 
     @Mock
-    lateinit var observerTvShow: Observer<Resource<DetailTvShowResponse>>
+    lateinit var observerMovie: Observer<Resource<DetailMovie>>
+
+    @Mock
+    lateinit var observerTvShow: Observer<Resource<DetailTvShow>>
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        viewModel = DetailViewModel(repository)
+        viewModel = DetailViewModel(movieRepo, tvShowRepo)
     }
 
     @Test
     fun getDetailMovieResourceSuccess() {
-        val dummyData = DummyDataResponse.detailMovieResponse()
+        val dummyData = DummyData.detailMovie()
         val dataDes = R.id.detail_movie
         val dataId = dummyData.id
 
-        Mockito.`when`(repository.getMovieById(dataId)).thenReturn(MutableLiveData(Resource.Success(dummyData)))
+        Mockito.`when`(movieRepo.getDetail(dataId)).thenReturn(MutableLiveData(Resource.Success(dummyData)))
 
-        viewModel.setDataExtra(dataDes, dataId)
-        assertEquals(dataDes, viewModel.getDataExtra(DetailViewModel.DATA_DESTINATION))
-        assertEquals(dataId, viewModel.getDataExtra(DetailViewModel.DATA_ID))
-        verify(repository).getMovieById(dataId)
-        assertNotNull(viewModel.dataMovie)
+        viewModel.init(dataDes, dataId)
+        assertEquals(dataDes, viewModel.getExtra(DATA_DESTINATION))
+        assertEquals(dataId, viewModel.getExtra(DATA_ID))
+        verify(movieRepo).getDetail(dataId)
+        assertNotNull(viewModel.movie)
 
-        viewModel.dataMovie?.observeForever(observerMovie)
+        viewModel.movie?.observeForever(observerMovie)
         verify(observerMovie).onChanged(Resource.Success(dummyData))
 
-        val resource = getValue(viewModel.dataMovie)
+        val resource = getValue(viewModel.movie)
         assertNotNull(resource)
         assertTrue(resource is Resource.Success)
         when (resource) {
@@ -71,22 +77,22 @@ class DetailViewModelTest{
 
     @Test
     fun getDetailTvShowResourceSuccess() {
-        val dummyData = DummyDataResponse.detailTvShowResponse()
+        val dummyData = DummyData.detailTvShow()
         val dataDes = R.id.detail_tv_show
         val dataId = dummyData.id
 
-        Mockito.`when`(repository.getTvShowById(dataId)).thenReturn(MutableLiveData(Resource.Success(dummyData)))
+        Mockito.`when`(tvShowRepo.getDetail(dataId)).thenReturn(MutableLiveData(Resource.Success(dummyData)))
 
-        viewModel.setDataExtra(dataDes, dataId)
-        assertEquals(dataDes, viewModel.getDataExtra(DetailViewModel.DATA_DESTINATION))
-        assertEquals(dataId, viewModel.getDataExtra(DetailViewModel.DATA_ID))
-        verify(repository).getTvShowById(dataId)
-        assertNotNull(viewModel.dataTvShow)
+        viewModel.init(dataDes, dataId)
+        assertEquals(dataDes, viewModel.getExtra(DATA_DESTINATION))
+        assertEquals(dataId, viewModel.getExtra(DATA_ID))
+        verify(tvShowRepo).getDetail(dataId)
+        assertNotNull(viewModel.tvShow)
 
-        viewModel.dataTvShow?.observeForever(observerTvShow)
+        viewModel.tvShow.observeForever(observerTvShow)
         verify(observerTvShow).onChanged(Resource.Success(dummyData))
 
-        val resource = getValue(viewModel.dataTvShow)
+        val resource = getValue(viewModel.tvShow)
         assertNotNull(resource)
         assertTrue(resource is Resource.Success)
         when (resource) {

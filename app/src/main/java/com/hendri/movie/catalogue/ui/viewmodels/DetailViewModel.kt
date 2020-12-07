@@ -1,32 +1,45 @@
 package com.hendri.movie.catalogue.ui.viewmodels
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.hendri.movie.catalogue.data.source.MainRepository
+import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
+import com.hendri.movie.catalogue.data.model.DetailMovie
+import com.hendri.movie.catalogue.data.model.DetailTvShow
+import com.hendri.movie.catalogue.data.repository.MovieRepository
+import com.hendri.movie.catalogue.data.repository.TvShowRepository
+import com.hendri.movie.catalogue.ui.activities.DetailActivity.Companion.DATA_DESTINATION
+import com.hendri.movie.catalogue.ui.activities.DetailActivity.Companion.DATA_ID
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val movieRepo: MovieRepository,
+    private val tvShowRepo: TvShowRepository
 ) : ViewModel() {
 
     private lateinit var dataExtra: MutableList<Int>
 
-    var dataMovie: LiveData<Resource<DetailMovieResponse>>? = null
-    var dataTvShow: LiveData<Resource<DetailTvShowResponse>>? = null
+    val movie by lazy { MediatorLiveData<Resource<DetailMovie>>() }
+    val tvShow by lazy { MediatorLiveData<Resource<DetailTvShow>>() }
 
-    fun getDataExtra(data: Int) = this.dataExtra[data]
-
-    fun setDataExtra(dataDes: Int, dataId: Int) {
+    fun init(dataDes: Int, dataId: Int) {
         dataExtra = mutableListOf(dataDes, dataId)
-        if (dataMovie == null) dataMovie = repository.getMovieById(dataExtra[DATA_ID])
-        if (dataTvShow == null) dataTvShow = repository.getTvShowById(dataExtra[DATA_ID])
+        when (dataExtra[DATA_DESTINATION]) {
+            R.id.detail_movie -> movie.addSource(movieRepo.getDetail(dataExtra[DATA_ID])) {
+                movie.value = it
+            }
+            R.id.detail_tv_show -> tvShow.addSource(tvShowRepo.getDetail(dataExtra[DATA_ID])) {
+                tvShow.value = it
+            }
+        }
     }
 
-    companion object {
-        const val DATA_DESTINATION = 0
-        const val DATA_ID = 1
-    }
+    fun getExtra(data: Int) = this.dataExtra[data]
+
+    fun setFavoriteMovie(id: Int, isFavorite: Boolean) =
+        movieRepo.setFavorite(id, isFavorite)
+
+    fun setFavoriteTv(id: Int, isFavorite: Boolean) =
+        tvShowRepo.setFavorite(id, isFavorite)
 }

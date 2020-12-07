@@ -21,24 +21,24 @@ class TvShowDataSource private constructor(private val tvShowDao: TvShowDao) :
             instance ?: synchronized(this) { instance ?: TvShowDataSource(tvShowDao) }
     }
 
-    override fun getResponse() = tvShowDao.liveTv()
+    override fun getResponse() = tvShowDao.liveTvShow()
 
-    override fun getResult() = tvShowDao.pageTvResult()
+    override fun getResult() = tvShowDao.pageTvShow()
 
     override fun getResultRawQuery(supportSQLiteQuery: SupportSQLiteQuery?) =
-        tvShowDao.pageTvResult(supportSQLiteQuery ?: run { SORT_BY_NAME })
+        tvShowDao.pageTvShow(supportSQLiteQuery ?: run { SORT_BY_NAME })
 
-    override fun getDetail(id: Int) = tvShowDao.liveTvDetail(id)
+    override fun getDetail(id: Int) = tvShowDao.liveDetailTvShow(id)
 
-    override fun insertResponse(data: TvShowResponse) = tvShowDao.insertTv(data)
+    override fun insertResponse(data: TvShowResponse) = tvShowDao.insertTvShow(data)
 
-    override fun insertDetailResponse(data: DetailTvShowResponse) = tvShowDao.insertTvDetail(data)
+    override fun insertDetailResponse(data: DetailTvShowResponse) = tvShowDao.insertDetailTvShow(data)
 
     override fun updateFavorite(id: Int, isFavorite: Boolean) {
-        tvShowDao.updateDetailFavorite(tvShowDao.tvDetail(id).apply { this.isFavorite = isFavorite })
-        tvShowDao.updateResultFavorite(tvShowDao.tvResult(id).apply { this.isFavorite = isFavorite })
+        tvShowDao.updateDetailFavorite(tvShowDao.detailTvShow(id).apply { this.isFavorite = isFavorite })
+        tvShowDao.updateResultFavorite(tvShowDao.tvShow(id).apply { this.isFavorite = isFavorite })
     }
 
     override fun getFavorite(supportSQLiteQuery: SupportSQLiteQuery?) =
-        tvShowDao.pageTvFavorite(supportSQLiteQuery ?: run { SORT_FAV_BY_NAME })
+        tvShowDao.pageTvShowFavorite(supportSQLiteQuery ?: run { SORT_FAV_BY_NAME })
 }

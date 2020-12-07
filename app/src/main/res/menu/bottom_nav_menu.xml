@@ -9,4 +9,9 @@
         android:id="@+id/fragment_tv"
         android:icon="@drawable/ic_tv"
         android:title="@string/tv_show" />
+
+    <item
+        android:id="@+id/fragment_favorite"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/favorite" />
 </menu>

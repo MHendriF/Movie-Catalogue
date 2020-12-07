@@ -14,40 +14,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
+class RemoteDataSource private constructor(private val apiService: ApiService) {
 
-class RemoteDataSource private constructor(
-    private val apiService: ApiService
-) : IRemoteDataSource {
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(apiService: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) { instance ?: RemoteDataSource(apiService) }
-    }
-
-    override fun getMovies(): LiveData<ApiResponse<MovieResponse>> {
-        val data = MutableLiveData<ApiResponse<MovieResponse>>()
-        apiService.getMovies()?.enqueue(enqueueCallback(data))
-        return data
-    }
-
-    override fun getTvShows(): LiveData<ApiResponse<TvShowResponse>> {
-        val data = MutableLiveData<ApiResponse<TvShowResponse>>()
-        apiService.getTvShows()?.enqueue(enqueueCallback(data))
-        return data
-    }
-
-    override fun getMovieById(id: Int): LiveData<ApiResponse<DetailMovieResponse>> {
-        val data = MutableLiveData<ApiResponse<DetailMovieResponse>>()
-        apiService.getMovieById(id).enqueue(enqueueCallback(data))
-        return data
-    }
-
-    override fun getTvShowById(id: Int): LiveData<ApiResponse<DetailTvShowResponse>> {
-        val data = MutableLiveData<ApiResponse<DetailTvShowResponse>>()
-        apiService.getTvShowById(id).enqueue(enqueueCallback(data))
-        return data
+        fun getInstance(apiServiceTheMovieDB: ApiService): RemoteDataSource =
+            instance ?: synchronized(this) { instance ?: RemoteDataSource(apiServiceTheMovieDB) }
     }
 
     private fun <T> enqueueCallback(mutableLiveData: MutableLiveData<ApiResponse<T>>): Callback<T?> {
@@ -60,11 +34,36 @@ class RemoteDataSource private constructor(
                 )
                 EspressoIdlingResource.decrement()
             }
+
             override fun onFailure(call: Call<T?>, t: Throwable) {
-                mutableLiveData.value = ApiResponse.Error(t.message.toString())
+                mutableLiveData.postValue(ApiResponse.Error(t.message.toString()))
                 Timber.e(t.message.toString())
                 EspressoIdlingResource.decrement()
             }
         }
+    }
+
+    fun getMovies(): LiveData<ApiResponse<MovieResponse>> {
+        val resultData = MutableLiveData<ApiResponse<MovieResponse>>()
+        apiService.getMovies()?.enqueue(enqueueCallback(resultData))
+        return resultData
+    }
+
+    fun getTvShows(): LiveData<ApiResponse<TvShowResponse>> {
+        val resultData = MutableLiveData<ApiResponse<TvShowResponse>>()
+        apiService.getTvShows()?.enqueue(enqueueCallback(resultData))
+        return resultData
+    }
+
+    fun getMovieById(id: Int): LiveData<ApiResponse<DetailMovieResponse>> {
+        val resultData = MutableLiveData<ApiResponse<DetailMovieResponse>>()
+        apiService.getMovieById(id).enqueue(enqueueCallback(resultData))
+        return resultData
+    }
+
+    fun getTvShowById(id: Int): LiveData<ApiResponse<DetailTvShowResponse>> {
+        val resultData = MutableLiveData<ApiResponse<DetailTvShowResponse>>()
+        apiService.getTvShowById(id).enqueue(enqueueCallback(resultData))
+        return resultData
     }
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.data.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
+import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.databinding.FragmentDetailMovieBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 
@@ -21,10 +21,10 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.ivBack.setOnClickListener { activity?.onBackPressed() }
-        viewModel.dataMovie?.observe(viewLifecycleOwner, { handleStat(it) })
+        viewModel.movie.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun handleStat(resource: Resource<DetailMovieResponse>) {
+    private fun handleStat(resource: Resource<DetailMovie>) {
         when (resource) {
             is Resource.Loading -> binding.isLoading = true
             is Resource.Empty -> binding.isLoading = false

@@ -6,27 +6,27 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(
-    indices = [Index(value = [GenreTvShowEntity.FK])],
+    indices = [Index(value = [GenreTvShowEntity.FOREIGN_KEY_TV_SHOW_GENRE])],
     foreignKeys = [ForeignKey(
         entity = TvShowEntity::class,
-        parentColumns = [TvShowEntity.ID_TV_RESULT],
-        childColumns = [GenreTvShowEntity.FK],
+        parentColumns = [TvShowEntity.ID_TV_SHOW],
+        childColumns = [GenreTvShowEntity.FOREIGN_KEY_TV_SHOW_GENRE],
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE,
     )]
 )
 class GenreTvShowEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "pk_tv_genre")
+    @ColumnInfo(name = "pk_tv_show_genre")
     val pk: Int? = null,
 
-    @ColumnInfo(name = FK)
+    @ColumnInfo(name = FOREIGN_KEY_TV_SHOW_GENRE)
     val fk: Long,
 
     val genre: Int
 
 ) : Parcelable {
     companion object {
-        const val FK = "foreign_tv_genre"
+        const val FOREIGN_KEY_TV_SHOW_GENRE = "foreign_tv_show_genre"
     }
 }

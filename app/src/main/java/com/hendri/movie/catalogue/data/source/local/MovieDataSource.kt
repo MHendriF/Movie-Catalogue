@@ -21,22 +21,22 @@ class MovieDataSource private constructor(private val movieDao: MovieDao) :
             instance ?: synchronized(this) { instance ?: MovieDataSource(movieDao) }
     }
 
-    override fun getResponse() = movieDao.liveResponse()
+    override fun getResponse() = movieDao.liveMovie()
 
-    override fun getResult() = movieDao.pageResult()
+    override fun getResult() = movieDao.pageMovie()
 
     override fun getResultRawQuery(supportSQLiteQuery: SupportSQLiteQuery?) =
-        movieDao.pageResult(supportSQLiteQuery ?: run { SORT_BY_NAME })
+        movieDao.pageMovie(supportSQLiteQuery ?: run { SORT_BY_NAME })
 
-    override fun getDetail(id: Int) = movieDao.liveMovieDetail(id)
+    override fun getDetail(id: Int) = movieDao.liveDetailMovie(id)
 
     override fun insertResponse(data: MovieResponse) = movieDao.insertMovie(data)
 
     override fun insertDetailResponse(data: DetailMovieResponse) = movieDao.insertMovieDetail(data)
 
     override fun updateFavorite(id: Int, isFavorite: Boolean) {
-        movieDao.updateDetailFavorite(movieDao.movieDetail(id).apply { this.isFavorite = isFavorite })
-        movieDao.updateResultFavorite(movieDao.movieResult(id).apply { this.isFavorite = isFavorite })
+        movieDao.updateDetailFavorite(movieDao.detailMovie(id).apply { this.isFavorite = isFavorite })
+        movieDao.updateResultFavorite(movieDao.movie(id).apply { this.isFavorite = isFavorite })
     }
 
     override fun getFavorite(supportSQLiteQuery: SupportSQLiteQuery?) =

@@ -17,4 +17,22 @@
         tools:layout="@layout/fragment_tv_show"
         android:label="@string/tv_show" />
 
+    <fragment
+        android:id="@+id/fragment_favorite"
+        android:name="com.hendri.movie.catalogue.ui.fragments.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite" />
+
+    <fragment
+        android:id="@+id/fragment_favorite_movie"
+        android:name="com.hendri.movie.catalogue.ui.fragments.FavoriteMovieFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_movie" />
+
+    <fragment
+        android:id="@+id/fragment_favorite_tv"
+        android:name="com.hendri.movie.catalogue.ui.fragments.FavoriteTvShowFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_tv_show" />
+
 </navigation>

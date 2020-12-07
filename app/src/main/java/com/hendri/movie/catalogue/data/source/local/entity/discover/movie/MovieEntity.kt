@@ -6,11 +6,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(
-    indices = [Index(value = [MovieEntity.ID_MOVIE_RESULT_FOREIGN])],
+    indices = [Index(value = [MovieEntity.ID_MOVIE_FOREIGN])],
     foreignKeys = [ForeignKey(
         entity = MovieResponseEntity::class,
         parentColumns = [MovieResponseEntity.ID_MOVIE_RESPONSE],
-        childColumns = [MovieEntity.ID_MOVIE_RESULT_FOREIGN],
+        childColumns = [MovieEntity.ID_MOVIE_FOREIGN],
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE,
     )],
@@ -18,9 +18,9 @@ import kotlinx.android.parcel.Parcelize
 
 data class MovieEntity (
     @PrimaryKey
-    @ColumnInfo(name = ID_MOVIE_RESULT)
+    @ColumnInfo(name = ID_MOVIE)
     val pk: Int,
-    @ColumnInfo(name = ID_MOVIE_RESULT_FOREIGN)
+    @ColumnInfo(name = ID_MOVIE_FOREIGN)
     val fk: Long,
     var isFavorite: Boolean = false,
     val popularity: Double = 0.0,
@@ -37,7 +37,7 @@ data class MovieEntity (
     val release_date: String = ""
 ) : Parcelable {
     companion object {
-        const val ID_MOVIE_RESULT_FOREIGN = "id_movie_result_foreign"
-        const val ID_MOVIE_RESULT = "id_movie_result"
+        const val ID_MOVIE_FOREIGN = "id_movie_foreign"
+        const val ID_MOVIE = "id_movie"
     }
 }

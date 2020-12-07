@@ -8,12 +8,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(
-    primaryKeys = [TvShowEntity.ID_TV_RESULT],
-    indices = [Index(value = [TvShowEntity.ID_TV_RESULT_FOREIGN])],
+    primaryKeys = [TvShowEntity.ID_TV_SHOW],
+    indices = [Index(value = [TvShowEntity.ID_TV_SHOW_FOREIGN])],
     foreignKeys = [ForeignKey(
         entity = TvShowEntity::class,
-        parentColumns = [TvShowResponseEntity.ID_TV_RESPONSE],
-        childColumns = [TvShowEntity.ID_TV_RESULT_FOREIGN],
+        parentColumns = [TvShowResponseEntity.ID_TV_SHOW_RESPONSE],
+        childColumns = [TvShowEntity.ID_TV_SHOW_FOREIGN],
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE,
     )],
@@ -21,8 +21,8 @@ import kotlinx.android.parcel.Parcelize
 
 data class TvShowEntity(
     var isFavorite: Boolean = false,
-    val id_tv_result: Int,
-    val id_tv_result_foreign: Long,
+    val id_tv_show: Int,
+    val id_tv_show_foreign: Long,
     val original_name: String = "",
     val name: String = "",
     val popularity: Double = 0.0,
@@ -35,7 +35,7 @@ data class TvShowEntity(
     val poster_path: String = ""
 ) : Parcelable {
     companion object {
-        const val ID_TV_RESULT_FOREIGN = "id_tv_result_foreign"
-        const val ID_TV_RESULT = "id_tv_result"
+        const val ID_TV_SHOW_FOREIGN = "id_tv_show_foreign"
+        const val ID_TV_SHOW = "id_tv_show"
     }
 }

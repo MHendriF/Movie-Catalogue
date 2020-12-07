@@ -16,6 +16,7 @@ import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieR
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.GenreTvShowEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowResponseEntity
+import com.hendri.movie.catalogue.utils.Constants
 
 @Database(
     entities = [
@@ -48,7 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class.java) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
-                            application, AppDatabase::class.java, "database"
+                            application, AppDatabase::class.java, Constants.DATABASE_NAME
                         ).fallbackToDestructiveMigration().build()
                     }
                 }

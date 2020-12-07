@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.paging.PagedList
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
 import com.hendri.movie.catalogue.data.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 import com.hendri.movie.catalogue.data.model.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
@@ -38,16 +38,16 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
             binding.rvTvShow.adapter = this
         }
 
-        viewModel.getTvShows.observe(viewLifecycleOwner, { handleStat(it) })
+        viewModel.tvShow.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun handleStat(resource: Resource<TvShowResponse>) {
+    private fun handleStat(resource: Resource<PagedList<TvShow>>) {
         when (resource) {
             is Resource.Loading -> binding.isLoading = true
             is Resource.Empty -> binding.isLoading = false
             is Resource.Success -> {
                 binding.isLoading = false
-                resource.data.let { data -> adapter.data = data.results.toMutableList() }
+                resource.data.let { data -> adapter.submitList(data) }
             }
             is Resource.Error -> {
                 findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
@@ -57,9 +57,9 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
         }
     }
 
-    override fun onItemClick(entity: TvShow) {
+    override fun onItemClick(model: TvShow) {
         val intent = Intent(requireContext(), DetailActivity::class.java).apply {
-            putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv_show, entity.id))
+            putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv_show, model.id))
         }
         requireActivity().startActivity(intent)
     }

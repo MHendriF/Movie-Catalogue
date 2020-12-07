@@ -2,10 +2,11 @@ package com.hendri.movie.catalogue.utils
 
 import android.os.Handler
 import android.os.Looper
+import androidx.annotation.VisibleForTesting
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class Executors(
+class Executors @VisibleForTesting constructor(
     private val diskIO: Executor,
     private val networkIO: Executor,
     private val mainThread: Executor

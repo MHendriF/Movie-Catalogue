@@ -11,10 +11,12 @@ import com.hendri.movie.catalogue.data.source.remote.network.ApiService
 import com.hendri.movie.catalogue.data.source.remote.network.RetrofitBuilder
 import com.hendri.movie.catalogue.utils.Constants
 import com.hendri.movie.catalogue.utils.Executors
+import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-class AppModule {
+@Module
+class DataModule {
     @Provides
     @Singleton
     internal fun provideApiServiceTheMovie() =

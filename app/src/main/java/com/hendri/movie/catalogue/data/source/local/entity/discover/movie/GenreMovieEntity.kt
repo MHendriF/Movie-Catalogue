@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
     indices = [Index(value = [GenreMovieEntity.FOREIGN_KEY_MOVIE_GENRE])],
     foreignKeys = [ForeignKey(
         entity = MovieEntity::class,
-        parentColumns = [MovieEntity.ID_MOVIE_RESULT],
+        parentColumns = [MovieEntity.ID_MOVIE],
         childColumns = [GenreMovieEntity.FOREIGN_KEY_MOVIE_GENRE],
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE,

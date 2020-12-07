@@ -1,12 +1,14 @@
 package com.hendri.movie.catalogue
 
+import android.app.Application
+import com.hendri.movie.catalogue.data.di.DaggerDataComponent
+import com.hendri.movie.catalogue.data.di.DataComponent
+import com.hendri.movie.catalogue.di.AppComponent
 import com.hendri.movie.catalogue.di.DaggerAppComponent
 import com.hendri.movie.catalogue.utils.ReleaseTree
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
 import timber.log.Timber
 
-class MyApp : DaggerApplication() {
+class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -17,7 +19,11 @@ class MyApp : DaggerApplication() {
         }
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication>? {
-        return DaggerAppComponent.builder().application(this).build()
+    private val dataComponent: DataComponent by lazy {
+        DaggerDataComponent.factory().create(this)
+    }
+
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.factory().create(dataComponent)
     }
 }

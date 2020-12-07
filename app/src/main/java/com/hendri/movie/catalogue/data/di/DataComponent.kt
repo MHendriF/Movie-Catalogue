@@ -10,14 +10,14 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AppModule::class
+        DataModule::class
     ]
 )
 
-interface AppComponent {
+interface DataComponent {
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance application: Application): AppComponent
+        fun create(@BindsInstance application: Application): DataComponent
     }
 
     fun provideMovieRepo(): MovieRepository

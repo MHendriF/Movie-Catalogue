@@ -8,8 +8,8 @@ data class TvShowGenreRelation(
     val tvShowEntity: TvShowEntity,
 
     @Relation(
-        parentColumn = TvShowEntity.ID_TV_RESULT,
-        entityColumn = GenreTvShowEntity.FK,
+        parentColumn = TvShowEntity.ID_TV_SHOW,
+        entityColumn = GenreTvShowEntity.FOREIGN_KEY_TV_SHOW_GENRE,
         entity = GenreTvShowEntity::class
     )
     val genreIds: List<GenreTvShowEntity>

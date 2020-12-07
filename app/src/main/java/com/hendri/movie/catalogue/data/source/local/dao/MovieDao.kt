@@ -36,44 +36,43 @@ abstract class MovieDao : BaseDao<MovieResponseEntity, MovieEntity,
 
     @Transaction
     @Query("SELECT * FROM MovieResponseEntity")
-    abstract fun liveResponse(): LiveData<MovieResponseRelation>
+    abstract fun liveMovie(): LiveData<MovieResponseRelation>
 
     @Transaction
     @Query("SELECT * FROM MovieEntity")
-    abstract fun pageResult(): DataSource.Factory<Int, MovieGenreRelation>
+    abstract fun pageMovie(): DataSource.Factory<Int, MovieGenreRelation>
 
     @Transaction
     @RawQuery(observedEntities = [MovieGenreRelation::class])
-    abstract fun pageResult(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieGenreRelation>?
+    abstract fun pageMovie(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieGenreRelation>?
 
     @Query("SELECT * FROM MovieEntity WHERE id_movie_result=:id")
-    abstract fun movieResult(id: Int): MovieEntity
+    abstract fun movie(id: Int): MovieEntity
 
     @Query("SELECT * FROM DetailMovieResponseEntity WHERE pk_movie_detail_response=:id")
-    abstract fun movieDetail(id: Int): DetailMovieResponseEntity
+    abstract fun detailMovie(id: Int): DetailMovieResponseEntity
 
     @Transaction
     @Query("SELECT * FROM DetailMovieResponseEntity WHERE pk_movie_detail_response=:id")
-    abstract fun liveMovieDetail(id: Int): LiveData<DetailMovieRelation>
+    abstract fun liveDetailMovie(id: Int): LiveData<DetailMovieRelation>
 
     @Transaction
     @RawQuery(observedEntities = [MovieGenreRelation::class])
     abstract fun pageMovieFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieGenreRelation>?
 
-    fun insertMovie(movieResponse: MovieResponse) {
-        val idInsertResponse = insertResponse(movieResponseToMovieResponseEntity(movieResponse))
-        for (movieResult in movieResponse.results) {
-            val idInsertMovieResult = insertResult(movieResultToMovieEntity(idInsertResponse, movieResult))
-            movieResult.genre_ids?.forEach {
+    fun insertMovie(response: MovieResponse) {
+        val idInsertResponse = insertResponse(movieResponseToMovieResponseEntity(response))
+        for (item in response.results) {
+            val idInsertMovieResult = insertResult(movieResultToMovieEntity(idInsertResponse, item))
+            item.genre_ids?.forEach {
                 insertGenre(GenreMovieEntity(fk = idInsertMovieResult, genre = it))
             }
         }
     }
 
-    fun insertMovieDetail(movieDetailResponse: DetailMovieResponse) {
-        val idResult =
-            insertDetailResponse(movieDetailResponseToMovieDetailResponseEntity(movieDetailResponse))
-        movieDetailResponse.genres.forEach {
+    fun insertMovieDetail(response: DetailMovieResponse) {
+        val idResult = insertDetailResponse(movieDetailResponseToMovieDetailResponseEntity(response))
+        response.genres.forEach {
             insertDetailGenre(
                 DetailGenreMovieEntity(
                     genre_code = it.genre_code, fk = idResult, name = it.name

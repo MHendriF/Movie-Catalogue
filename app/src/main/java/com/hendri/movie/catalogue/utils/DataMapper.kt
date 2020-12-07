@@ -57,7 +57,7 @@ object DataMapper {
                     name = it.tvShowEntity.name,
                     first_air_date = it.tvShowEntity.first_air_date,
                     original_name = it.tvShowEntity.original_name,
-                    id = it.tvShowEntity.id_tv_result,
+                    id = it.tvShowEntity.id_tv_show,
                 )
             )
         }
@@ -77,11 +77,11 @@ object DataMapper {
             name = TvShowGenreRelation.tvShowEntity.name,
             first_air_date = TvShowGenreRelation.tvShowEntity.first_air_date,
             original_name = TvShowGenreRelation.tvShowEntity.original_name,
-            id = TvShowGenreRelation.tvShowEntity.id_tv_result
+            id = TvShowGenreRelation.tvShowEntity.id_tv_show
         )
     }
 
-    fun movieDetailToMovieDetailModel(movieDetail: DetailMovieRelation) =
+    fun movieDetailToMovieDetailModel(movieDetail: DetailMovieRelation?) =
         movieDetail?.run {
             DetailMovie(
                 isFavorite = movieDetailResponseEntity.isFavorite,
@@ -201,8 +201,8 @@ object DataMapper {
         TvShow: TvShow
     ): TvShowEntity {
         return TvShowEntity(
-            id_tv_result_foreign = idInsertResponse,
-            id_tv_result = TvShow.id,
+            id_tv_show_foreign = idInsertResponse,
+            id_tv_show = TvShow.id,
             popularity = TvShow.popularity,
             vote_count = TvShow.vote_count,
             poster_path = TvShow.poster_path,

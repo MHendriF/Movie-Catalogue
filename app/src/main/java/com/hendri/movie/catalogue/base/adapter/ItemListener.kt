@@ -1,5 +1,5 @@
 package com.hendri.movie.catalogue.base.adapter
 
-interface ItemListener<Entity> {
-    fun onItemClick(entity: Entity)
+interface ItemListener<Model> {
+    fun onItemClick(model: Model)
 }

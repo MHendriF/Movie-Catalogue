@@ -11,7 +11,7 @@
 
         <variable
             name="model"
-            type="com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse" />
+            type="com.hendri.movie.catalogue.data.model.DetailMovie" />
 
         <import type="android.view.View" />
     </data>
