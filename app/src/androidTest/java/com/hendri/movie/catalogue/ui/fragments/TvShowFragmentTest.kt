@@ -41,14 +41,12 @@ class TvShowFragmentTest {
         scenarioRule.scenario.onActivity {
             it.startDestination(R.navigation.nav_graph_home, R.id.fragment_tv)
         }
-
         Espresso.onView(withId(R.id.rvTvShow)).check(matches(ViewMatchers.isDisplayed()))
-
         val data = mutableListOf<TvShow>()
         scenarioRule.scenario.onActivity {
             data.addAll((it.rvTvShow.adapter as TvShowAdapter).data)
         }
-
+        assertNotNull(data)
         assertTrue(data.size > 0)
         Espresso.onView(withId(R.id.rvTvShow)).perform(scrollToPosition<ViewHolder>(data.size))
         Espresso.onView(withId(R.id.rvTvShow)).perform(actionOnItemAtPosition<ViewHolder>(0, click()))

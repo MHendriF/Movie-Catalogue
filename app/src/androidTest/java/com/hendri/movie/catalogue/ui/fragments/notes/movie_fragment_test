@@ -1,5 +1,7 @@
 # loadFragmentMovie()
 - Memastikan recyclerview movie dalam keadaan tampil
+- Memastikan data movie tidak null
+- Memastikan jumlah data movie lebih dari 0
 - Gulir recyclerview movie ke posisi data terakhir
 - Memberi tindakan klik pada data pertama di recyclerview movie
 - Memberi tindakan klik pada text Read more

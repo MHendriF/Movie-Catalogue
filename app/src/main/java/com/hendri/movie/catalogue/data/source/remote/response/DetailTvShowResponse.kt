@@ -6,7 +6,7 @@ data class DetailTvShowResponse(
     val backdrop_path: String? = "",
     val episode_run_time: List<Int> = listOf(),
     val first_air_date: String? = "",
-    val genres: List<Genres> = listOf(),
+    val genres: List<Genre> = listOf(),
     val homepage: String? = "",
     val id: Int,
     val in_production: Boolean = false,
