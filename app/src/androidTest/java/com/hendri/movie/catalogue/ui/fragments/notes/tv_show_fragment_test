@@ -1,5 +1,7 @@
 # loadFragmentTvShow()
 - Memastikan recyclerview tv show dalam keadaan tampil
+- Memastikan data tv show tidak null
+- Memastikan jumlah data tv show lebih dari 0
 - Gulir recyclerview tv show ke posisi data terakhir
 - Memberi tindakan klik pada data pertama di recyclerview tv show
 - Memberi tindakan klik pada text Read more

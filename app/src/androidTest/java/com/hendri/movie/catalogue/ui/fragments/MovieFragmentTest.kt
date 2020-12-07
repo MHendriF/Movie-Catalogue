@@ -17,6 +17,7 @@ import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.junit.*
+import org.junit.Assert.*
 
 class MovieFragmentTest {
     @get:Rule
@@ -36,13 +37,12 @@ class MovieFragmentTest {
     fun loadFragmentMovie() {
         scenarioRule.scenario.onActivity { it.startDestination(R.navigation.nav_graph_home, R.id.fragment_movie) }
         Espresso.onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
-
         val data = mutableListOf<Movie>()
         scenarioRule.scenario.onActivity {
             data.addAll((it.rvMovie.adapter as MovieAdapter).data)
         }
-
-        Assert.assertTrue(data.size > 0)
+        assertNotNull(data)
+        assertTrue(data.size > 0)
         Espresso.onView(withId(R.id.rvMovie)).perform(RecyclerViewActions.scrollToPosition<ViewHolder>(data.size))
         Espresso.onView(withId(R.id.rvMovie)).perform(actionOnItemAtPosition<ViewHolder>(0, click()))
         Espresso.onView(withId(R.id.tvReadMore)).perform(click())

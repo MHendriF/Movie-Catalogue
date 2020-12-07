@@ -6,7 +6,7 @@ data class DetailMovieResponse(
     val adult: Boolean = false,
     val backdrop_path: String? = "",
     val budget: Int = 0,
-    val genres: List<Genres> = listOf(),
+    val genres: List<Genre> = listOf(),
     val homepage: String? = "",
     val id: Int,
     val imdb_id: String? = "",

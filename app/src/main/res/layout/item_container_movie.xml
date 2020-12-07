@@ -98,7 +98,7 @@
             android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/ubuntu_regular"
             android:includeFontPadding="false"
-            android:text='@{model.vote_average + ""}'
+            android:text='@{"Score : "+ model.vote_average}'
             android:textColor="@android:color/holo_green_light"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"

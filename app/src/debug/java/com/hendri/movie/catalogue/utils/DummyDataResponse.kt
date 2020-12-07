@@ -86,7 +86,7 @@ object DummyDataResponse {
             backdrop_path = "/8e2j8EeJ1z2OCmbGmMaX6xg1u2w.jpg",
             budget = 0,
             genres = listOf(
-                Genres(35, "Comedy")
+                Genre(35, "Comedy")
             ),
             homepage = "https://www.amazon.com/dp/B08NWNX73Q",
             id = 650747,
@@ -114,7 +114,7 @@ object DummyDataResponse {
             episode_run_time = listOf(42),
             first_air_date = "2017-09-25",
             genres = listOf(
-                Genres(18, "Drama")
+                Genre(18, "Drama")
             ),
             homepage = "http://abc.go.com/shows/the-good-doctor",
             id = 71712,
