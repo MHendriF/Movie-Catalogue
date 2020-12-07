@@ -3,6 +3,7 @@ package com.hendri.movie.catalogue.data.source
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSourceTest
 import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse

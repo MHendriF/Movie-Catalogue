@@ -13,7 +13,8 @@ import kotlinx.android.parcel.Parcelize
         Index(value = ["page"], unique = true)
     ]
 )
-class TvShowResponseEntity(
+
+data class TvShowResponseEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID_TV_RESPONSE)
     val id_movie_response: Int? = null,

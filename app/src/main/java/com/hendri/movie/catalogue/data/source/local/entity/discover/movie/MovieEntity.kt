@@ -16,7 +16,7 @@ import kotlinx.android.parcel.Parcelize
     )],
 )
 
-class MovieEntity (
+data class MovieEntity (
     @PrimaryKey
     @ColumnInfo(name = ID_MOVIE_RESULT)
     val pk: Int,

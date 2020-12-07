@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
-import com.hendri.movie.catalogue.data.source.Resource
+import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.databinding.FragmentDetailMovieBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel

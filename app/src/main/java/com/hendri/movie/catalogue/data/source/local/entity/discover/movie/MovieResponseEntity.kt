@@ -14,7 +14,7 @@ import kotlinx.android.parcel.Parcelize
     ]
 )
 
-class MovieResponseEntity (
+data class MovieResponseEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID_MOVIE_RESPONSE)
     val id_movie_response: Int? = null,

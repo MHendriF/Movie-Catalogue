@@ -1,6 +1,6 @@
 package com.hendri.movie.catalogue.data.source.remote.response
 
-import com.hendri.movie.catalogue.data.source.remote.response.models.*
+import com.hendri.movie.catalogue.data.model.Genre
 
 data class DetailMovieResponse(
     val adult: Boolean = false,

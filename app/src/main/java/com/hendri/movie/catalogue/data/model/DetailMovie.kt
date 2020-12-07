@@ -1,21 +1,16 @@
-package com.hendri.movie.catalogue.data.source.local.entity.detail.movie
+package com.hendri.movie.catalogue.data.model
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity
-data class DetailMovieResponseEntity (
-    @PrimaryKey
-    @ColumnInfo(name = PK)
-    val pk: Int,
-    var isFavorite: Boolean = false,
+class DetailMovie(
+    val id: Int,
+    val isFavorite: Boolean,
     val adult: Boolean = false,
     val backdrop_path: String? = "",
     val budget: Int = 0,
+    val genres: List<Genre> = listOf(),
     val homepage: String? = "",
     val imdb_id: String? = "",
     val original_language: String? = "",
@@ -32,8 +27,4 @@ data class DetailMovieResponseEntity (
     val video: Boolean = false,
     val vote_average: Float = 0.0f,
     val vote_count: Int = 0
-) : Parcelable {
-    companion object {
-        const val PK = "pk_movie_detail_response"
-    }
-}
+) : Parcelable

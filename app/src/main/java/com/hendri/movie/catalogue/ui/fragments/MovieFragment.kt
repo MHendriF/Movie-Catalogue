@@ -9,9 +9,9 @@ import androidx.navigation.navGraphViewModels
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
-import com.hendri.movie.catalogue.data.source.Resource
+import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.data.source.remote.response.models.Movie
+import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter

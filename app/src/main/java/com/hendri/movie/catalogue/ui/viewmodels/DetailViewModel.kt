@@ -3,7 +3,7 @@ package com.hendri.movie.catalogue.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.hendri.movie.catalogue.data.source.MainRepository
-import com.hendri.movie.catalogue.data.source.Resource
+import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import javax.inject.Inject

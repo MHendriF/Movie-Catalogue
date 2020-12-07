@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.hendri.movie.catalogue.data.source.MainRepository
-import com.hendri.movie.catalogue.data.source.Resource
+import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSourceTest.Companion.errorMessage
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse

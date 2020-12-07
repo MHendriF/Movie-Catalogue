@@ -2,6 +2,7 @@ package com.hendri.movie.catalogue.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse

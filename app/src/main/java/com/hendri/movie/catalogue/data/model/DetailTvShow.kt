@@ -1,8 +1,11 @@
-package com.hendri.movie.catalogue.data.source.remote.response
+package com.hendri.movie.catalogue.data.model
 
-import com.hendri.movie.catalogue.data.model.Genre
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-data class DetailTvShowResponse(
+@Parcelize
+class DetailTvShow(
+    val isFavorite: Boolean,
     val backdrop_path: String? = "",
     val episode_run_time: List<Int> = listOf(),
     val first_air_date: String? = "",
@@ -22,8 +25,8 @@ data class DetailTvShowResponse(
     val popularity: Double = 0.0,
     val poster_path: String? = "",
     val status: String? = "",
-    val tagline: String? = "",
     val type: String? = "",
+    val tagline: String? = "",
     val vote_average: Float = 0.0f,
     val vote_count: Int = 0
-)
+) : Parcelable

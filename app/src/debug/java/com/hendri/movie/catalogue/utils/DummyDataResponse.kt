@@ -1,10 +1,12 @@
 package com.hendri.movie.catalogue.utils
 
+import com.hendri.movie.catalogue.data.model.Genre
+import com.hendri.movie.catalogue.data.model.Movie
+import com.hendri.movie.catalogue.data.model.TvShow
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
-import com.hendri.movie.catalogue.data.source.remote.response.models.*
 
 object DummyDataResponse {
     fun movieResponse(): MovieResponse {

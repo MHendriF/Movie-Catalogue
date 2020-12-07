@@ -1,4 +1,4 @@
-package com.hendri.movie.catalogue.data.source
+package com.hendri.movie.catalogue.data
 
 sealed class Resource<out R> {
     data class Loading<out T>(val data: T? = null) : Resource<T>()

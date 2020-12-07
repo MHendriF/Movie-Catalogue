@@ -18,7 +18,8 @@ import kotlinx.android.parcel.Parcelize
         onUpdate = ForeignKey.CASCADE,
     )],
 )
-class TvShowEntity(
+
+data class TvShowEntity(
     var isFavorite: Boolean = false,
     val id_tv_result: Int,
     val id_tv_result_foreign: Long,

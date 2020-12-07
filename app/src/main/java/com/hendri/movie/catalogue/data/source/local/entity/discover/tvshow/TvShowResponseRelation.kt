@@ -3,9 +3,9 @@ package com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow
 import androidx.room.Embedded
 import androidx.room.Relation
 
-class TvShowResponseRelation(
+data class TvShowResponseRelation(
     @Embedded
-    val tvResponseEntity: TvShowResponseEntity,
+    val tvShowResponseEntity: TvShowResponseEntity,
 
     @Relation(
         parentColumn = TvShowResponseEntity.ID_TV_RESPONSE,
