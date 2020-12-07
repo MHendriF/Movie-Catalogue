@@ -49,16 +49,16 @@ class RemoteDataSourceTest {
     private lateinit var callDetailTvShowResponse: Call<DetailTvShowResponse>
 
     @Mock
-    private lateinit var observerApiResponseMovie: Observer<ApiResponse<MovieResponse>>
+    private lateinit var observerMovie: Observer<ApiResponse<MovieResponse>>
 
     @Mock
-    private lateinit var observerApiResponseTvShow: Observer<ApiResponse<TvShowResponse>>
+    private lateinit var observerTvShow: Observer<ApiResponse<TvShowResponse>>
 
     @Mock
-    private lateinit var observerApiResponseDetailMovie: Observer<ApiResponse<DetailMovieResponse>>
+    private lateinit var observerDetailMovie: Observer<ApiResponse<DetailMovieResponse>>
 
     @Mock
-    private lateinit var observerApiResponseDetailTvShow: Observer<ApiResponse<DetailTvShowResponse>>
+    private lateinit var observerDetailTvShow: Observer<ApiResponse<DetailTvShowResponse>>
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -69,9 +69,9 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_movie_response_success() {
+    fun movieResponseSuccess() {
         val dataDummy = DummyDataResponse.movieResponse()
-        Mockito.`when`(apiService.getDataMovie()).thenReturn(callMovieResponse)
+        Mockito.`when`(apiService.getMovies()).thenReturn(callMovieResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<MovieResponse>).onResponse(callMovieResponse, Response.success(dataDummy))
@@ -79,11 +79,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getMovies())
 
-        Mockito.verify(apiService).getDataMovie()
-        Mockito.verify(apiService.getDataMovie())?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getMovies()
+        Mockito.verify(apiService.getMovies())?.enqueue(Mockito.any())
 
-        remoteDataSource.getMovies().observeForever(observerApiResponseMovie)
-        Mockito.verify(observerApiResponseMovie).onChanged(ApiResponse.Success(dataDummy))
+        remoteDataSource.getMovies().observeForever(observerMovie)
+        Mockito.verify(observerMovie).onChanged(ApiResponse.Success(dataDummy))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Success)
@@ -97,8 +97,8 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_movie_response_error() {
-        Mockito.`when`(apiService.getDataMovie()).thenReturn(callMovieResponse)
+    fun movieResponseError() {
+        Mockito.`when`(apiService.getMovies()).thenReturn(callMovieResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<MovieResponse>).onFailure(callMovieResponse, Throwable(errorMessage))
@@ -106,11 +106,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getMovies())
 
-        Mockito.verify(apiService).getDataMovie()
-        Mockito.verify(apiService.getDataMovie())?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getMovies()
+        Mockito.verify(apiService.getMovies())?.enqueue(Mockito.any())
 
-        remoteDataSource.getMovies().observeForever(observerApiResponseMovie)
-        Mockito.verify(observerApiResponseMovie).onChanged(ApiResponse.Error(errorMessage))
+        remoteDataSource.getMovies().observeForever(observerMovie)
+        Mockito.verify(observerMovie).onChanged(ApiResponse.Error(errorMessage))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Error)
@@ -122,8 +122,8 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_movie_response_empty() {
-        Mockito.`when`(apiService.getDataMovie()).thenReturn(callMovieResponse)
+    fun movieResponseEmpty() {
+        Mockito.`when`(apiService.getMovies()).thenReturn(callMovieResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<MovieResponse>).onResponse(callMovieResponse, Response.success(null))
@@ -131,11 +131,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getMovies())
 
-        Mockito.verify(apiService).getDataMovie()
-        Mockito.verify(apiService.getDataMovie())?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getMovies()
+        Mockito.verify(apiService.getMovies())?.enqueue(Mockito.any())
 
-        remoteDataSource.getMovies().observeForever(observerApiResponseMovie)
-        Mockito.verify(observerApiResponseMovie).onChanged(ApiResponse.Empty(null))
+        remoteDataSource.getMovies().observeForever(observerMovie)
+        Mockito.verify(observerMovie).onChanged(ApiResponse.Empty(null))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Empty)
@@ -147,9 +147,9 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_tv_show_response_success() {
+    fun tvShowResponseSuccess() {
         val dataDummy = DummyDataResponse.tvShowResponse()
-        Mockito.`when`(apiService.getDataTv()).thenReturn(callTvShowResponse)
+        Mockito.`when`(apiService.getTvShows()).thenReturn(callTvShowResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<TvShowResponse>).onResponse(callTvShowResponse, Response.success(dataDummy))
@@ -157,11 +157,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getTvShows())
 
-        Mockito.verify(apiService).getDataTv()
-        Mockito.verify(apiService.getDataTv())?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getTvShows()
+        Mockito.verify(apiService.getTvShows())?.enqueue(Mockito.any())
 
-        remoteDataSource.getTvShows().observeForever(observerApiResponseTvShow)
-        Mockito.verify(observerApiResponseTvShow).onChanged(ApiResponse.Success(dataDummy))
+        remoteDataSource.getTvShows().observeForever(observerTvShow)
+        Mockito.verify(observerTvShow).onChanged(ApiResponse.Success(dataDummy))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Success)
@@ -175,8 +175,8 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_tv_show_response_error() {
-        Mockito.`when`(apiService.getDataTv()).thenReturn(callTvShowResponse)
+    fun tvShowResponseError() {
+        Mockito.`when`(apiService.getTvShows()).thenReturn(callTvShowResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<TvShowResponse>)
@@ -185,11 +185,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getTvShows())
 
-        Mockito.verify(apiService).getDataTv()
-        Mockito.verify(apiService.getDataTv())?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getTvShows()
+        Mockito.verify(apiService.getTvShows())?.enqueue(Mockito.any())
 
-        remoteDataSource.getTvShows().observeForever(observerApiResponseTvShow)
-        Mockito.verify(observerApiResponseTvShow).onChanged(ApiResponse.Error(errorMessage))
+        remoteDataSource.getTvShows().observeForever(observerTvShow)
+        Mockito.verify(observerTvShow).onChanged(ApiResponse.Error(errorMessage))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Error)
@@ -201,8 +201,8 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_tv_show_response_empty() {
-        Mockito.`when`(apiService.getDataTv()).thenReturn(callTvShowResponse)
+    fun tvShowResponseEmpty() {
+        Mockito.`when`(apiService.getTvShows()).thenReturn(callTvShowResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<TvShowResponse>)
@@ -211,11 +211,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getTvShows())
 
-        Mockito.verify(apiService).getDataTv()
-        Mockito.verify(apiService.getDataTv())?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getTvShows()
+        Mockito.verify(apiService.getTvShows())?.enqueue(Mockito.any())
 
-        remoteDataSource.getTvShows().observeForever(observerApiResponseTvShow)
-        Mockito.verify(observerApiResponseTvShow).onChanged(ApiResponse.Empty(null))
+        remoteDataSource.getTvShows().observeForever(observerTvShow)
+        Mockito.verify(observerTvShow).onChanged(ApiResponse.Empty(null))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Empty)
@@ -227,10 +227,10 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_detail_movie_response_success() {
+    fun detailMovieResponseSuccess() {
         val dataDummy = DummyDataResponse.detailMovieResponse()
         val idData = dataDummy.id
-        Mockito.`when`(apiService.getDataMovieById(idData)).thenReturn(callDetailMovieResponse)
+        Mockito.`when`(apiService.getMovieById(idData)).thenReturn(callDetailMovieResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<DetailMovieResponse>)
@@ -239,11 +239,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getMovieById(idData))
 
-        Mockito.verify(apiService).getDataMovieById(idData)
-        Mockito.verify(apiService.getDataMovieById(idData))?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getMovieById(idData)
+        Mockito.verify(apiService.getMovieById(idData))?.enqueue(Mockito.any())
 
-        remoteDataSource.getMovieById(idData).observeForever(observerApiResponseDetailMovie)
-        Mockito.verify(observerApiResponseDetailMovie).onChanged(ApiResponse.Success(dataDummy))
+        remoteDataSource.getMovieById(idData).observeForever(observerDetailMovie)
+        Mockito.verify(observerDetailMovie).onChanged(ApiResponse.Success(dataDummy))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Success)
@@ -255,10 +255,10 @@ class RemoteDataSourceTest {
     }
 
     @Test
-    fun get_detail_tv_show_response_success() {
+    fun detailTvShowResponseSuccess() {
         val dataDummy = DummyDataResponse.detailTvShowResponse()
         val idData = dataDummy.id
-        Mockito.`when`(apiService.getDataTvById(idData)).thenReturn(callDetailTvShowResponse)
+        Mockito.`when`(apiService.getTvShowById(idData)).thenReturn(callDetailTvShowResponse)
 
         Mockito.doAnswer {
             (it.arguments[0] as Callback<DetailTvShowResponse>)
@@ -267,11 +267,11 @@ class RemoteDataSourceTest {
 
         val apiResponse = getValue(remoteDataSource.getTvShowById(idData))
 
-        Mockito.verify(apiService).getDataTvById(idData)
-        Mockito.verify(apiService.getDataTvById(idData))?.enqueue(Mockito.any())
+        Mockito.verify(apiService).getTvShowById(idData)
+        Mockito.verify(apiService.getTvShowById(idData))?.enqueue(Mockito.any())
 
-        remoteDataSource.getTvShowById(idData).observeForever(observerApiResponseDetailTvShow)
-        Mockito.verify(observerApiResponseDetailTvShow).onChanged(ApiResponse.Success(dataDummy))
+        remoteDataSource.getTvShowById(idData).observeForever(observerDetailTvShow)
+        Mockito.verify(observerDetailTvShow).onChanged(ApiResponse.Success(dataDummy))
 
         Assert.assertNotNull(apiResponse)
         Assert.assertTrue(apiResponse is ApiResponse.Success)
@@ -281,4 +281,5 @@ class RemoteDataSourceTest {
             }
         }
     }
+
 }

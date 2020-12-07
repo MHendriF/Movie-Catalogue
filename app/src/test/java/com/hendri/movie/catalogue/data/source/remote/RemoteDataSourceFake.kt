@@ -15,25 +15,25 @@ import retrofit2.Response
 class RemoteDataSourceFake(private val apiService: ApiService) : IRemoteDataSource {
     override fun getMovies(): LiveData<ApiResponse<MovieResponse>> {
         val data = MutableLiveData<ApiResponse<MovieResponse>>()
-        apiService.getDataMovie()?.enqueue(enqueueCallback(data))
+        apiService.getMovies()?.enqueue(enqueueCallback(data))
         return data
     }
 
     override fun getTvShows(): LiveData<ApiResponse<TvShowResponse>> {
         val data = MutableLiveData<ApiResponse<TvShowResponse>>()
-        apiService.getDataTv()?.enqueue(enqueueCallback(data))
+        apiService.getTvShows()?.enqueue(enqueueCallback(data))
         return data
     }
 
     override fun getMovieById(id: Int): LiveData<ApiResponse<DetailMovieResponse>> {
         val data = MutableLiveData<ApiResponse<DetailMovieResponse>>()
-        apiService.getDataMovieById(id).enqueue(enqueueCallback(data))
+        apiService.getMovieById(id).enqueue(enqueueCallback(data))
         return data
     }
 
     override fun getTvShowById(id: Int): LiveData<ApiResponse<DetailTvShowResponse>> {
         val data = MutableLiveData<ApiResponse<DetailTvShowResponse>>()
-        apiService.getDataTvById(id).enqueue(enqueueCallback(data))
+        apiService.getTvShowById(id).enqueue(enqueueCallback(data))
         return data
     }
 
@@ -45,7 +45,6 @@ class RemoteDataSourceFake(private val apiService: ApiService) : IRemoteDataSour
                     if (data != null) ApiResponse.Success(data) else ApiResponse.Empty(data)
                 )
             }
-
             override fun onFailure(call: Call<T?>, t: Throwable) {
                 mutableLiveData.postValue(ApiResponse.Error(t.message.toString()))
             }

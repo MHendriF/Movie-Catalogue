@@ -26,43 +26,43 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class MainRepositoryTest {
 
-    private lateinit var mainRepository: MainRepositoryFake
+    private lateinit var repository: MainRepositoryFake
 
     @Mock
     lateinit var remoteDataSource: RemoteDataSource
 
     @Mock
-    lateinit var observerResourceMovieResponse: Observer<Resource<MovieResponse>>
+    lateinit var observerMovie: Observer<Resource<MovieResponse>>
 
     @Mock
-    lateinit var observerResourceTvShowResponse: Observer<Resource<TvShowResponse>>
+    lateinit var observerTvShow: Observer<Resource<TvShowResponse>>
 
     @Mock
-    lateinit var observerResourceDetailMovieResponse: Observer<Resource<DetailMovieResponse>>
+    lateinit var observerDetailMovie: Observer<Resource<DetailMovieResponse>>
 
     @Mock
-    lateinit var observerResourceDetailTvShowResponse: Observer<Resource<DetailTvShowResponse>>
+    lateinit var observerDetailTvShow: Observer<Resource<DetailTvShowResponse>>
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        mainRepository = MainRepositoryFake(remoteDataSource)
+        repository = MainRepositoryFake(remoteDataSource)
     }
 
     @Test
-    fun get_data_movie_resource_success() {
+    fun movieResourceSuccess() {
         val dummyData = DummyDataResponse.movieResponse()
 
         Mockito.`when`(remoteDataSource.getMovies()).thenReturn(MutableLiveData(ApiResponse.Success(dummyData)))
 
-        val resource = getValue(mainRepository.getMovies())
+        val resource = getValue(repository.getMovies())
 
         verify(remoteDataSource).getMovies()
 
-        mainRepository.getMovies().observeForever(observerResourceMovieResponse)
-        verify(observerResourceMovieResponse).onChanged(Resource.Success(dummyData))
+        repository.getMovies().observeForever(observerMovie)
+        verify(observerMovie).onChanged(Resource.Success(dummyData))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Success)
@@ -77,15 +77,15 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_data_movie_resource_empty() {
+    fun movieResourceEmpty() {
         Mockito.`when`(remoteDataSource.getMovies()).thenReturn(MutableLiveData(ApiResponse.Empty(null)))
 
-        val resource = getValue(mainRepository.getMovies())
+        val resource = getValue(repository.getMovies())
 
         verify(remoteDataSource).getMovies()
 
-        mainRepository.getMovies().observeForever(observerResourceMovieResponse)
-        verify(observerResourceMovieResponse).onChanged(Resource.Empty(null))
+        repository.getMovies().observeForever(observerMovie)
+        verify(observerMovie).onChanged(Resource.Empty(null))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Empty)
@@ -98,15 +98,15 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_data_movie_resource_error() {
+    fun movieResourceError() {
         Mockito.`when`(remoteDataSource.getMovies()).thenReturn(MutableLiveData(ApiResponse.Error(RemoteDataSourceTest.errorMessage)))
 
-        val resource = getValue(mainRepository.getMovies())
+        val resource = getValue(repository.getMovies())
 
         verify(remoteDataSource).getMovies()
 
-        mainRepository.getMovies().observeForever(observerResourceMovieResponse)
-        verify(observerResourceMovieResponse).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
+        repository.getMovies().observeForever(observerMovie)
+        verify(observerMovie).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Error)
@@ -120,17 +120,17 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_data_tv_resource_success() {
+    fun tvShowResourceSuccess() {
         val dummyData = DummyDataResponse.tvShowResponse()
 
         Mockito.`when`(remoteDataSource.getTvShows()).thenReturn(MutableLiveData(ApiResponse.Success(dummyData)))
 
-        val resource = getValue(mainRepository.getTvShows())
+        val resource = getValue(repository.getTvShows())
 
         verify(remoteDataSource).getTvShows()
 
-        mainRepository.getTvShows().observeForever(observerResourceTvShowResponse)
-        verify(observerResourceTvShowResponse).onChanged(Resource.Success(dummyData))
+        repository.getTvShows().observeForever(observerTvShow)
+        verify(observerTvShow).onChanged(Resource.Success(dummyData))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Success)
@@ -145,15 +145,15 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_data_tv_resource_empty() {
+    fun tvShowResourceEmpty() {
         Mockito.`when`(remoteDataSource.getTvShows()).thenReturn(MutableLiveData(ApiResponse.Empty(null)))
 
-        val resource = getValue(mainRepository.getTvShows())
+        val resource = getValue(repository.getTvShows())
 
         verify(remoteDataSource).getTvShows()
 
-        mainRepository.getTvShows().observeForever(observerResourceTvShowResponse)
-        verify(observerResourceTvShowResponse).onChanged(Resource.Empty(null))
+        repository.getTvShows().observeForever(observerTvShow)
+        verify(observerTvShow).onChanged(Resource.Empty(null))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Empty)
@@ -166,16 +166,16 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_data_tv_resource_error() {
+    fun tvShowResourceError() {
         Mockito.`when`(remoteDataSource.getTvShows())
             .thenReturn(MutableLiveData(ApiResponse.Error(RemoteDataSourceTest.errorMessage)))
 
-        val resource = getValue(mainRepository.getTvShows())
+        val resource = getValue(repository.getTvShows())
 
         verify(remoteDataSource).getTvShows()
 
-        mainRepository.getTvShows().observeForever(observerResourceTvShowResponse)
-        verify(observerResourceTvShowResponse).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
+        repository.getTvShows().observeForever(observerTvShow)
+        verify(observerTvShow).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Error)
@@ -189,18 +189,18 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_detail_data_movie_resource_success() {
+    fun detailMovieSourceSuccess() {
         val dummyData = DummyDataResponse.detailMovieResponse()
         val idData = dummyData.id
 
         Mockito.`when`(remoteDataSource.getMovieById(idData)).thenReturn(MutableLiveData(ApiResponse.Success(dummyData)))
 
-        val resource = getValue(mainRepository.getMovieById(idData))
+        val resource = getValue(repository.getMovieById(idData))
 
         verify(remoteDataSource).getMovieById(idData)
 
-        mainRepository.getMovieById(idData).observeForever(observerResourceDetailMovieResponse)
-        verify(observerResourceDetailMovieResponse).onChanged(Resource.Success(dummyData))
+        repository.getMovieById(idData).observeForever(observerDetailMovie)
+        verify(observerDetailMovie).onChanged(Resource.Success(dummyData))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Success)
@@ -215,17 +215,17 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_detail_data_movie_resource_error() {
+    fun detailMovieSourceError() {
         val idData = DummyDataResponse.detailMovieResponse().id
         Mockito.`when`(remoteDataSource.getMovieById(idData)).thenReturn(MutableLiveData(ApiResponse.Error(RemoteDataSourceTest.errorMessage)))
 
-        val resource = getValue(mainRepository.getMovieById(idData))
+        val resource = getValue(repository.getMovieById(idData))
 
         verify(remoteDataSource).getMovieById(idData)
 
-        mainRepository.getMovieById(idData)
-            .observeForever(observerResourceDetailMovieResponse)
-        verify(observerResourceDetailMovieResponse).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
+        repository.getMovieById(idData)
+            .observeForever(observerDetailMovie)
+        verify(observerDetailMovie).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Error)
@@ -238,17 +238,17 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_detail_data_movie_resource_empty() {
+    fun detailMovieSourceEmpty() {
         val idData = -500
         Mockito.`when`(remoteDataSource.getMovieById(idData)).thenReturn(MutableLiveData(ApiResponse.Empty(null)))
 
-        val resource = getValue(mainRepository.getMovieById(idData))
+        val resource = getValue(repository.getMovieById(idData))
 
         verify(remoteDataSource).getMovieById(idData)
 
-        mainRepository.getMovieById(idData)
-            .observeForever(observerResourceDetailMovieResponse)
-        verify(observerResourceDetailMovieResponse).onChanged(Resource.Empty(null))
+        repository.getMovieById(idData)
+            .observeForever(observerDetailMovie)
+        verify(observerDetailMovie).onChanged(Resource.Empty(null))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Empty)
@@ -260,19 +260,19 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_detail_data_tv_resource_success() {
+    fun detailTvShowSourceSuccess() {
         val dummyData = DummyDataResponse.detailTvShowResponse()
         val idData = dummyData.id
 
         Mockito.`when`(remoteDataSource.getTvShowById(idData))
             .thenReturn(MutableLiveData(ApiResponse.Success(dummyData)))
 
-        val resource = getValue(mainRepository.getTvShowById(idData))
+        val resource = getValue(repository.getTvShowById(idData))
 
         verify(remoteDataSource).getTvShowById(idData)
 
-        mainRepository.getTvShowById(idData).observeForever(observerResourceDetailTvShowResponse)
-        verify(observerResourceDetailTvShowResponse).onChanged(Resource.Success(dummyData))
+        repository.getTvShowById(idData).observeForever(observerDetailTvShow)
+        verify(observerDetailTvShow).onChanged(Resource.Success(dummyData))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Success)
@@ -287,17 +287,17 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_detail_data_tv_resource_error() {
+    fun detailTvShowSourceError() {
         val idData = DummyDataResponse.detailTvShowResponse().id
         Mockito.`when`(remoteDataSource.getTvShowById(idData))
             .thenReturn(MutableLiveData(ApiResponse.Error(RemoteDataSourceTest.errorMessage)))
 
-        val resource = getValue(mainRepository.getTvShowById(idData))
+        val resource = getValue(repository.getTvShowById(idData))
 
         verify(remoteDataSource).getTvShowById(idData)
 
-        mainRepository.getTvShowById(idData).observeForever(observerResourceDetailTvShowResponse)
-        verify(observerResourceDetailTvShowResponse).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
+        repository.getTvShowById(idData).observeForever(observerDetailTvShow)
+        verify(observerDetailTvShow).onChanged(Resource.Error(RemoteDataSourceTest.errorMessage))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Error)
@@ -311,17 +311,17 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun get_detail_data_tv_resource_empty() {
+    fun detailTvShowSourceEmpty() {
         val idData = -500
         Mockito.`when`(remoteDataSource.getTvShowById(idData))
             .thenReturn(MutableLiveData(ApiResponse.Empty(null)))
 
-        val resource = getValue(mainRepository.getTvShowById(idData))
+        val resource = getValue(repository.getTvShowById(idData))
 
         verify(remoteDataSource).getTvShowById(idData)
 
-        mainRepository.getTvShowById(idData).observeForever(observerResourceDetailTvShowResponse)
-        verify(observerResourceDetailTvShowResponse).onChanged(Resource.Empty(null))
+        repository.getTvShowById(idData).observeForever(observerDetailTvShow)
+        verify(observerDetailTvShow).onChanged(Resource.Empty(null))
 
         Assert.assertNotNull(resource)
         Assert.assertTrue(resource is Resource.Empty)
