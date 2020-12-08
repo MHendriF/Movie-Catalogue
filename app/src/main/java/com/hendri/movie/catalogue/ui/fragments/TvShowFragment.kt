@@ -49,18 +49,20 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
     }
 
     private fun handleStat(resource: Resource<PagedList<TvShow>>) {
-        when (resource) {
-            is Resource.Loading -> binding.isLoading = true
-            is Resource.Empty -> binding.isLoading = false
-            is Resource.Success -> {
-                binding.isLoading = false
-                resource.data.let { data -> adapter.submitList(data) }
-            }
-            is Resource.Error -> {
-                binding.isLoading = false
-                Timber.e("handleStat:  %s", resource.errorMessage)
-                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                activity?.toast(resource.errorMessage)
+        with(binding) {
+            when (resource) {
+                is Resource.Loading -> isLoading = true
+                is Resource.Empty -> isLoading = false
+                is Resource.Success -> {
+                    isLoading = false
+                    resource.data.let { data -> adapter.submitList(data) }
+                }
+                is Resource.Error -> {
+                    isLoading = false
+                    Timber.e("handleStat:  %s", resource.errorMessage)
+                    findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                    activity?.toast(resource.errorMessage)
+                }
             }
         }
     }

@@ -52,26 +52,27 @@ class FavoriteMovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener
         adapter = MovieAdapter().apply {
             onItemListener = this@FavoriteMovieFragment
             binding.rvMovie.setHasFixedSize(true)
-            binding.rvMovie.layoutManager = LinearLayoutManager(context)
             binding.rvMovie.adapter = this
         }
         viewModel.movieFavorite.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
     private fun handleStat(resource: Resource<PagedList<Movie>>) {
-        when (resource) {
-            is Resource.Loading -> binding.isLoading = true
-            is Resource.Success -> {
-                binding.isLoading = false
-                resource.data.let { data -> adapter.submitList(data) }
-            }
-            is Resource.Empty -> {
-                binding.isLoading = false
-            }
-            is Resource.Error -> {
-                binding.isLoading = false
-                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                activity?.toast(resource.errorMessage)
+        with(binding) {
+            when (resource) {
+                is Resource.Loading -> isLoading = true
+                is Resource.Success -> {
+                    isLoading = false
+                    resource.data.let { data -> adapter.submitList(data) }
+                }
+                is Resource.Empty -> {
+                    isLoading = false
+                }
+                is Resource.Error -> {
+                    isLoading = false
+                    findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                    activity?.toast(resource.errorMessage)
+                }
             }
         }
     }

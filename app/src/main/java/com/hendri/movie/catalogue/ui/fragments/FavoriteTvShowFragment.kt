@@ -51,25 +51,25 @@ class FavoriteTvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListen
         adapter = TvShowAdapter().apply {
             onItemListener = this@FavoriteTvShowFragment
             binding.rvTvShow.setHasFixedSize(true)
-            binding.rvTvShow.layoutManager = LinearLayoutManager(context)
             binding.rvTvShow.adapter = this
         }
-
         viewModel.tvShowFavorite.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
     private fun handleStat(resource: Resource<PagedList<TvShow>>) {
-        when (resource) {
-            is Resource.Loading -> binding.isLoading = true
-            is Resource.Empty -> binding.isLoading = false
-            is Resource.Success -> {
-                binding.isLoading = false
-                resource.data.let { adapter.submitList(it) }
-            }
-            is Resource.Error -> {
-                binding.isLoading = false
-                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                activity?.toast(resource.errorMessage)
+        with(binding) {
+            when (resource) {
+                is Resource.Loading -> isLoading = true
+                is Resource.Empty -> isLoading = false
+                is Resource.Success -> {
+                    isLoading = false
+                    resource.data.let { adapter.submitList(it) }
+                }
+                is Resource.Error -> {
+                    isLoading = false
+                    findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                    activity?.toast(resource.errorMessage)
+                }
             }
         }
     }

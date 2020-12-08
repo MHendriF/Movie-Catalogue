@@ -33,7 +33,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         binding.viewPager.adapter = FavoritePagerAdapter(requireContext(), childFragmentManager)
         binding.tabs.setupWithViewPager(binding.viewPager)
     }

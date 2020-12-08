@@ -23,20 +23,19 @@ class DetailTvShowFragment : BaseFragment<FragmentDetailTvShowBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         binding.ivBack.setOnClickListener { activity?.onBackPressed() }
         viewModel.tvShow.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
     private fun handleStat(resource: Resource<DetailTvShow>) {
-        when (resource) {
-            is Resource.Loading -> binding.isLoading = true
-            is Resource.Empty -> binding.isLoading = false
-            is Resource.Success -> {
-                binding.isLoading = false
-                resource.data.let { data ->
-                    visibleContent()
-                    with(binding){
+        with(binding) {
+            when (resource) {
+                is Resource.Loading -> isLoading = true
+                is Resource.Empty -> isLoading = false
+                is Resource.Success -> {
+                    isLoading = false
+                    resource.data.let { data ->
+                        visibleContent()
                         model = data
                         tvReadMore.setOnClickListener {
                             if (tvReadMore.text.toString() == "Read More") {
@@ -51,10 +50,10 @@ class DetailTvShowFragment : BaseFragment<FragmentDetailTvShowBinding>() {
                         }
                     }
                 }
-            }
-            is Resource.Error -> {
-                binding.isLoading = false
-                activity?.toast(resource.errorMessage)
+                is Resource.Error -> {
+                    isLoading = false
+                    activity?.toast(resource.errorMessage)
+                }
             }
         }
     }
