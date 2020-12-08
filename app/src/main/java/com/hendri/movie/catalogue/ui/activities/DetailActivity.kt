@@ -37,7 +37,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
         super.onCreate(savedInstanceState)
 
         intent.getIntegerArrayListExtra(DATA_EXTRA)?.apply {
-            viewModel.setDataExtra(get(DATA_DESTINATION), get(DATA_ID))
+            viewModel.init(get(DATA_DESTINATION), get(DATA_ID))
         }
 
         navController = nav_host_detail_fragment.findNavController()
@@ -45,9 +45,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
             navController.restoreState(it)
         } ?: run {
             navController.navInflater.inflate(R.navigation.nav_graph_detail).run {
-                startDestination = viewModel.getDataExtra(DATA_DESTINATION)
+                startDestination = viewModel.getExtra(DATA_DESTINATION)
                 navController
-                    .setGraph(this, bundleOf(DATA_EXTRA_ID to viewModel.getDataExtra(DATA_ID)))
+                    .setGraph(this, bundleOf(DATA_EXTRA_ID to viewModel.getExtra(DATA_ID)))
             }
         }
     }

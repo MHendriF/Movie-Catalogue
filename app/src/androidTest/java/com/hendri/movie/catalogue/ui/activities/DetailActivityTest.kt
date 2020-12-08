@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.ui.activities.DetailActivity.Companion.DATA_EXTRA
+import com.hendri.movie.catalogue.utils.DummyData
 import com.hendri.movie.catalogue.utils.DummyDataResponse
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import org.hamcrest.Matchers.containsString
@@ -24,6 +25,8 @@ import org.junit.runner.RunWith
 class DetailActivityTest {
     private lateinit var scenarioRule: ActivityScenario<DetailActivity>
     private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val dummyMovie = DummyData.getDetailMovie()
+    private val dummyTvShow = DummyData.getDetailTvShow()
 
     @Before
     fun setUp() {

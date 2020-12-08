@@ -49,7 +49,7 @@ class DetailViewModelTest{
 
     @Test
     fun getDetailMovieResourceSuccess() {
-        val dummyData = DummyData.detailMovie()
+        val dummyData = DummyData.getDetailMovie()
         val dataDes = R.id.detail_movie
         val dataId = dummyData.id
 
@@ -61,7 +61,7 @@ class DetailViewModelTest{
         verify(movieRepo).getDetail(dataId)
         assertNotNull(viewModel.movie)
 
-        viewModel.movie?.observeForever(observerMovie)
+        viewModel.movie.observeForever(observerMovie)
         verify(observerMovie).onChanged(Resource.Success(dummyData))
 
         val resource = getValue(viewModel.movie)
@@ -77,7 +77,7 @@ class DetailViewModelTest{
 
     @Test
     fun getDetailTvShowResourceSuccess() {
-        val dummyData = DummyData.detailTvShow()
+        val dummyData = DummyData.getDetailTvShow()
         val dataDes = R.id.detail_tv_show
         val dataId = dummyData.id
 

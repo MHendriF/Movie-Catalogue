@@ -20,5 +20,18 @@
             app:navGraph="@navigation/nav_graph_detail"
             tools:ignore="FragmentTagUsage" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:foregroundGravity="bottom"
+            app:fabSize="normal"
+            app:layout_anchor="@id/nav_host_detail_fragment"
+            android:src="@drawable/ic_favorite"
+            android:background="@drawable/bg_favorite"
+            app:layout_anchorGravity="bottom|end"
+            app:tint="@color/colorTextIcons"
+            android:contentDescription="@string/img_icon" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

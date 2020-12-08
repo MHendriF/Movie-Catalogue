@@ -1,6 +1,5 @@
 package com.hendri.movie.catalogue.ui.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.hendri.movie.catalogue.R
@@ -37,9 +36,7 @@ class DetailViewModel @Inject constructor(
 
     fun getExtra(data: Int) = this.dataExtra[data]
 
-    fun setFavoriteMovie(id: Int, isFavorite: Boolean) =
-        movieRepo.setFavorite(id, isFavorite)
+    fun setFavoriteMovie(id: Int, isFavorite: Boolean) = movieRepo.setFavorite(id, isFavorite)
 
-    fun setFavoriteTv(id: Int, isFavorite: Boolean) =
-        tvShowRepo.setFavorite(id, isFavorite)
+    fun setFavoriteTv(id: Int, isFavorite: Boolean) = tvShowRepo.setFavorite(id, isFavorite)
 }

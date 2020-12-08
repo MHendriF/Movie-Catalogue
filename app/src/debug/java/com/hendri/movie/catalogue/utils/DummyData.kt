@@ -3,7 +3,7 @@ package com.hendri.movie.catalogue.utils
 import com.hendri.movie.catalogue.data.model.*
 
 object DummyData {
-    fun movie(): List<Movie> {
+    fun getMovie(): List<Movie> {
         return listOf(
             Movie(
                 adult = false,
@@ -39,7 +39,7 @@ object DummyData {
         )
     }
 
-    fun tvShow(): List<TvShow> {
+    fun getTvShow(): List<TvShow> {
         return listOf(
             TvShow(
                 backdrop_path = "/iDbIEpCM9nhoayUDTwqFL1iVwzb.jpg",
@@ -74,7 +74,7 @@ object DummyData {
         )
     }
 
-    fun detailMovie(): DetailMovie {
+    fun getDetailMovie(): DetailMovie {
         return DetailMovie(
             isFavorite = true,
             adult = false,
@@ -103,7 +103,7 @@ object DummyData {
         )
     }
 
-    fun detailTvShow(): DetailTvShow {
+    fun getDetailTvShow(): DetailTvShow {
         return DetailTvShow(
             isFavorite = true,
             backdrop_path = "/iDbIEpCM9nhoayUDTwqFL1iVwzb.jpg",

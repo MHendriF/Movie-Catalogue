@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.activities.SplashScreenActivity"
+        <activity
+            android:name=".ui.activities.SplashScreenActivity"
             android:theme="@style/SplashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.DetailActivity" />
-        <activity android:name=".ui.activities.MainActivity">
-        </activity>
+        <activity android:name=".ui.activities.MainActivity"/>
     </application>
 
 </manifest>
