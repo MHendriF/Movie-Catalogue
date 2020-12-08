@@ -8,7 +8,6 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailGenreMovieEntity
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieRelation
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieResponseEntity
@@ -21,7 +20,7 @@ import com.hendri.movie.catalogue.utils.DataMapper.movieResultToMovieEntity
 
 @Dao
 abstract class MovieDao : BaseDao<MovieResponseEntity, MovieEntity,
-        MovieResponseRelation, MovieGenreRelation,
+        MovieResponseWithGenre, MovieWithGenre,
         GenreMovieEntity, DetailMovieResponseEntity, DetailGenreMovieEntity>() {
 
     companion object {
@@ -36,17 +35,17 @@ abstract class MovieDao : BaseDao<MovieResponseEntity, MovieEntity,
 
     @Transaction
     @Query("SELECT * FROM MovieResponseEntity")
-    abstract fun liveMovie(): LiveData<MovieResponseRelation>
+    abstract fun liveMovie(): LiveData<MovieResponseWithGenre>
 
     @Transaction
     @Query("SELECT * FROM MovieEntity")
-    abstract fun pageMovie(): DataSource.Factory<Int, MovieGenreRelation>
+    abstract fun pageMovie(): DataSource.Factory<Int, MovieWithGenre>
 
     @Transaction
-    @RawQuery(observedEntities = [MovieGenreRelation::class])
-    abstract fun pageMovie(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieGenreRelation>?
+    @RawQuery(observedEntities = [MovieWithGenre::class])
+    abstract fun pageMovie(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieWithGenre>?
 
-    @Query("SELECT * FROM MovieEntity WHERE id_movie_result=:id")
+    @Query("SELECT * FROM MovieEntity WHERE id_movie=:id")
     abstract fun movie(id: Int): MovieEntity
 
     @Query("SELECT * FROM DetailMovieResponseEntity WHERE pk_movie_detail_response=:id")
@@ -57,8 +56,8 @@ abstract class MovieDao : BaseDao<MovieResponseEntity, MovieEntity,
     abstract fun liveDetailMovie(id: Int): LiveData<DetailMovieRelation>
 
     @Transaction
-    @RawQuery(observedEntities = [MovieGenreRelation::class])
-    abstract fun pageMovieFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieGenreRelation>?
+    @RawQuery(observedEntities = [MovieWithGenre::class])
+    abstract fun pageMovieFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieWithGenre>?
 
     fun insertMovie(response: MovieResponse) {
         val idInsertResponse = insertResponse(movieResponseToMovieResponseEntity(response))

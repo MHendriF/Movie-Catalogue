@@ -9,7 +9,7 @@ import com.hendri.movie.catalogue.data.source.local.TvShowDataSource
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailGenreTvShowEntity
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowRelation
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowResponseEntity
-import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowGenreRelation
+import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowWithGenre
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.utils.Executors
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil
@@ -42,7 +42,7 @@ class TvShowRepositoryTest {
     private lateinit var remote: RemoteDataSource
 
     @Mock
-    lateinit var dataSourceFactory: DataSource.Factory<Int, TvShowGenreRelation>
+    lateinit var dataSourceFactory: DataSource.Factory<Int, TvShowWithGenre>
 
     @Before
     fun setUp() {
@@ -71,7 +71,7 @@ class TvShowRepositoryTest {
 
         val resource = LiveDataTestUtil.getValue(repository.getDetail(pk))
         verify(local).getDetail(pk)
-        Assert.assertTrue(resource is Resource.Success)
+        assertTrue(resource is Resource.Success)
         when (resource) {
             is Resource.Success -> {
                 assertEquals(pk, resource.data.id)

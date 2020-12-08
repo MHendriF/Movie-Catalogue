@@ -6,10 +6,10 @@ import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMo
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowRelation
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieEntity
-import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieGenreRelation
+import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowEntity
-import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowGenreRelation
+import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowResponseEntity
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
@@ -18,7 +18,7 @@ import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 
 object DataMapper {
 
-    fun listMovieWithGenre(list: MutableList<MovieGenreRelation>?): List<Movie> {
+    fun listMovieWithGenre(list: MutableList<MovieWithGenre>?): List<Movie> {
         val listResult = mutableListOf<Movie>()
         list?.forEach {
             listResult.add(Movie(
@@ -41,7 +41,7 @@ object DataMapper {
         return listResult
     }
 
-    fun listTvShowWithGenre(list: MutableList<TvShowGenreRelation>?): List<TvShow> {
+    fun listTvShowWithGenre(list: MutableList<TvShowWithGenre>?): List<TvShow> {
         val listResult = mutableListOf<TvShow>()
         list?.forEach {
             listResult.add(
@@ -57,27 +57,27 @@ object DataMapper {
                     name = it.tvShowEntity.name,
                     first_air_date = it.tvShowEntity.first_air_date,
                     original_name = it.tvShowEntity.original_name,
-                    id = it.tvShowEntity.id_tv_show,
+                    id = it.tvShowEntity.pk,
                 )
             )
         }
         return listResult
     }
 
-    fun tvResultToTvShow(TvShowGenreRelation: TvShowGenreRelation): TvShow {
+    fun tvResultToTvShow(TvShowWithGenre: TvShowWithGenre): TvShow {
         return TvShow(
-            vote_average = TvShowGenreRelation.tvShowEntity.vote_average,
-            popularity = TvShowGenreRelation.tvShowEntity.popularity,
-            vote_count = TvShowGenreRelation.tvShowEntity.vote_count,
-            poster_path = TvShowGenreRelation.tvShowEntity.poster_path,
-            overview = TvShowGenreRelation.tvShowEntity.overview,
-            original_language = TvShowGenreRelation.tvShowEntity.original_language,
-            backdrop_path = TvShowGenreRelation.tvShowEntity.backdrop_path,
-            genre_ids = TvShowGenreRelation.genreIds.map { genreIds -> genreIds.genre },
-            name = TvShowGenreRelation.tvShowEntity.name,
-            first_air_date = TvShowGenreRelation.tvShowEntity.first_air_date,
-            original_name = TvShowGenreRelation.tvShowEntity.original_name,
-            id = TvShowGenreRelation.tvShowEntity.id_tv_show
+            vote_average = TvShowWithGenre.tvShowEntity.vote_average,
+            popularity = TvShowWithGenre.tvShowEntity.popularity,
+            vote_count = TvShowWithGenre.tvShowEntity.vote_count,
+            poster_path = TvShowWithGenre.tvShowEntity.poster_path,
+            overview = TvShowWithGenre.tvShowEntity.overview,
+            original_language = TvShowWithGenre.tvShowEntity.original_language,
+            backdrop_path = TvShowWithGenre.tvShowEntity.backdrop_path,
+            genre_ids = TvShowWithGenre.genreIds.map { genreIds -> genreIds.genre },
+            name = TvShowWithGenre.tvShowEntity.name,
+            first_air_date = TvShowWithGenre.tvShowEntity.first_air_date,
+            original_name = TvShowWithGenre.tvShowEntity.original_name,
+            id = TvShowWithGenre.tvShowEntity.pk
         )
     }
 
@@ -201,8 +201,8 @@ object DataMapper {
         TvShow: TvShow
     ): TvShowEntity {
         return TvShowEntity(
-            id_tv_show_foreign = idInsertResponse,
-            id_tv_show = TvShow.id,
+            pk = TvShow.id,
+            fk = idInsertResponse,
             popularity = TvShow.popularity,
             vote_count = TvShow.vote_count,
             poster_path = TvShow.poster_path,

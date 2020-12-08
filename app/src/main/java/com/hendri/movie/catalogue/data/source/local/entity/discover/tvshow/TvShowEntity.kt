@@ -1,17 +1,15 @@
 package com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
+import androidx.room.*
+import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieEntity
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(
-    primaryKeys = [TvShowEntity.ID_TV_SHOW],
     indices = [Index(value = [TvShowEntity.ID_TV_SHOW_FOREIGN])],
     foreignKeys = [ForeignKey(
-        entity = TvShowEntity::class,
+        entity = TvShowResponseEntity::class,
         parentColumns = [TvShowResponseEntity.ID_TV_SHOW_RESPONSE],
         childColumns = [TvShowEntity.ID_TV_SHOW_FOREIGN],
         onDelete = ForeignKey.CASCADE,
@@ -20,9 +18,12 @@ import kotlinx.android.parcel.Parcelize
 )
 
 data class TvShowEntity(
+    @PrimaryKey
+    @ColumnInfo(name = ID_TV_SHOW)
+    val pk: Int,
+    @ColumnInfo(name = ID_TV_SHOW_FOREIGN)
+    val fk: Long,
     var isFavorite: Boolean = false,
-    val id_tv_show: Int,
-    val id_tv_show_foreign: Long,
     val original_name: String = "",
     val name: String = "",
     val popularity: Double = 0.0,

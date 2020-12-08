@@ -3,7 +3,7 @@ package com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class TvShowGenreRelation(
+data class TvShowWithGenre(
     @Embedded
     val tvShowEntity: TvShowEntity,
 

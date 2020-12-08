@@ -5,13 +5,13 @@ import com.hendri.movie.catalogue.data.source.local.dao.TvShowDao
 import com.hendri.movie.catalogue.data.source.local.dao.TvShowDao.Companion.SORT_BY_NAME
 import com.hendri.movie.catalogue.data.source.local.dao.TvShowDao.Companion.SORT_FAV_BY_NAME
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowRelation
-import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowGenreRelation
-import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowResponseRelation
+import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowWithGenre
+import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowResponseWithGenre
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 
 class TvShowDataSource private constructor(private val tvShowDao: TvShowDao) :
-    IMainDataSource<TvShowResponse, DetailTvShowResponse, TvShowResponseRelation, TvShowGenreRelation, DetailTvShowRelation> {
+    IMainDataSource<TvShowResponse, DetailTvShowResponse, TvShowResponseWithGenre, TvShowWithGenre, DetailTvShowRelation> {
 
     companion object {
         @Volatile

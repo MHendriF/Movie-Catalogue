@@ -23,7 +23,7 @@ class DetailTvShowFragment : BaseFragment<FragmentDetailTvShowBinding>() {
         super.onActivityCreated(savedInstanceState)
 
         binding.ivBack.setOnClickListener { activity?.onBackPressed() }
-        viewModel.tvShow?.observe(viewLifecycleOwner, { handleStat(it) })
+        viewModel.tvShow.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
     private fun handleStat(resource: Resource<DetailTvShow>) {

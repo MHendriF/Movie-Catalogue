@@ -9,7 +9,7 @@ import com.hendri.movie.catalogue.data.source.local.MovieDataSource
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailGenreMovieEntity
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieRelation
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieResponseEntity
-import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieGenreRelation
+import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieWithGenre
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.utils.Executors
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil
@@ -42,7 +42,7 @@ class MovieRepositoryTest{
     private lateinit var remote: RemoteDataSource
 
     @Mock
-    lateinit var dataSourceFactory: DataSource.Factory<Int, MovieGenreRelation>
+    lateinit var dataSourceFactory: DataSource.Factory<Int, MovieWithGenre>
 
     @Before
     fun setUp() {
@@ -71,12 +71,12 @@ class MovieRepositoryTest{
 
         val resource = LiveDataTestUtil.getValue(repository.getDetail(pk))
         verify(local).getDetail(pk)
-        Assert.assertTrue(resource is Resource.Success)
+        assertTrue(resource is Resource.Success)
         when (resource) {
             is Resource.Success -> {
-                Assert.assertEquals(pk, resource.data.id)
-                Assert.assertEquals(genre[0].genre_code, resource.data.genres[0].genre_code)
-                Assert.assertEquals(genre[0].name, resource.data.genres[0].name)
+                assertEquals(pk, resource.data.id)
+                assertEquals(genre[0].genre_code, resource.data.genres[0].genre_code)
+                assertEquals(genre[0].name, resource.data.genres[0].name)
             }
         }
     }

@@ -20,7 +20,7 @@ import com.hendri.movie.catalogue.utils.DataMapper.tvResultToTvShowEntity
 
 @Dao
 abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
-            TvShowResponseRelation, TvShowGenreRelation,
+            TvShowResponseWithGenre, TvShowWithGenre,
             GenreTvShowEntity, DetailTvShowResponseEntity, DetailGenreTvShowEntity>() {
 
     companion object {
@@ -35,15 +35,15 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
 
     @Transaction
     @Query("SELECT * FROM TvShowResponseEntity")
-    abstract fun liveTvShow(): LiveData<TvShowResponseRelation>
+    abstract fun liveTvShow(): LiveData<TvShowResponseWithGenre>
 
     @Transaction
     @Query("SELECT * FROM TvShowEntity")
-    abstract fun pageTvShow(): DataSource.Factory<Int, TvShowGenreRelation>
+    abstract fun pageTvShow(): DataSource.Factory<Int, TvShowWithGenre>
 
     @Transaction
-    @RawQuery(observedEntities = [TvShowGenreRelation::class])
-    abstract fun pageTvShow(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowGenreRelation>?
+    @RawQuery(observedEntities = [TvShowWithGenre::class])
+    abstract fun pageTvShow(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowWithGenre>?
 
     @Query("SELECT * FROM TvShowEntity WHERE id_tv_show=:id")
     abstract fun tvShow(id: Int): TvShowEntity
@@ -56,8 +56,8 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
     abstract fun detailTvShow(id: Int): DetailTvShowResponseEntity
 
     @Transaction
-    @RawQuery(observedEntities = [TvShowGenreRelation::class])
-    abstract fun pageTvShowFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowGenreRelation>?
+    @RawQuery(observedEntities = [TvShowWithGenre::class])
+    abstract fun pageTvShowFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowWithGenre>?
 
     fun insertTvShow(response: TvShowResponse) {
         val fk = insertResponse(tvResponseToTvShowResponseEntity(response))
@@ -74,9 +74,7 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
         response.genres.forEach {
             insertDetailGenre(
                 DetailGenreTvShowEntity(
-                    genre_code = it.genre_code,
-                    fk = fk,
-                    name = it.name
+                    genre_code = it.genre_code, fk = fk, name = it.name
                 )
             )
         }
