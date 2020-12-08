@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="?android:windowBackground"
+            android:background="@color/colorTextPrimary"
             app:itemIconTint="@color/selector_bottom_navigation"
             app:itemTextColor="@color/selector_bottom_navigation"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
