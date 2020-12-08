@@ -1,6 +1,7 @@
 package com.hendri.movie.catalogue.data.source.local.entity.discover.movie
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
@@ -18,12 +19,15 @@ import kotlinx.android.parcel.Parcelize
 
 class GenreMovieEntity (
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     @ColumnInfo(name = "pk_genre")
     val pk: Int? = null,
 
+    @NonNull
     @ColumnInfo(name = "foreign_key_movie_genre")
     val fk: Long,
 
+    @NonNull
     @ColumnInfo(name = "genre_code")
     val genre: Int
 ): Parcelable {

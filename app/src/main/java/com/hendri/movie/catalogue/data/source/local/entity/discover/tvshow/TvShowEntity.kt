@@ -1,6 +1,7 @@
 package com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.*
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieEntity
 import kotlinx.android.parcel.Parcelize
@@ -19,6 +20,7 @@ import kotlinx.android.parcel.Parcelize
 
 data class TvShowEntity(
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = ID_TV_SHOW)
     val pk: Int,
     @ColumnInfo(name = ID_TV_SHOW_FOREIGN)

@@ -1,6 +1,7 @@
 package com.hendri.movie.catalogue.data.source.local.entity.discover.movie
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
@@ -16,6 +17,7 @@ import kotlinx.android.parcel.Parcelize
 
 data class MovieResponseEntity(
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     @ColumnInfo(name = ID_MOVIE_RESPONSE)
     val id_movie_response: Int? = null,
 

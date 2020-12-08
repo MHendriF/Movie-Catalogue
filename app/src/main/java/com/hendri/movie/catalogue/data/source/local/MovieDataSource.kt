@@ -4,14 +4,14 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import com.hendri.movie.catalogue.data.source.local.dao.MovieDao
 import com.hendri.movie.catalogue.data.source.local.dao.MovieDao.Companion.SORT_BY_NAME
 import com.hendri.movie.catalogue.data.source.local.dao.MovieDao.Companion.SORT_FAV_BY_NAME
-import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieResponseWithGenre
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
 
 class MovieDataSource private constructor(private val movieDao: MovieDao) :
-    IMainDataSource<MovieResponse, DetailMovieResponse, MovieResponseWithGenre, MovieWithGenre, DetailMovieRelation> {
+    IMainDataSource<MovieResponse, DetailMovieResponse, MovieResponseWithGenre, MovieWithGenre, DetailMovieWithGenre> {
 
     companion object {
         @Volatile

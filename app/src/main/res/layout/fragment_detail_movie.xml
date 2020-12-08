@@ -79,6 +79,7 @@
                     android:text="@{model.title}"
                     android:textColor="@color/colorTextIcons"
                     android:textSize="@dimen/_14ssp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/ivPoster"
                     app:layout_constraintTop_toBottomOf="@id/ivBackground"
@@ -96,6 +97,7 @@
                     android:maxLines="2"
                     android:textColor="@color/colorTextOther"
                     android:textSize="@dimen/_12ssp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@id/tvTitle"
                     app:layout_constraintTop_toBottomOf="@id/tvTitle"
@@ -113,6 +115,7 @@
                     android:text='@{"Score : "+ model.vote_average}'
                     android:textColor="@android:color/holo_green_light"
                     android:textSize="@dimen/_12ssp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@id/tvTitle"
                     app:layout_constraintTop_toBottomOf="@id/tvGenre"
@@ -130,6 +133,7 @@
                     android:text='@{"Release on : "+ model.release_date}'
                     android:textColor="@color/colorTextSecondary"
                     android:textSize="@dimen/_12ssp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@id/tvTitle"
                     app:layout_constraintTop_toBottomOf="@id/tvScore"
@@ -150,6 +154,7 @@
                     android:text='@{model.overview}'
                     android:textColor="@color/colorTextIcons"
                     android:textSize="@dimen/_11ssp"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/ivPoster"
                     tools:text="Overview" />
 
@@ -163,6 +168,7 @@
                     android:text="@string/read_more"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_12ssp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@id/tvOverview"
                     app:layout_constraintTop_toBottomOf="@id/tvOverview" />
 
@@ -178,6 +184,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/bg_favorite"
+            android:padding="@dimen/_8sdp"
+            android:visibility="gone"
+            android:src="@drawable/ic_favorite"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/colorTextIcons"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

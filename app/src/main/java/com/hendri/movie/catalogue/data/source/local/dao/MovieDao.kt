@@ -9,7 +9,7 @@ import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailGenreMovieEntity
-import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.*
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
@@ -25,7 +25,7 @@ abstract class MovieDao : BaseDao<MovieResponseEntity, MovieEntity,
 
     companion object {
         private fun query(q: String, isFavorite: Boolean = false) =
-            "SELECT * FROM MovieResultEntity ${if (isFavorite) "WHERE isFavorite = 1" else ""} ORDER BY $q ASC"
+            "SELECT * FROM MovieEntity ${if (isFavorite) "WHERE isFavorite = 1" else ""} ORDER BY $q ASC"
 
         val SORT_BY_NAME = SimpleSQLiteQuery(query("title"))
         val SORT_BY_RELEASE = SimpleSQLiteQuery(query("release_date"))
@@ -53,7 +53,7 @@ abstract class MovieDao : BaseDao<MovieResponseEntity, MovieEntity,
 
     @Transaction
     @Query("SELECT * FROM DetailMovieResponseEntity WHERE pk_movie_detail_response=:id")
-    abstract fun liveDetailMovie(id: Int): LiveData<DetailMovieRelation>
+    abstract fun liveDetailMovie(id: Int): LiveData<DetailMovieWithGenre>
 
     @Transaction
     @RawQuery(observedEntities = [MovieWithGenre::class])

@@ -69,11 +69,15 @@ class FavoriteMovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener
                 binding.isLoading = false
             }
             is Resource.Error -> {
+                binding.isLoading = false
                 findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                binding.isLoading = true
-                Toast.makeText(requireContext(), resource.errorMessage, Toast.LENGTH_SHORT).show()
+                activity?.toast(resource.errorMessage)
             }
         }
+    }
+
+    private fun Context.toast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClick(model: Movie) {

@@ -9,7 +9,7 @@ import androidx.room.Transaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailGenreTvShowEntity
-import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.*
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
@@ -50,7 +50,7 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
 
     @Transaction
     @Query("SELECT * FROM DetailTvShowResponseEntity WHERE pk_id_tv_detail_response=:id")
-    abstract fun liveDetailTvShow(id: Int): LiveData<DetailTvShowRelation>
+    abstract fun liveDetailTvShow(id: Int): LiveData<DetailTvShowWithGenre>
 
     @Query("SELECT * FROM DetailTvShowResponseEntity WHERE pk_id_tv_detail_response=:id")
     abstract fun detailTvShow(id: Int): DetailTvShowResponseEntity

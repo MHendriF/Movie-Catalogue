@@ -1,9 +1,9 @@
 package com.hendri.movie.catalogue.utils
 
 import com.hendri.movie.catalogue.data.model.*
-import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieResponseEntity
-import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieWithGenre
@@ -81,7 +81,7 @@ object DataMapper {
         )
     }
 
-    fun movieDetailToMovieDetailModel(movieDetail: DetailMovieRelation?) =
+    fun movieDetailToMovieDetailModel(movieDetail: DetailMovieWithGenre?) =
         movieDetail?.run {
             DetailMovie(
                 isFavorite = movieDetailResponseEntity.isFavorite,
@@ -109,7 +109,7 @@ object DataMapper {
             )
         }
 
-    fun tvDetailToTvDetailModel(tvDetail: DetailTvShowRelation?) =
+    fun tvDetailToTvDetailModel(tvDetail: DetailTvShowWithGenre?) =
         tvDetail?.run {
             DetailTvShow(
                 isFavorite = tvDetailResponseEntity.isFavorite,

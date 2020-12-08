@@ -1,6 +1,7 @@
 package com.hendri.movie.catalogue.data.source.local.entity.detail.movie
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
@@ -18,14 +19,15 @@ import kotlinx.android.parcel.Parcelize
 
 data class DetailGenreMovieEntity(
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     @ColumnInfo(name = "pk_movie_detail_genre")
     val pk: Long? = null,
 
-    val genre_code: Int,
-
+    @NonNull
     @ColumnInfo(name = FOREIGN_KEY)
     val fk: Long,
 
+    val genre_code: Int,
     val name: String
 ) : Parcelable {
     companion object {

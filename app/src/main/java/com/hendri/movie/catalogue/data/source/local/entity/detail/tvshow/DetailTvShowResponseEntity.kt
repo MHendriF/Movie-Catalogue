@@ -1,6 +1,7 @@
 package com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class DetailTvShowResponseEntity(
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = PK)
     val pk: Int,
     var isFavorite: Boolean = false,

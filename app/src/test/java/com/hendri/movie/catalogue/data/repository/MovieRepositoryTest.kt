@@ -7,14 +7,13 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.local.MovieDataSource
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailGenreMovieEntity
-import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.movie.MovieWithGenre
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.utils.Executors
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -67,7 +66,7 @@ class MovieRepositoryTest{
         val entity = DetailMovieResponseEntity(pk)
         val genre = listOf(DetailGenreMovieEntity(102, 19, 10, "test"))
 
-        Mockito.`when`(local.getDetail(pk)).thenReturn(MutableLiveData(DetailMovieRelation(entity, genre)))
+        Mockito.`when`(local.getDetail(pk)).thenReturn(MutableLiveData(DetailMovieWithGenre(entity, genre)))
 
         val resource = LiveDataTestUtil.getValue(repository.getDetail(pk))
         verify(local).getDetail(pk)

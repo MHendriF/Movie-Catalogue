@@ -3,6 +3,7 @@ package com.hendri.movie.catalogue.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.hendri.movie.catalogue.R
@@ -11,6 +12,7 @@ import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.databinding.FragmentDetailMovieBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
 
@@ -31,16 +33,19 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
             is Resource.Success -> {
                 binding.isLoading = false
                 resource.data.let { data ->
-                    binding.model = data
-                    binding.tvReadMore.setOnClickListener {
-                        if (binding.tvReadMore.text.toString() == "Read More") {
-                            binding.tvOverview.maxLines = Int.MAX_VALUE
-                            binding.tvOverview.ellipsize = null
-                            binding.tvReadMore.setText(R.string.read_less)
-                        } else {
-                            binding.tvOverview.maxLines = 4
-                            binding.tvOverview.ellipsize = TextUtils.TruncateAt.END
-                            binding.tvReadMore.setText(R.string.read_more)
+                    visibleContent()
+                    with(binding) {
+                        model = data
+                        tvReadMore.setOnClickListener {
+                            if (tvReadMore.text.toString() == "Read More") {
+                                tvOverview.maxLines = Int.MAX_VALUE
+                                tvOverview.ellipsize = null
+                                tvReadMore.setText(R.string.read_less)
+                            } else {
+                                tvOverview.maxLines = 4
+                                tvOverview.ellipsize = TextUtils.TruncateAt.END
+                                tvReadMore.setText(R.string.read_more)
+                            }
                         }
                     }
                 }
@@ -55,4 +60,19 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
     private fun Context.toast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun visibleContent() {
+        with(binding) {
+            ivBackground.visibility = View.VISIBLE
+            ivPoster.visibility = View.VISIBLE
+            tvTitle.visibility = View.VISIBLE
+            tvOverview.visibility = View.VISIBLE
+            tvGenre.visibility = View.VISIBLE
+            tvReleaseDate.visibility = View.VISIBLE
+            tvScore.visibility = View.VISIBLE
+            tvReadMore.visibility = View.VISIBLE
+            ivFavorite.visibility = View.VISIBLE
+        }
+    }
+
 }

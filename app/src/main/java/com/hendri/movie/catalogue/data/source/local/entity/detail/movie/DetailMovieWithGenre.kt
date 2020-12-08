@@ -3,7 +3,7 @@ package com.hendri.movie.catalogue.data.source.local.entity.detail.movie
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class DetailMovieRelation (
+data class DetailMovieWithGenre (
     @Embedded
     val movieDetailResponseEntity: DetailMovieResponseEntity,
 

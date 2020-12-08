@@ -32,13 +32,13 @@ import com.hendri.movie.catalogue.utils.Constants
         DetailTvShowResponseEntity::class,
         DetailGenreTvShowEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun tvShowDao(): TvShowDao
     abstract fun movieDao(): MovieDao
+    abstract fun tvShowDao(): TvShowDao
 
     companion object {
         @Volatile

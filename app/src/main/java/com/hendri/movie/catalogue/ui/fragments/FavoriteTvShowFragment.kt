@@ -67,11 +67,15 @@ class FavoriteTvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListen
                 resource.data.let { adapter.submitList(it) }
             }
             is Resource.Error -> {
-                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
                 binding.isLoading = false
-                Toast.makeText(requireContext(), resource.errorMessage, Toast.LENGTH_SHORT).show()
+                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                activity?.toast(resource.errorMessage)
             }
         }
+    }
+
+    private fun Context.toast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClick(model: TvShow) {

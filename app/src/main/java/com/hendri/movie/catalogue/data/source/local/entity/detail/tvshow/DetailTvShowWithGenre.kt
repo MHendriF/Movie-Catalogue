@@ -6,7 +6,7 @@ import androidx.room.Relation
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class DetailTvShowRelation(
+data class DetailTvShowWithGenre(
     @Embedded
     val tvDetailResponseEntity: DetailTvShowResponseEntity,
 

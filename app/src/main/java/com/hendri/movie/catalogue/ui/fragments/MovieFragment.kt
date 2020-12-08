@@ -1,10 +1,9 @@
 package com.hendri.movie.catalogue.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.paging.PagedList
@@ -13,7 +12,6 @@ import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
 import com.hendri.movie.catalogue.data.Resource
-import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
 import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
@@ -34,18 +32,19 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<Movie> 
 
     override val layoutFragment: Int = R.layout.fragment_movie
 
+    override fun onAttach(context: Context) {
+        (requireActivity().application as MyApp).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        (requireActivity().application as MyApp).appComponent.inject(this)
-
         adapter = MovieAdapter().apply {
-            setHasStableIds(true)
             onItemListener = this@MovieFragment
             binding.rvMovie.setHasFixedSize(true)
             binding.rvMovie.adapter = this
         }
-
         viewModel.movie.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
@@ -58,12 +57,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<Movie> 
                 resource.data.let { data -> adapter.submitList(data) }
             }
             is Resource.Error -> {
-                Timber.e("handleStat: error")
-                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
                 binding.isLoading = false
-                Toast.makeText(requireContext(), resource.errorMessage, Toast.LENGTH_SHORT).show()
+                Timber.e("handleStat:  %s", resource.errorMessage)
+                findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                activity?.toast(resource.errorMessage)
             }
         }
+    }
+
+    private fun Context.toast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClick(model: Movie) {

@@ -7,14 +7,13 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.hendri.movie.catalogue.data.Resource
 import com.hendri.movie.catalogue.data.source.local.TvShowDataSource
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailGenreTvShowEntity
-import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowRelation
+import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowWithGenre
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowResponseEntity
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.TvShowWithGenre
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
 import com.hendri.movie.catalogue.utils.Executors
 import com.hendri.movie.catalogue.utils.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -67,7 +66,7 @@ class TvShowRepositoryTest {
         val entity = DetailTvShowResponseEntity(pk)
         val genre = listOf(DetailGenreTvShowEntity(102, 19, 10, "test"))
 
-        Mockito.`when`(local.getDetail(pk)).thenReturn(MutableLiveData(DetailTvShowRelation(entity, genre)))
+        Mockito.`when`(local.getDetail(pk)).thenReturn(MutableLiveData(DetailTvShowWithGenre(entity, genre)))
 
         val resource = LiveDataTestUtil.getValue(repository.getDetail(pk))
         verify(local).getDetail(pk)
