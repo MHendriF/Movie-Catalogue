@@ -27,7 +27,7 @@ class TvShowRepositoryFake(
         object : NetworkBoundResource<PagedList<TvShow>, TvShowResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 val result = localData.getResultRawQuery(supportSQLiteQuery)
-                val convert = result?.mapByPage { DataMapper.listTvShowWithGenre(it) }
+                val convert = result?.mapByPage { DataMapper.listTvShowWithGenreToTvShows(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, Utils.config()).build()
                 } ?: MutableLiveData()
@@ -42,9 +42,7 @@ class TvShowRepositoryFake(
     override fun getDetail(id: Int) =
         object : NetworkBoundResource<DetailTvShow, DetailTvShowResponse>(executors) {
             override fun loadFromDB(): LiveData<DetailTvShow> =
-                Transformations.map(localData.getDetail(id)) {
-                    DataMapper.tvDetailToTvDetailModel(it)
-                }
+                Transformations.map(localData.getDetail(id)) { DataMapper.detailTvShowWithGenreToDetailTvShow(it) }
             override fun shouldFetch(data: DetailTvShow?) = data == null
             override fun createCall(): LiveData<ApiResponse<DetailTvShowResponse>> = remoteData.getTvShowById(id)
             override fun saveCallResult(data: DetailTvShowResponse) = localData.insertDetailResponse(data)
@@ -54,7 +52,7 @@ class TvShowRepositoryFake(
         object : NetworkBoundResource<PagedList<TvShow>, TvShowResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 val result = localData.getFavorite(supportSQLiteQuery)
-                val convert = result?.mapByPage { DataMapper.listTvShowWithGenre(it) }
+                val convert = result?.mapByPage { DataMapper.listTvShowWithGenreToTvShows(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, Utils.config()).build()
                 } ?: MutableLiveData()

@@ -8,11 +8,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class DetailTvShowWithGenre(
     @Embedded
-    val tvDetailResponseEntity: DetailTvShowResponseEntity,
+    val entity: DetailTvShowResponseEntity,
 
     @Relation(
-        parentColumn = DetailTvShowResponseEntity.PK,
-        entityColumn = DetailGenreTvShowEntity.FK,
+        parentColumn = DetailTvShowResponseEntity.PRIMARY_KEY,
+        entityColumn = DetailGenreTvShowEntity.FOREIGN_KEY,
         entity = DetailGenreTvShowEntity::class
     )
     val genre: List<DetailGenreTvShowEntity>

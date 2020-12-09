@@ -18,224 +18,207 @@ import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 
 object DataMapper {
 
-    fun listMovieWithGenre(list: MutableList<MovieWithGenre>?): List<Movie> {
-        val listResult = mutableListOf<Movie>()
+    fun listMovieWithGenreToMovies(list: MutableList<MovieWithGenre>?): List<Movie> {
+        val results = mutableListOf<Movie>()
         list?.forEach {
-            listResult.add(Movie(
-                vote_average = it.movieEntity.vote_average,
-                video = it.movieEntity.video,
-                popularity = it.movieEntity.popularity,
-                vote_count = it.movieEntity.vote_count,
-                poster_path = it.movieEntity.poster_path,
-                original_title = it.movieEntity.original_title,
-                overview = it.movieEntity.overview,
-                release_date = it.movieEntity.release_date,
-                title = it.movieEntity.title,
-                original_language = it.movieEntity.original_language,
-                backdrop_path = it.movieEntity.backdrop_path,
-                id = it.movieEntity.pk,
-                adult = it.movieEntity.adult,
+            results.add(Movie(
+                vote_average = it.entity.vote_average,
+                video = it.entity.video,
+                popularity = it.entity.popularity,
+                vote_count = it.entity.vote_count,
+                poster_path = it.entity.poster_path,
+                original_title = it.entity.original_title,
+                overview = it.entity.overview,
+                release_date = it.entity.release_date,
+                title = it.entity.title,
+                original_language = it.entity.original_language,
+                backdrop_path = it.entity.backdrop_path,
+                id = it.entity.pk,
+                adult = it.entity.adult,
                 genre_ids = it.genreIds.map { genreIds -> genreIds.genre }
             ))
         }
-        return listResult
+        return results
     }
 
-    fun listTvShowWithGenre(list: MutableList<TvShowWithGenre>?): List<TvShow> {
-        val listResult = mutableListOf<TvShow>()
+    fun listTvShowWithGenreToTvShows(list: MutableList<TvShowWithGenre>?): List<TvShow> {
+        val results = mutableListOf<TvShow>()
         list?.forEach {
-            listResult.add(
+            results.add(
                 TvShow(
-                    vote_average = it.tvShowEntity.vote_average,
-                    popularity = it.tvShowEntity.popularity,
-                    vote_count = it.tvShowEntity.vote_count,
-                    poster_path = it.tvShowEntity.poster_path,
-                    overview = it.tvShowEntity.overview,
-                    original_language = it.tvShowEntity.original_language,
-                    backdrop_path = it.tvShowEntity.backdrop_path,
+                    vote_average = it.entity.vote_average,
+                    popularity = it.entity.popularity,
+                    vote_count = it.entity.vote_count,
+                    poster_path = it.entity.poster_path,
+                    overview = it.entity.overview,
+                    original_language = it.entity.original_language,
+                    backdrop_path = it.entity.backdrop_path,
                     genre_ids = it.genreIds.map { genreIds -> genreIds.genre },
-                    name = it.tvShowEntity.name,
-                    first_air_date = it.tvShowEntity.first_air_date,
-                    original_name = it.tvShowEntity.original_name,
-                    id = it.tvShowEntity.pk,
+                    name = it.entity.name,
+                    first_air_date = it.entity.first_air_date,
+                    original_name = it.entity.original_name,
+                    id = it.entity.pk,
                 )
             )
         }
-        return listResult
+        return results
     }
 
-    fun tvResultToTvShow(TvShowWithGenre: TvShowWithGenre): TvShow {
-        return TvShow(
-            vote_average = TvShowWithGenre.tvShowEntity.vote_average,
-            popularity = TvShowWithGenre.tvShowEntity.popularity,
-            vote_count = TvShowWithGenre.tvShowEntity.vote_count,
-            poster_path = TvShowWithGenre.tvShowEntity.poster_path,
-            overview = TvShowWithGenre.tvShowEntity.overview,
-            original_language = TvShowWithGenre.tvShowEntity.original_language,
-            backdrop_path = TvShowWithGenre.tvShowEntity.backdrop_path,
-            genre_ids = TvShowWithGenre.genreIds.map { genreIds -> genreIds.genre },
-            name = TvShowWithGenre.tvShowEntity.name,
-            first_air_date = TvShowWithGenre.tvShowEntity.first_air_date,
-            original_name = TvShowWithGenre.tvShowEntity.original_name,
-            id = TvShowWithGenre.tvShowEntity.pk
-        )
-    }
-
-    fun movieDetailToMovieDetailModel(movieDetail: DetailMovieWithGenre?) =
-        movieDetail?.run {
+    fun detailMovieWithGenreToDetailMovie(data: DetailMovieWithGenre?) =
+        data?.run {
             DetailMovie(
-                isFavorite = movieDetailResponseEntity.isFavorite,
-                id = movieDetailResponseEntity.pk,
-                backdrop_path = movieDetailResponseEntity.backdrop_path,
-                adult = movieDetailResponseEntity.adult,
-                original_language = movieDetailResponseEntity.original_language,
-                title = movieDetailResponseEntity.title,
-                release_date = movieDetailResponseEntity.release_date,
-                overview = movieDetailResponseEntity.overview,
-                original_title = movieDetailResponseEntity.original_title,
-                poster_path = movieDetailResponseEntity.poster_path,
-                vote_count = movieDetailResponseEntity.vote_count,
-                popularity = movieDetailResponseEntity.popularity,
-                video = movieDetailResponseEntity.video,
-                vote_average = movieDetailResponseEntity.vote_average,
-                tagline = movieDetailResponseEntity.tagline,
-                status = movieDetailResponseEntity.status,
-                runtime = movieDetailResponseEntity.runtime,
-                revenue = movieDetailResponseEntity.revenue,
-                imdb_id = movieDetailResponseEntity.imdb_id,
-                homepage = movieDetailResponseEntity.homepage,
-                budget = movieDetailResponseEntity.budget,
+                isFavorite = entity.isFavorite,
+                id = entity.pk,
+                backdrop_path = entity.backdrop_path,
+                adult = entity.adult,
+                original_language = entity.original_language,
+                title = entity.title,
+                release_date = entity.release_date,
+                overview = entity.overview,
+                original_title = entity.original_title,
+                poster_path = entity.poster_path,
+                vote_count = entity.vote_count,
+                popularity = entity.popularity,
+                video = entity.video,
+                vote_average = entity.vote_average,
+                tagline = entity.tagline,
+                status = entity.status,
+                runtime = entity.runtime,
+                revenue = entity.revenue,
+                imdb_id = entity.imdb_id,
+                homepage = entity.homepage,
+                budget = entity.budget,
                 genres = genre.map { Genre(it.genre_code, it.name) }
             )
         }
 
-    fun tvDetailToTvDetailModel(tvDetail: DetailTvShowWithGenre?) =
-        tvDetail?.run {
+    fun detailTvShowWithGenreToDetailTvShow(data: DetailTvShowWithGenre?) =
+        data?.run {
             DetailTvShow(
-                isFavorite = tvDetailResponseEntity.isFavorite,
-                id = tvDetailResponseEntity.pk,
-                backdrop_path = tvDetailResponseEntity.backdrop_path,
-                original_language = tvDetailResponseEntity.original_language,
-                overview = tvDetailResponseEntity.overview,
-                poster_path = tvDetailResponseEntity.poster_path,
-                vote_count = tvDetailResponseEntity.vote_count,
-                popularity = tvDetailResponseEntity.popularity,
-                vote_average = tvDetailResponseEntity.vote_average,
-                status = tvDetailResponseEntity.status,
-                homepage = tvDetailResponseEntity.homepage,
+                isFavorite = entity.isFavorite,
+                id = entity.pk,
+                backdrop_path = entity.backdrop_path,
+                original_language = entity.original_language,
+                overview = entity.overview,
+                poster_path = entity.poster_path,
+                vote_count = entity.vote_count,
+                popularity = entity.popularity,
+                vote_average = entity.vote_average,
+                status = entity.status,
+                homepage = entity.homepage,
                 genres = genre.map { Genre(it.genre_code, it.name) },
-                name = tvDetailResponseEntity.name,
-                first_air_date = tvDetailResponseEntity.first_air_date,
-                original_name = tvDetailResponseEntity.original_name,
-                in_production = tvDetailResponseEntity.in_production,
-                last_air_date = tvDetailResponseEntity.last_air_date,
-                number_of_episodes = tvDetailResponseEntity.number_of_episodes,
-                number_of_seasons = tvDetailResponseEntity.number_of_seasons,
-                type = tvDetailResponseEntity.type
+                name = entity.name,
+                first_air_date = entity.first_air_date,
+                original_name = entity.original_name,
+                in_production = entity.in_production,
+                last_air_date = entity.last_air_date,
+                number_of_episodes = entity.number_of_episodes,
+                number_of_seasons = entity.number_of_seasons,
+                type = entity.type
             )
         }
 
-    fun movieResponseToMovieResponseEntity(movieResponse: MovieResponse): MovieResponseEntity {
+    fun movieResponseToEntity(response: MovieResponse): MovieResponseEntity {
         return MovieResponseEntity(
-            page = movieResponse.page,
-            total_results = movieResponse.total_results,
-            total_pages = movieResponse.total_pages
+            page = response.page,
+            total_results = response.total_results,
+            total_pages = response.total_pages
         )
     }
 
-    fun movieResultToMovieEntity(
+    fun tvShowResponseToEntity(response: TvShowResponse): TvShowResponseEntity {
+        return TvShowResponseEntity(
+            page = response.page,
+            total_results = response.total_results,
+            total_pages = response.total_pages
+        )
+    }
+
+    fun movieToEntity(
         idInsertResponse: Long,
-        movieResult: Movie
+        model: Movie
     ): MovieEntity {
         return MovieEntity(
             fk = idInsertResponse,
-            pk = movieResult.id,
-            popularity = movieResult.popularity,
-            vote_count = movieResult.vote_count,
-            poster_path = movieResult.poster_path,
-            backdrop_path = movieResult.backdrop_path,
-            original_language = movieResult.original_language,
-            original_title = movieResult.original_title,
-            title = movieResult.title,
-            vote_average = movieResult.vote_average,
-            overview = movieResult.overview,
-            release_date = movieResult.release_date
+            pk = model.id,
+            popularity = model.popularity,
+            vote_count = model.vote_count,
+            poster_path = model.poster_path,
+            backdrop_path = model.backdrop_path,
+            original_language = model.original_language,
+            original_title = model.original_title,
+            title = model.title,
+            vote_average = model.vote_average,
+            overview = model.overview,
+            release_date = model.release_date
         )
     }
 
-    fun movieDetailResponseToMovieDetailResponseEntity(movieDetailResponse: DetailMovieResponse): DetailMovieResponseEntity {
-        return DetailMovieResponseEntity(
-            pk = movieDetailResponse.id,
-            adult = movieDetailResponse.adult,
-            backdrop_path = movieDetailResponse.backdrop_path,
-            budget = movieDetailResponse.budget,
-            homepage = movieDetailResponse.homepage,
-            imdb_id = movieDetailResponse.imdb_id,
-            original_language = movieDetailResponse.original_language,
-            title = movieDetailResponse.title,
-            release_date = movieDetailResponse.release_date,
-            overview = movieDetailResponse.overview,
-            vote_average = movieDetailResponse.vote_average,
-            original_title = movieDetailResponse.original_title,
-            poster_path = movieDetailResponse.poster_path,
-            vote_count = movieDetailResponse.vote_count,
-            popularity = movieDetailResponse.popularity,
-            revenue = movieDetailResponse.revenue,
-            runtime = movieDetailResponse.runtime,
-            status = movieDetailResponse.status,
-            tagline = movieDetailResponse.tagline,
-            video = movieDetailResponse.video
-        )
-    }
-
-    fun tvResponseToTvShowResponseEntity(tvResponse: TvShowResponse): TvShowResponseEntity {
-        return TvShowResponseEntity(
-            page = tvResponse.page,
-            total_results = tvResponse.total_results,
-            total_pages = tvResponse.total_pages
-        )
-    }
-
-    fun tvResultToTvShowEntity(
+    fun tvShowToEntity(
         idInsertResponse: Long,
-        TvShow: TvShow
+        model: TvShow
     ): TvShowEntity {
         return TvShowEntity(
-            pk = TvShow.id,
+            pk = model.id,
             fk = idInsertResponse,
-            popularity = TvShow.popularity,
-            vote_count = TvShow.vote_count,
-            poster_path = TvShow.poster_path,
-            backdrop_path = TvShow.backdrop_path,
-            original_language = TvShow.original_language,
-            vote_average = TvShow.vote_average,
-            overview = TvShow.overview,
-            original_name = TvShow.name,
-            first_air_date = TvShow.first_air_date,
-            name = TvShow.name
+            popularity = model.popularity,
+            vote_count = model.vote_count,
+            poster_path = model.poster_path,
+            backdrop_path = model.backdrop_path,
+            original_language = model.original_language,
+            vote_average = model.vote_average,
+            overview = model.overview,
+            original_name = model.name,
+            first_air_date = model.first_air_date,
+            name = model.name
         )
     }
 
-    fun tvDetailResponseToTvDetailEntity(tvDetailResponse: DetailTvShowResponse): DetailTvShowResponseEntity {
+    fun detailMovieResponseToEntity(response: DetailMovieResponse): DetailMovieResponseEntity {
+        return DetailMovieResponseEntity(
+            pk = response.id,
+            adult = response.adult,
+            backdrop_path = response.backdrop_path,
+            budget = response.budget,
+            homepage = response.homepage,
+            imdb_id = response.imdb_id,
+            original_language = response.original_language,
+            title = response.title,
+            release_date = response.release_date,
+            overview = response.overview,
+            vote_average = response.vote_average,
+            original_title = response.original_title,
+            poster_path = response.poster_path,
+            vote_count = response.vote_count,
+            popularity = response.popularity,
+            revenue = response.revenue,
+            runtime = response.runtime,
+            status = response.status,
+            tagline = response.tagline,
+            video = response.video
+        )
+    }
+
+    fun detailTvShowResponseToEntity(response: DetailTvShowResponse): DetailTvShowResponseEntity {
         return DetailTvShowResponseEntity(
-            pk = tvDetailResponse.id,
-            backdrop_path = tvDetailResponse.backdrop_path,
-            homepage = tvDetailResponse.homepage,
-            original_language = tvDetailResponse.original_language,
-            overview = tvDetailResponse.overview,
-            vote_average = tvDetailResponse.vote_average,
-            poster_path = tvDetailResponse.poster_path,
-            vote_count = tvDetailResponse.vote_count,
-            popularity = tvDetailResponse.popularity,
-            status = tvDetailResponse.status,
-            type = tvDetailResponse.type,
-            number_of_seasons = tvDetailResponse.number_of_seasons,
-            number_of_episodes = tvDetailResponse.number_of_episodes,
-            last_air_date = tvDetailResponse.last_air_date,
-            in_production = tvDetailResponse.in_production,
-            original_name = tvDetailResponse.original_name,
-            first_air_date = tvDetailResponse.first_air_date,
-            name = tvDetailResponse.name,
+            pk = response.id,
+            backdrop_path = response.backdrop_path,
+            homepage = response.homepage,
+            original_language = response.original_language,
+            overview = response.overview,
+            vote_average = response.vote_average,
+            poster_path = response.poster_path,
+            vote_count = response.vote_count,
+            popularity = response.popularity,
+            status = response.status,
+            type = response.type,
+            number_of_seasons = response.number_of_seasons,
+            number_of_episodes = response.number_of_episodes,
+            last_air_date = response.last_air_date,
+            in_production = response.in_production,
+            original_name = response.original_name,
+            first_air_date = response.first_air_date,
+            name = response.name,
         )
     }
 }

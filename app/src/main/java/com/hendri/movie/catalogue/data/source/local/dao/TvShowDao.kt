@@ -14,9 +14,9 @@ import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailT
 import com.hendri.movie.catalogue.data.source.local.entity.discover.tvshow.*
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
-import com.hendri.movie.catalogue.utils.DataMapper.tvDetailResponseToTvDetailEntity
-import com.hendri.movie.catalogue.utils.DataMapper.tvResponseToTvShowResponseEntity
-import com.hendri.movie.catalogue.utils.DataMapper.tvResultToTvShowEntity
+import com.hendri.movie.catalogue.utils.DataMapper.detailTvShowResponseToEntity
+import com.hendri.movie.catalogue.utils.DataMapper.tvShowResponseToEntity
+import com.hendri.movie.catalogue.utils.DataMapper.tvShowToEntity
 
 @Dao
 abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
@@ -49,10 +49,10 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
     abstract fun tvShow(id: Int): TvShowEntity
 
     @Transaction
-    @Query("SELECT * FROM DetailTvShowResponseEntity WHERE pk_id_tv_detail_response=:id")
+    @Query("SELECT * FROM DetailTvShowResponseEntity WHERE id_detail_tv_show_response=:id")
     abstract fun liveDetailTvShow(id: Int): LiveData<DetailTvShowWithGenre>
 
-    @Query("SELECT * FROM DetailTvShowResponseEntity WHERE pk_id_tv_detail_response=:id")
+    @Query("SELECT * FROM DetailTvShowResponseEntity WHERE id_detail_tv_show_response=:id")
     abstract fun detailTvShow(id: Int): DetailTvShowResponseEntity
 
     @Transaction
@@ -60,9 +60,9 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
     abstract fun pageTvShowFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowWithGenre>?
 
     fun insertTvShow(response: TvShowResponse) {
-        val fk = insertResponse(tvResponseToTvShowResponseEntity(response))
+        val fk = insertResponse(tvShowResponseToEntity(response))
         for (item in response.results) {
-            val idInsertTvResult = insertResult(tvResultToTvShowEntity(fk, item))
+            val idInsertTvResult = insertResult(tvShowToEntity(fk, item))
             item.genre_ids.forEach {
                 insertGenre(GenreTvShowEntity(fk = idInsertTvResult, genre = it))
             }
@@ -70,7 +70,7 @@ abstract class TvShowDao : BaseDao<TvShowResponseEntity, TvShowEntity,
     }
 
     fun insertDetailTvShow(response: DetailTvShowResponse) {
-        val fk = insertDetailResponse(tvDetailResponseToTvDetailEntity(response))
+        val fk = insertDetailResponse(detailTvShowResponseToEntity(response))
         response.genres.forEach {
             insertDetailGenre(
                 DetailGenreTvShowEntity(

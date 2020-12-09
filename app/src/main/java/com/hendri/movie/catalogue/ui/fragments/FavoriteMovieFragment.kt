@@ -3,17 +3,15 @@ package com.hendri.movie.catalogue.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
@@ -71,7 +69,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener
                 is Resource.Error -> {
                     isLoading = false
                     findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                    activity?.toast(resource.errorMessage)
+                    activity?.toast(resource.message)
                 }
             }
         }

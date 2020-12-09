@@ -6,7 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.hendri.movie.catalogue.data.repository.Utils.config
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 
 interface IMainRepository<DataResultModel, DataDetailModel> {
     fun <T> toLiveData(dataSourceFactory: () -> DataSource.Factory<Int, T>): LiveData<PagedList<T>> {

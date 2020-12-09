@@ -8,11 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.databinding.FragmentDetailMovieBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
-import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
 
@@ -47,11 +46,14 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
                                 tvReadMore.setText(R.string.read_more)
                             }
                         }
+                        ivFavorite.setOnClickListener {
+                            activity?.toast(data.title.toString())
+                        }
                     }
                 }
                 is Resource.Error -> {
                     isLoading = false
-                    activity?.toast(resource.errorMessage)
+                    activity?.toast(resource.message)
                 }
             }
         }

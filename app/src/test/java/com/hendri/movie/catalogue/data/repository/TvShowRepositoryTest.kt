@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.source.local.TvShowDataSource
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailGenreTvShowEntity
 import com.hendri.movie.catalogue.data.source.local.entity.detail.tvshow.DetailTvShowWithGenre
@@ -49,7 +49,7 @@ class TvShowRepositoryTest {
     }
 
     @Test
-    fun get_result() {
+    fun getTvShows() {
         val simpleSQLiteQuery = SimpleSQLiteQuery("")
 
         Mockito.`when`(local.getResultRawQuery(simpleSQLiteQuery)).thenReturn(dataSourceFactory)
@@ -61,7 +61,7 @@ class TvShowRepositoryTest {
     }
 
     @Test
-    fun get_detail() {
+    fun getDetailTvShow() {
         val pk = 100
         val entity = DetailTvShowResponseEntity(pk)
         val genre = listOf(DetailGenreTvShowEntity(102, 19, 10, "test"))
@@ -81,7 +81,7 @@ class TvShowRepositoryTest {
     }
 
     @Test
-    fun get_favorite() {
+    fun getFavoriteTvShows() {
         val simpleSQLiteQuery = SimpleSQLiteQuery("")
 
         Mockito.`when`(local.getFavorite(simpleSQLiteQuery)).thenReturn(dataSourceFactory)

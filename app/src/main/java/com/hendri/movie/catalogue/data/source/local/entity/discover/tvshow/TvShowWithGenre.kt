@@ -5,11 +5,11 @@ import androidx.room.Relation
 
 data class TvShowWithGenre(
     @Embedded
-    val tvShowEntity: TvShowEntity,
+    val entity: TvShowEntity,
 
     @Relation(
-        parentColumn = TvShowEntity.ID_TV_SHOW,
-        entityColumn = GenreTvShowEntity.FOREIGN_KEY_TV_SHOW_GENRE,
+        parentColumn = TvShowEntity.PRIMARY_KEY,
+        entityColumn = GenreTvShowEntity.FOREIGN_KEY,
         entity = GenreTvShowEntity::class
     )
     val genreIds: List<GenreTvShowEntity>

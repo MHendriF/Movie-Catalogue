@@ -5,10 +5,10 @@ import androidx.room.Relation
 
 data class DetailMovieWithGenre (
     @Embedded
-    val movieDetailResponseEntity: DetailMovieResponseEntity,
+    val entity: DetailMovieResponseEntity,
 
     @Relation(
-        parentColumn = DetailMovieResponseEntity.PK,
+        parentColumn = DetailMovieResponseEntity.PRIMARY_KEY,
         entityColumn = DetailGenreMovieEntity.FOREIGN_KEY,
         entity = DetailGenreMovieEntity::class
     )

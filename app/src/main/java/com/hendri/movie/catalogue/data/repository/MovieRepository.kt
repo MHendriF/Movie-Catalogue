@@ -7,7 +7,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.hendri.movie.catalogue.data.NetworkBoundResource
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.data.source.local.MovieDataSource
 import com.hendri.movie.catalogue.data.source.remote.RemoteDataSource
@@ -16,8 +16,8 @@ import com.hendri.movie.catalogue.data.repository.Utils.config
 import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse
 import com.hendri.movie.catalogue.data.source.remote.response.DetailMovieResponse
 import com.hendri.movie.catalogue.data.source.remote.response.MovieResponse
-import com.hendri.movie.catalogue.utils.DataMapper.listMovieWithGenre
-import com.hendri.movie.catalogue.utils.DataMapper.movieDetailToMovieDetailModel
+import com.hendri.movie.catalogue.utils.DataMapper.detailMovieWithGenreToDetailMovie
+import com.hendri.movie.catalogue.utils.DataMapper.listMovieWithGenreToMovies
 import com.hendri.movie.catalogue.utils.Executors
 
 class MovieRepository private constructor(
@@ -43,7 +43,7 @@ class MovieRepository private constructor(
             NetworkBoundResource<PagedList<Movie>, MovieResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 val result = localData.getResultRawQuery(supportSQLiteQuery)
-                val convert = result?.mapByPage { listMovieWithGenre(it) }
+                val convert = result?.mapByPage { listMovieWithGenreToMovies(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, config()).build()
                 } ?: MutableLiveData()
@@ -59,7 +59,7 @@ class MovieRepository private constructor(
     override fun getDetail(id: Int): LiveData<Resource<DetailMovie>> {
         return object : NetworkBoundResource<DetailMovie, DetailMovieResponse>(executors) {
             override fun loadFromDB(): LiveData<DetailMovie> =
-                Transformations.map(localData.getDetail(id)) { movieDetailToMovieDetailModel(it) }
+                Transformations.map(localData.getDetail(id)) { detailMovieWithGenreToDetailMovie(it) }
             override fun shouldFetch(data: DetailMovie?): Boolean = (data == null)
             override fun createCall(): LiveData<ApiResponse<DetailMovieResponse>> = remoteData.getMovieById(id)
             override fun saveCallResult(data: DetailMovieResponse) = localData.insertDetailResponse(data)
@@ -70,7 +70,7 @@ class MovieRepository private constructor(
         object : NetworkBoundResource<PagedList<Movie>, MovieResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 val result = localData.getFavorite(supportSQLiteQuery)
-                val convert = result?.mapByPage { listMovieWithGenre(it) }
+                val convert = result?.mapByPage { listMovieWithGenreToMovies(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, config()).build()
                 } ?: MutableLiveData()

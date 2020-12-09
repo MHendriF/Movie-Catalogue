@@ -18,7 +18,7 @@ import kotlinx.android.parcel.Parcelize
 data class MovieResponseEntity(
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = ID_MOVIE_RESPONSE)
+    @ColumnInfo(name = PRIMARY_KEY)
     val id_movie_response: Int? = null,
 
     val page: Int = 0,
@@ -29,6 +29,6 @@ data class MovieResponseEntity(
 
     ) : Parcelable {
     companion object {
-        const val ID_MOVIE_RESPONSE = "id_movie_response"
+        const val PRIMARY_KEY = "id_movie_response"
     }
 }

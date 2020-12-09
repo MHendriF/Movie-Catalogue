@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.paging.PagedList
@@ -12,7 +11,7 @@ import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
@@ -59,9 +58,9 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
                 }
                 is Resource.Error -> {
                     isLoading = false
-                    Timber.e("handleStat:  %s", resource.errorMessage)
+                    Timber.e("handleStat:  %s", resource.message)
                     findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                    activity?.toast(resource.errorMessage)
+                    activity?.toast(resource.message)
                 }
             }
         }

@@ -3,7 +3,7 @@ package com.hendri.movie.catalogue.ui.viewmodels
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.data.model.DetailTvShow
 import com.hendri.movie.catalogue.data.repository.MovieRepository

@@ -32,7 +32,7 @@ import com.hendri.movie.catalogue.utils.Constants
         DetailTvShowResponseEntity::class,
         DetailGenreTvShowEntity::class,
     ],
-    version = 4,
+    version = 6,
     exportSchema = false
 )
 

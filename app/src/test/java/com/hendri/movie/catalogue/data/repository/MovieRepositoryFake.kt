@@ -7,7 +7,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.hendri.movie.catalogue.data.NetworkBoundResource
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.DetailMovie
 import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.data.source.local.MovieDataSource
@@ -29,7 +29,7 @@ class MovieRepositoryFake(
             NetworkBoundResource<PagedList<Movie>, MovieResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 val result = localData.getResultRawQuery(supportSQLiteQuery)
-                val convert = result?.mapByPage { DataMapper.listMovieWithGenre(it) }
+                val convert = result?.mapByPage { DataMapper.listMovieWithGenreToMovies(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, Utils.config()).build()
                 } ?: MutableLiveData()
@@ -46,7 +46,7 @@ class MovieRepositoryFake(
         return object : NetworkBoundResource<DetailMovie, DetailMovieResponse>(executors) {
             override fun loadFromDB(): LiveData<DetailMovie> =
                 Transformations.map(localData.getDetail(id)) {
-                    DataMapper.movieDetailToMovieDetailModel(
+                    DataMapper.detailMovieWithGenreToDetailMovie(
                         it
                     )
                 }
@@ -60,7 +60,7 @@ class MovieRepositoryFake(
         object : NetworkBoundResource<PagedList<Movie>, MovieResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 val result = localData.getFavorite(supportSQLiteQuery)
-                val convert = result?.mapByPage { DataMapper.listMovieWithGenre(it) }
+                val convert = result?.mapByPage { DataMapper.listMovieWithGenreToMovies(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, Utils.config()).build()
                 } ?: MutableLiveData()

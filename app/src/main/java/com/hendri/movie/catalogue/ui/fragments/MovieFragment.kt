@@ -11,7 +11,7 @@ import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.base.adapter.ItemListener
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.databinding.FragmentMovieBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
@@ -59,9 +59,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<Movie> 
                 }
                 is Resource.Error -> {
                     isLoading = false
-                    Timber.e("handleStat:  %s", resource.errorMessage)
+                    Timber.e("handleStat:  %s", resource.message)
                     findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
-                    activity?.toast(resource.errorMessage)
+                    activity?.toast(resource.message)
                 }
             }
         }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse
 import com.hendri.movie.catalogue.utils.Executors
+import com.hendri.movie.catalogue.vo.Resource
 
 abstract class NetworkBoundResource<ResultType, RequestType>(private val executors: Executors) {
 
@@ -64,7 +65,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val executo
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        result.postValue(Resource.Error(response.errorMessage, newData))
+                        result.postValue(Resource.Error(response.message, newData))
                     }
                 }
             }

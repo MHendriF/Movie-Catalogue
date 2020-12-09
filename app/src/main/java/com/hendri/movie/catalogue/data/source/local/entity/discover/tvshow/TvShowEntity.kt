@@ -8,11 +8,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(
-    indices = [Index(value = [TvShowEntity.ID_TV_SHOW_FOREIGN])],
+    indices = [Index(value = [TvShowEntity.FOREIGN_KEY])],
     foreignKeys = [ForeignKey(
         entity = TvShowResponseEntity::class,
-        parentColumns = [TvShowResponseEntity.ID_TV_SHOW_RESPONSE],
-        childColumns = [TvShowEntity.ID_TV_SHOW_FOREIGN],
+        parentColumns = [TvShowResponseEntity.PRIMARY_KEY],
+        childColumns = [TvShowEntity.FOREIGN_KEY],
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE,
     )],
@@ -21,10 +21,12 @@ import kotlinx.android.parcel.Parcelize
 data class TvShowEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = ID_TV_SHOW)
+    @ColumnInfo(name = PRIMARY_KEY)
     val pk: Int,
-    @ColumnInfo(name = ID_TV_SHOW_FOREIGN)
+
+    @ColumnInfo(name = FOREIGN_KEY)
     val fk: Long,
+
     var isFavorite: Boolean = false,
     val original_name: String = "",
     val name: String = "",
@@ -38,7 +40,7 @@ data class TvShowEntity(
     val poster_path: String = ""
 ) : Parcelable {
     companion object {
-        const val ID_TV_SHOW_FOREIGN = "id_tv_show_foreign"
-        const val ID_TV_SHOW = "id_tv_show"
+        const val PRIMARY_KEY = "id_tv_show"
+        const val FOREIGN_KEY = "id_tv_show_foreign"
     }
 }

@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.hendri.movie.catalogue.data.Resource
-import com.hendri.movie.catalogue.data.Resource.*
+import com.hendri.movie.catalogue.vo.Resource
+import com.hendri.movie.catalogue.vo.Resource.*
 import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.data.model.TvShow
 import com.hendri.movie.catalogue.data.repository.MovieRepository

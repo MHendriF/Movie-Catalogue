@@ -16,7 +16,7 @@ import com.hendri.movie.catalogue.data.source.remote.network.ApiResponse
 import com.hendri.movie.catalogue.data.source.remote.response.DetailTvShowResponse
 import com.hendri.movie.catalogue.data.source.remote.response.TvShowResponse
 import com.hendri.movie.catalogue.utils.DataMapper
-import com.hendri.movie.catalogue.utils.DataMapper.listTvShowWithGenre
+import com.hendri.movie.catalogue.utils.DataMapper.listTvShowWithGenreToTvShows
 import com.hendri.movie.catalogue.utils.Executors
 
 class TvShowRepository private constructor(
@@ -41,7 +41,7 @@ class TvShowRepository private constructor(
         object : NetworkBoundResource<PagedList<TvShow>, TvShowResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 val result = localData.getResultRawQuery(supportSQLiteQuery)
-                val convert = result?.mapByPage { listTvShowWithGenre(it) }
+                val convert = result?.mapByPage { listTvShowWithGenreToTvShows(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, config()).build()
                 } ?: MutableLiveData()
@@ -56,9 +56,7 @@ class TvShowRepository private constructor(
     override fun getDetail(id: Int) =
         object : NetworkBoundResource<DetailTvShow, DetailTvShowResponse>(executors) {
             override fun loadFromDB(): LiveData<DetailTvShow> =
-                Transformations.map(localData.getDetail(id)) {
-                    DataMapper.tvDetailToTvDetailModel(it)
-                }
+                Transformations.map(localData.getDetail(id)) { DataMapper.detailTvShowWithGenreToDetailTvShow(it) }
             override fun shouldFetch(data: DetailTvShow?) = data == null
             override fun createCall(): LiveData<ApiResponse<DetailTvShowResponse>> = remoteData.getTvShowById(id)
             override fun saveCallResult(data: DetailTvShowResponse) = localData.insertDetailResponse(data)
@@ -68,7 +66,7 @@ class TvShowRepository private constructor(
         object : NetworkBoundResource<PagedList<TvShow>, TvShowResponse>(executors) {
             override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 val result = localData.getFavorite(supportSQLiteQuery)
-                val convert = result?.mapByPage { listTvShowWithGenre(it) }
+                val convert = result?.mapByPage { listTvShowWithGenreToTvShows(it) }
                 return convert?.let {
                     LivePagedListBuilder(it, config()).build()
                 } ?: MutableLiveData()

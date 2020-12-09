@@ -18,7 +18,7 @@ import kotlinx.android.parcel.Parcelize
 data class TvShowResponseEntity(
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = ID_TV_SHOW_RESPONSE)
+    @ColumnInfo(name = PRIMARY_KEY)
     val id_tv_show_response: Int? = null,
 
     val page: Int = 0,
@@ -29,6 +29,6 @@ data class TvShowResponseEntity(
 
     ) : Parcelable {
     companion object {
-        const val ID_TV_SHOW_RESPONSE = "id_tv_show_response"
+        const val PRIMARY_KEY = "id_tv_show_response"
     }
 }

@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.hendri.movie.catalogue.data.Resource
+import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.source.local.MovieDataSource
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailGenreMovieEntity
 import com.hendri.movie.catalogue.data.source.local.entity.detail.movie.DetailMovieWithGenre
@@ -49,7 +49,7 @@ class MovieRepositoryTest{
     }
 
     @Test
-    fun get_result() {
+    fun getMovies() {
         val simpleSQLiteQuery = SimpleSQLiteQuery("")
 
         Mockito.`when`(local.getResultRawQuery(simpleSQLiteQuery)).thenReturn(dataSourceFactory)
@@ -61,7 +61,7 @@ class MovieRepositoryTest{
     }
 
     @Test
-    fun get_detail() {
+    fun getDetailMovie() {
         val pk = 100
         val entity = DetailMovieResponseEntity(pk)
         val genre = listOf(DetailGenreMovieEntity(102, 19, 10, "test"))
@@ -81,7 +81,7 @@ class MovieRepositoryTest{
     }
 
     @Test
-    fun get_favorite() {
+    fun getFavoriteMovies() {
         val simpleSQLiteQuery = SimpleSQLiteQuery("")
 
         Mockito.`when`(local.getFavorite(simpleSQLiteQuery)).thenReturn(dataSourceFactory)
