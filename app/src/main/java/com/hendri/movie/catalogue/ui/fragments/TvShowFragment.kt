@@ -51,7 +51,10 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
         with(binding) {
             when (resource) {
                 is Resource.Loading -> isLoading = true
-                is Resource.Empty -> isLoading = false
+                is Resource.Empty -> {
+                    isLoading = false
+                    activity?.toast(getString(R.string.empty_message))
+                }
                 is Resource.Success -> {
                     isLoading = false
                     resource.data.let { data -> adapter.submitList(data) }

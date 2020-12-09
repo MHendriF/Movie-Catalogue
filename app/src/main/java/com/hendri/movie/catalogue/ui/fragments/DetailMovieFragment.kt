@@ -10,6 +10,7 @@ import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.DetailMovie
+import com.hendri.movie.catalogue.data.repository.Utils
 import com.hendri.movie.catalogue.databinding.FragmentDetailMovieBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 
@@ -47,7 +48,9 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
                             }
                         }
                         ivFavorite.setOnClickListener {
-                            activity?.toast(data.title.toString())
+                            Utils.confirmDialog(requireContext(), data.title, data.isFavorite) {
+                                viewModel.setFavoriteMovie(data.id, !data.isFavorite)
+                            }
                         }
                     }
                 }

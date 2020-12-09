@@ -10,6 +10,7 @@ import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseFragment
 import com.hendri.movie.catalogue.vo.Resource
 import com.hendri.movie.catalogue.data.model.DetailTvShow
+import com.hendri.movie.catalogue.data.repository.Utils
 import com.hendri.movie.catalogue.databinding.FragmentDetailTvShowBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 
@@ -47,7 +48,9 @@ class DetailTvShowFragment : BaseFragment<FragmentDetailTvShowBinding>() {
                             }
                         }
                         ivFavorite.setOnClickListener {
-                            activity?.toast(data.name.toString())
+                            Utils.confirmDialog(requireContext(), data.name, data.isFavorite) {
+                                viewModel.setFavoriteTvShow(data.id, !data.isFavorite)
+                            }
                         }
                     }
                 }

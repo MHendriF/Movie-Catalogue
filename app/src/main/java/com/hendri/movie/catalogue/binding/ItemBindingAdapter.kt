@@ -1,8 +1,13 @@
 package com.hendri.movie.catalogue.binding
 
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.data.model.Genre
+import kotlinx.android.synthetic.main.fragment_detail_movie.*
 
 object ItemBindingAdapter {
     val genres: MutableMap<Int, String> = mutableMapOf()
@@ -55,5 +60,18 @@ object ItemBindingAdapter {
             genre.append(if (i != it.size - 1) "${v.name}, " else v.name)
         }
         view.text = genre.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("android:favoriteImage")
+    fun setFavoriteImage(view: View, isFavorite: Boolean?) {
+        isFavorite?.apply {
+            (view.context as AppCompatActivity).ivFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    view.context,
+                    if (isFavorite) R.drawable.ic_delete else R.drawable.ic_favorite
+                )
+            )
+        }
     }
 }

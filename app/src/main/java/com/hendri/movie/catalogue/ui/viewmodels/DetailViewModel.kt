@@ -38,5 +38,5 @@ class DetailViewModel @Inject constructor(
 
     fun setFavoriteMovie(id: Int, isFavorite: Boolean) = movieRepo.setFavorite(id, isFavorite)
 
-    fun setFavoriteTv(id: Int, isFavorite: Boolean) = tvShowRepo.setFavorite(id, isFavorite)
+    fun setFavoriteTvShow(id: Int, isFavorite: Boolean) = tvShowRepo.setFavorite(id, isFavorite)
 }

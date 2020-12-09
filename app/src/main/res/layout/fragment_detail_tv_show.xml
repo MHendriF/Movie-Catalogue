@@ -194,6 +194,7 @@
             android:background="@drawable/bg_favorite"
             android:padding="@dimen/_8sdp"
             android:visibility="gone"
+            android:favoriteImage="@{model.favorite}"
             android:src="@drawable/ic_favorite"
             android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"
