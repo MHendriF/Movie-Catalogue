@@ -18,6 +18,7 @@ import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.ui.viewmodels.MainViewModel
 import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
+import timber.log.Timber
 import javax.inject.Inject
 
 class FavoriteTvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvShow> {
@@ -66,6 +67,7 @@ class FavoriteTvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListen
                 is Resource.Success -> {
                     isLoading = false
                     resource.data.let { adapter.submitList(it) }
+                    Timber.d("Data size : %d", resource.data.size)
                 }
                 is Resource.Error -> {
                     isLoading = false

@@ -18,6 +18,7 @@ import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.ui.viewmodels.MainViewModel
 import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
+import timber.log.Timber
 import javax.inject.Inject
 
 class FavoriteMovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener<Movie> {
@@ -66,6 +67,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentMovieBinding>(), ItemListener
                 is Resource.Success -> {
                     isLoading = false
                     resource.data.let { data -> adapter.submitList(data) }
+                    Timber.d("Data size : %d", resource.data.size)
                 }
                 is Resource.Error -> {
                     isLoading = false

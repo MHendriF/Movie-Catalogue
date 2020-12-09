@@ -50,6 +50,7 @@ class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
                         ivFavorite.setOnClickListener {
                             Utils.confirmDialog(requireContext(), data.title, data.isFavorite) {
                                 viewModel.setFavoriteMovie(data.id, !data.isFavorite)
+                                activity?.toast("Success ${if (data.isFavorite) "delete" else "add"} ${data.title} ${if (data.isFavorite) "from" else "to"} favorite")
                             }
                         }
                     }

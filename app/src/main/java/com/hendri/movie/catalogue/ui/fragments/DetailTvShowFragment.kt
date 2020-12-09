@@ -50,6 +50,7 @@ class DetailTvShowFragment : BaseFragment<FragmentDetailTvShowBinding>() {
                         ivFavorite.setOnClickListener {
                             Utils.confirmDialog(requireContext(), data.name, data.isFavorite) {
                                 viewModel.setFavoriteTvShow(data.id, !data.isFavorite)
+                                activity?.toast("Success ${if (data.isFavorite) "delete" else "add"} ${data.name} ${if (data.isFavorite) "from" else "to"} favorite")
                             }
                         }
                     }
