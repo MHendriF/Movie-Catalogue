@@ -1,5 +1,6 @@
 package com.hendri.movie.catalogue.ui.adapters
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.adapter.BaseAdapter
@@ -12,6 +13,7 @@ class TvShowAdapter : BaseAdapter<TvShow, ItemContainerTvShowBinding>(R.layout.i
             override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow) =
                 oldItem.id == newItem.id
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow) =
                 oldItem == newItem
         }
