@@ -1,3 +1,5 @@
+##INSTRUMENT TESTING##
+
 # loadFragmentMovie()
 - Memastikan recyclerview movie dalam keadaan tampil
 - Memastikan data movie tidak null

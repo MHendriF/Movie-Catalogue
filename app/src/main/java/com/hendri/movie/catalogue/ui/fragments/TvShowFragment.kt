@@ -3,6 +3,7 @@ package com.hendri.movie.catalogue.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -78,5 +79,19 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvSho
             putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv_show, model.id))
         }
         requireActivity().startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.by_name -> {
+                item.isChecked = true
+                viewModel.sorting(MainViewModel.Type.NAME);true
+            }
+            R.id.by_release -> {
+                item.isChecked = true
+                viewModel.sorting(MainViewModel.Type.RELEASE_DATA);true
+            }
+            else -> super.onContextItemSelected(item)
+        }
     }
 }

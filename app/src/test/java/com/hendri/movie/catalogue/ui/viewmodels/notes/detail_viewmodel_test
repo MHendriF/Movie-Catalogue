@@ -1,3 +1,5 @@
+##UNIT TESTING##
+
 # getDetailMovieResourceSuccess()
 - Melakukan request data detail movie menggunakan fake remote data source yang telah dibuat
 - Mengirimkan data melalui view model dengan ngeset data id movie dan tujuan ke fragment detail movie

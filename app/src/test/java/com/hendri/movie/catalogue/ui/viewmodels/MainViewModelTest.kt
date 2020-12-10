@@ -110,7 +110,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun movie_favorite_get_result_resource_success() {
+    fun getResourceFavoriteMovieSuccess() {
         Mockito.`when`(movieRepo.getFavorite()).thenReturn(MutableLiveData(movieResourceSuccess))
         Mockito.verify(movieRepo).getFavorite()
 
@@ -121,7 +121,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun movie_favorite_get_result_resource_error() {
+    fun getResourceFavoriteMovieError() {
         Mockito.`when`(movieRepo.getFavorite()).thenReturn(MutableLiveData(resourceError))
         Mockito.verify(movieRepo).getFavorite()
 
@@ -130,7 +130,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun movie_favorite_get_result_resource_empty() {
+    fun getResourceFavoriteMovieEmpty() {
         Mockito.`when`(movieRepo.getFavorite()).thenReturn(MutableLiveData(resourceEmpty))
         Mockito.verify(movieRepo).getFavorite()
 
@@ -138,9 +138,8 @@ class MainViewModelTest {
         Mockito.verify(observerMovie).onChanged(resourceEmpty)
     }
 
-
     @Test
-    fun tv_favorite_get_result_resource_success() {
+    fun getResourceFavoriteTVShowSuccess() {
         Mockito.`when`(tvShowRepo.getFavorite()).thenReturn(MutableLiveData(tvShowResourceSuccess))
         Mockito.verify(tvShowRepo).getFavorite()
 
@@ -151,7 +150,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun tv_favorite_get_result_resource_error() {
+    fun getResourceFavoriteTVShowError() {
         Mockito.`when`(tvShowRepo.getFavorite()).thenReturn(MutableLiveData(resourceError))
         Mockito.verify(tvShowRepo).getFavorite()
 
@@ -160,7 +159,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun tv_favorite_get_result_resource_empty() {
+    fun getResourceFavoriteTVShowEmpty() {
         Mockito.`when`(tvShowRepo.getFavorite()).thenReturn(MutableLiveData(resourceEmpty))
         Mockito.verify(tvShowRepo).getFavorite()
 

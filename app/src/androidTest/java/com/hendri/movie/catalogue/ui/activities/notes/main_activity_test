@@ -1,12 +1,41 @@
-# loadMainActivity()
+##INSTRUMENT TESTING##
+
+# loadMovie()
 - Memastikan destination navigation adalah fragment movie
 - Memastikan bottom navigation dalam keadaan tampil
 - Memastikan fragment movie dalam keadaan tampil
 - Memastikan recyclerview movie dalam keadaan tampil
+- Memastikan menu sort dalam keadaan tampil
+- Memberi tindakan klik pada menu sort
+- Memberi tindakan klik pada radio button sort by name
 
-# movingBottomNavigation()
+# loadTvShow()
 - Memberikan tindakan klik pada bottom navigation ke fragment tv show
 - Memastikan destination navigation adalah fragment tv show
 - Memastikan bottom navigation dalam keadaan tampil
 - Memastikan fragment tv show dalam keadaan tampil
 - Memastikan recyclerview tv show dalam keadaan tampil
+- Memastikan menu sort dalam keadaan tampil
+- Memberi tindakan klik pada menu sort
+- Memberi tindakan klik pada radio button sort by release
+
+# loadFavoriteMovie()
+- Memastikan destination navigation adalah fragment favorite
+- Memastikan bottom navigation dalam keadaan tampil
+- Memastikan fragment favorite dalam keadaan tampil
+- Memastikan view pager dalam keadaan tampil
+- Memastikan recyclerview movie dalam keadaan tampil
+- Memastikan menu sort dalam keadaan tampil
+- Memberi tindakan klik pada menu sort
+- Memberi tindakan klik pada radio button sort by name
+
+# loadFavoriteTvShow()
+- Memastikan destination navigation adalah fragment favorite
+- Memastikan bottom navigation dalam keadaan tampil
+- Memastikan fragment favorite dalam keadaan tampil
+- Memastikan view pager dalam keadaan tampil
+- Memberi tindakan gulir ke kanan pada view pager
+- Memastikan recyclerview tv show dalam keadaan tampil
+- Memastikan menu sort dalam keadaan tampil
+- Memberi tindakan klik pada menu sort
+- Memberi tindakan klik pada radio button sort by release

@@ -1,6 +1,10 @@
 package com.hendri.movie.catalogue.ui.fragments
 
+import android.app.Activity
+import android.content.Context
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -11,8 +15,8 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.SingleNavigationActivity
 import com.hendri.movie.catalogue.data.model.TvShow
+import com.hendri.movie.catalogue.ui.activities.MainActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_tv_show.*
@@ -23,8 +27,11 @@ import org.junit.Rule
 import org.junit.Test
 
 class TvShowFragmentTest {
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val currentDes = { activity: Activity -> activity.findNavController(R.id.nav_host_main_fragment).currentDestination }
+
     @get:Rule
-    val scenarioRule = ActivityScenarioRule(SingleNavigationActivity::class.java)
+    val scenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun setUp() {
@@ -38,13 +45,13 @@ class TvShowFragmentTest {
 
     @Test
     fun loadFragmentTvShow() {
-        scenarioRule.scenario.onActivity {
-            it.startDestination(R.navigation.nav_graph_home, R.id.fragment_tv)
-        }
-        Espresso.onView(withId(R.id.rvTvShow)).check(matches(ViewMatchers.isDisplayed()))
         val data = mutableListOf<TvShow>()
         scenarioRule.scenario.onActivity {
-            data.addAll((it.rvTvShow.adapter as TvShowAdapter).data)
+            assertEquals(context.getString(R.string.tv_show), currentDes(it)?.label)
+        }
+        Espresso.onView(withId(R.id.rvTvShow)).check(matches(ViewMatchers.isDisplayed()))
+        scenarioRule.scenario.onActivity { activity ->
+            (activity.rvTvShow.adapter as TvShowAdapter).currentList?.map { data.add(it) }
         }
         assertNotNull(data)
         assertTrue(data.size > 0)

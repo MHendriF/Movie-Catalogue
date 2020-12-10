@@ -6,6 +6,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 object LiveDataTestUtil {
+    @Suppress("UNCHECKED_CAST")
     fun <T> getValue(liveData: LiveData<T>?): T {
         val data = arrayOfNulls<Any>(1)
         val latch = CountDownLatch(1)
@@ -17,7 +18,6 @@ object LiveDataTestUtil {
                 liveData?.removeObserver(this)
             }
         }
-
         liveData?.observeForever(observer)
 
         try {
@@ -25,8 +25,6 @@ object LiveDataTestUtil {
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
-
-        @Suppress("UNCHECKED_CAST")
         return data[0] as T
     }
 }
