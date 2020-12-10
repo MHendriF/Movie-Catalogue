@@ -1,43 +1,76 @@
 ##UNIT TESTING##
 
 # getResourceMovieSuccess()
-- Melakukan request data movie melalui fake repository yang telah dibuat
-- Mengambil data movie dari hasil request
-- Melakukan observasi pada view model
-- Memastikan jika hasil dari respon resource adalah sukses
+- Mengambil data movie melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah success
 - Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
 
 # getResourceMovieError()
-- Melakukan request data movie melalui fake repository yang telah dibuat
-- Mengambil data movie dari hasil request
-- Melakukan observasi pada view model
-- Memastikan jika hasil dari respon resource adalah error
+- Mengambil data movie melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah error
 - Memastikan pesan error sesuai dengan yang diharapkan
 
 # getResourceMovieEmpty()
-- Melakukan request data movie melalui fake repository yang telah dibuat
-- Mengambil data movie dari hasil request
-- Melakukan observasi pada view model
-- Memastikan jika hasil dari respon resource adalah empty
+- Mengambil data movie melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah empty
 - Memastikan data yang diperoleh kosong
 
 # getResourceTvShowSuccess()
-- Melakukan request data movie melalui fake repository yang telah dibuat
-- Mengambil data tv show dari hasil request
-- Melakukan observasi pada view model
-- Memastikan jika hasil dari respon resource adalah sukses
+- Mengambil data tv show melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah success
 - Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
 
 # getResourceTvShowError()
-- Melakukan request data movie melalui fake repository yang telah dibuat
-- Mengambil data tv show dari hasil request
-- Melakukan observasi pada view model
-- Memastikan jika hasil dari respon resource adalah error
+- Mengambil data tv show melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah error
 - Memastikan pesan error sesuai dengan yang diharapkan
 
 # getResourceTvShowEmpty()
-- Melakukan request data movie melalui fake repository yang telah dibuat
-- Mengambil data tv show dari hasil request
-- Melakukan observasi pada view model
-- Memastikan jika hasil dari respon resource adalah empty
+- Mengambil data tv show melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah empty
 - Memastikan data yang diperoleh kosong
+
+//////
+
+# getResourceFavoriteMovieSuccess()
+- Mengambil data favorite movie melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah success
+- Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
+
+# getResourceFavoriteMovieError()
+- Mengambil data favorite movie melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah error
+- Memastikan pesan error sesuai dengan yang diharapkan
+
+# getResourceFavoriteMovieEmpty()
+- Mengambil data favorite movie melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah empty
+- Memastikan data yang diperoleh kosong
+
+# getResourceFavoriteTvShowSuccess()
+- Mengambil data favorite tv show melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah success
+- Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
+
+# getResourceFavoriteTvShowError()
+- Mengambil data favorite tv show melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah error
+- Memastikan pesan error sesuai dengan yang diharapkan
+
+# getResourceFavoriteTvShowEmpty()
+- Mengambil data favorite tv show melalui fake repository yang telah dibuat
+- Melakukan observasi response data pada view model
+- Memastikan jika hasil dari respon adalah empty
+- Memastikan data yang diperoleh kosong
+

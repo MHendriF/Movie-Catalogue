@@ -1,7 +1,7 @@
 ##UNIT TESTING##
 
 # getDetailMovieResourceSuccess()
-- Melakukan request data detail movie menggunakan fake remote data source yang telah dibuat
+- Mengambil data detail movie melalui fake repository yang telah dibuat
 - Mengirimkan data melalui view model dengan ngeset data id movie dan tujuan ke fragment detail movie
 - Memastikan data yang dikirimkan sesuai dengan yang harapan
 - Memastikan data pada view model tidak kosong
@@ -11,7 +11,7 @@
 - Memastikan data yang diperoleh sesuai dengan data dummy yang telah dibuat
 
 # getDetailTvShowResourceSuccess()
-- Melakukan request data detail tv show menggunakan fake remote data source yang telah dibuat
+- Mengambil data detail tv show melalui fake repository yang telah dibuat
 - Mengirimkan data melalui view model dengan ngeset data id movie dan tujuan ke fragment detail tv show
 - Memastikan data yang dikirimkan sesuai dengan yang harapan
 - Memastikan data pada view model tidak kosong
