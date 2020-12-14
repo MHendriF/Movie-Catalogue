@@ -5,13 +5,13 @@ import android.content.Context
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.hendri.movie.catalogue.R
@@ -46,18 +46,20 @@ class TvShowFragmentTest {
     @Test
     fun loadFragmentTvShow() {
         val data = mutableListOf<TvShow>()
+        onView(withId(R.id.fragment_tv)).perform(click())
         scenarioRule.scenario.onActivity {
             assertEquals(context.getString(R.string.tv_show), currentDes(it)?.label)
         }
-        Espresso.onView(withId(R.id.rvTvShow)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.bottom_navigation_view)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
         scenarioRule.scenario.onActivity { activity ->
             (activity.rvTvShow.adapter as TvShowAdapter).currentList?.map { data.add(it) }
         }
         assertNotNull(data)
         assertTrue(data.size > 0)
-        Espresso.onView(withId(R.id.rvTvShow)).perform(scrollToPosition<ViewHolder>(data.size))
-        Espresso.onView(withId(R.id.rvTvShow)).perform(actionOnItemAtPosition<ViewHolder>(0, click()))
-        Espresso.onView(withId(R.id.tvReadMore)).perform(click())
-        Espresso.onView(withId(R.id.ivBack)).perform(click())
+        onView(withId(R.id.rvTvShow)).perform(scrollToPosition<ViewHolder>(data.size))
+        onView(withId(R.id.rvTvShow)).perform(actionOnItemAtPosition<ViewHolder>(0, click()))
+        onView(withId(R.id.tvReadMore)).perform(click())
+        onView(withId(R.id.ivBack)).perform(click())
     }
 }

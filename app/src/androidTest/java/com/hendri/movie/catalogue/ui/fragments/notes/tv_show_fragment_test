@@ -1,6 +1,8 @@
 ##INSTRUMENT TESTING##
 
 # loadFragmentTvShow()
+- Memberikan tindakan klik pada bottom navigation ke fragment tv show
+- Memastikan bottom navigation dalam keadaan tampil
 - Memastikan recyclerview tv show dalam keadaan tampil
 - Memastikan data tv show tidak null
 - Memastikan jumlah data tv show lebih dari 0
