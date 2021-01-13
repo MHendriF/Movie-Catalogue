@@ -2,7 +2,7 @@ package com.hendri.movie.catalogue.data.source.remote.response
 
 import android.os.Parcelable
 import com.hendri.movie.catalogue.data.model.Movie
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MovieResponse(
