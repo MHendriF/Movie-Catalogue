@@ -1,5 +1,6 @@
 # Movie Catalog - Submission Akhir
-
+[![MHendriF](https://circleci.com/gh/MHendriF/Movie-Catalogue.svg?style=svg)](https://circleci.com/gh/MHendriF/Movie-Catalogue)
+    
 Aplikasi ini dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding [Belajar Android Jetpack Pro](https://www.dicoding.com/academies/129)
 
 ### Fitur - fitur yang digunakan pada aplikasi
