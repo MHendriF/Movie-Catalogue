@@ -3,93 +3,95 @@ package com.hendri.movie.catalogue.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
+import androidx.paging.PagedList
+import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R
-import com.hendri.movie.catalogue.data.source.local.entity.Movie
-import com.hendri.movie.catalogue.data.source.local.entity.TvShow
-import com.hendri.movie.catalogue.data.source.remote.vo.Status
+import com.hendri.movie.catalogue.base.BaseFragment
+import com.hendri.movie.catalogue.base.adapter.ItemListener
+import com.hendri.movie.catalogue.vo.Resource
+import com.hendri.movie.catalogue.data.model.TvShow
 import com.hendri.movie.catalogue.databinding.FragmentTvShowBinding
 import com.hendri.movie.catalogue.ui.activities.DetailActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
-import com.hendri.movie.catalogue.ui.listeners.TvShowListener
-import com.hendri.movie.catalogue.ui.viewmodels.TvShowViewModel
-import com.hendri.movie.catalogue.utils.Constants
+import com.hendri.movie.catalogue.ui.viewmodels.MainViewModel
 import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
 import timber.log.Timber
+import javax.inject.Inject
 
-class TvShowFragment : Fragment(), TvShowListener {
+class TvShowFragment : BaseFragment<FragmentTvShowBinding>(), ItemListener<TvShow> {
 
-    private lateinit var fragmentBinding: FragmentTvShowBinding
-    private lateinit var viewModel: TvShowViewModel
-    private lateinit var tvShowAdapter: TvShowAdapter
-    private var tvShows = mutableListOf<TvShow>()
+    @Inject
+    internal lateinit var factory: ViewModelFactory
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        fragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_tv_show, container, false)
-        return fragmentBinding.root
+    private lateinit var adapter: TvShowAdapter
+    private val viewModel by navGraphViewModels<MainViewModel>(R.id.nav_graph_main) { factory }
+
+    override val layoutFragment: Int = R.layout.fragment_tv_show
+
+    override fun onAttach(context: Context) {
+        (requireActivity().application as MyApp).appComponent.inject(this)
+        super.onAttach(context)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupViewModel()
-        setupObserver()
-        doInitialization()
+
+        adapter = TvShowAdapter().apply {
+            onItemListener = this@TvShowFragment
+            binding.rvTvShow.setHasFixedSize(true)
+            binding.rvTvShow.adapter = this
+        }
+        viewModel.tvShow.observe(viewLifecycleOwner, { handleStat(it) })
     }
 
-    private fun doInitialization() {
-        tvShowAdapter = TvShowAdapter(this)
-        tvShowAdapter.setData(tvShows)
-        fragmentBinding.rvTvShow.setHasFixedSize(true)
-        fragmentBinding.rvTvShow.adapter = tvShowAdapter
-    }
-
-    private fun setupViewModel() {
-        val factory = ViewModelFactory.getInstance(activity as AppCompatActivity)
-        viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
-    }
-
-    private fun setupObserver() {
-        viewModel.getTvShows().observe(viewLifecycleOwner, {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.let { it1 ->
-                        fragmentBinding.isLoading = false
-                        tvShows = it.data as MutableList<TvShow>
-                        tvShowAdapter.setData(tvShows)
-                        tvShowAdapter.notifyDataSetChanged()
-                    }
+    private fun handleStat(resource: Resource<PagedList<TvShow>>) {
+        with(binding) {
+            when (resource) {
+                is Resource.Loading -> isLoading = true
+                is Resource.Empty -> {
+                    isLoading = false
+                    activity?.toast(getString(R.string.empty_message))
                 }
-                Status.LOADING -> {
-                    fragmentBinding.isLoading = true
+                is Resource.Success -> {
+                    isLoading = false
+                    resource.data.let { data -> adapter.submitList(data) }
                 }
-                Status.ERROR -> {
-                    fragmentBinding.isLoading = false
-                    it.message?.let { it1 -> requireContext().toast(it1) }
+                is Resource.Error -> {
+                    isLoading = false
+                    Timber.e("handleStat:  %s", resource.message)
+                    findNavController().getViewModelStoreOwner(R.id.nav_graph_main).viewModelStore.clear()
+                    activity?.toast(resource.message)
                 }
             }
-        })
-    }
-
-    override fun onItemClicked(tvShow: TvShow) {
-        Timber.d("Trace :: data(${tvShow.name})")
-        val intent = Intent(requireContext(), DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_ID, tvShow.id)
-        intent.putExtra(DetailActivity.EXTRA_TYPE, Constants.TYPE_TV_SHOW)
-        requireActivity().startActivity(intent)
+        }
     }
 
     private fun Context.toast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemClick(model: TvShow) {
+        val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra(DetailActivity.DATA_EXTRA, arrayListOf(R.id.detail_tv_show, model.id))
+        }
+        requireActivity().startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.by_name -> {
+                item.isChecked = true
+                viewModel.sorting(MainViewModel.Type.NAME);true
+            }
+            R.id.by_release -> {
+                item.isChecked = true
+                viewModel.sorting(MainViewModel.Type.RELEASE_DATA);true
+            }
+            else -> super.onContextItemSelected(item)
+        }
     }
 }

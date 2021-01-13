@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.hendri.movie.catalogue.R
+import com.hendri.movie.catalogue.utils.Constants
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -17,6 +18,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, Constants.DELAY)
     }
 }

@@ -1,39 +1,10 @@
 package com.hendri.movie.catalogue.data.source.remote.response
 
-import com.google.gson.annotations.SerializedName
+import com.hendri.movie.catalogue.data.model.TvShow
 
 data class TvShowResponse(
-	@field:SerializedName("id")
-	val id: Int,
-
-	@field:SerializedName("overview")
-	val overview: String,
-
-	@field:SerializedName("original_language")
-	val originalLanguage: String,
-
-	@field:SerializedName("original_name")
-	val originalName: String,
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("poster_path")
-	val posterPath: String?,
-
-	@field:SerializedName("backdrop_path")
-	val backdropPath: String?,
-
-	@field:SerializedName("first_air_date")
-	val firstAirDate: String,
-
-	@field:SerializedName("popularity")
-	val popularity: Double,
-
-	@field:SerializedName("vote_average")
-	val voteAverage: Double,
-
-	@field:SerializedName("vote_count")
-	val voteCount: Int
+    val page: Int,
+    val total_results: Int,
+    val total_pages: Int,
+    val results: List<TvShow>
 )
-

@@ -1,44 +1,25 @@
 package com.hendri.movie.catalogue.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.hendri.movie.catalogue.data.source.MainRepository
-import com.hendri.movie.catalogue.di.Injection
-import com.hendri.movie.catalogue.ui.viewmodels.*
+import com.hendri.movie.catalogue.di.AppScope
+import javax.inject.Inject
+import javax.inject.Provider
 
-class ViewModelFactory private constructor(private val mainRepository: MainRepository) :
-    ViewModelProvider.NewInstanceFactory() {
-
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(context: Context): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideInjection(context))
-            }
-    }
+@AppScope
+class ViewModelFactory @Inject constructor(
+    private val viewModels: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        when {
-            modelClass.isAssignableFrom(MovieViewModel::class.java) -> {
-                return MovieViewModel(mainRepository) as T
-            }
-            modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
-                return TvShowViewModel(mainRepository) as T
-            }
-            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
-                return DetailViewModel(mainRepository) as T
-            }
-            modelClass.isAssignableFrom(FavoriteMovieViewModel::class.java) -> {
-                return FavoriteMovieViewModel(mainRepository) as T
-            }
-            modelClass.isAssignableFrom(FavoriteTvShowViewModel::class.java) -> {
-                return FavoriteTvShowViewModel(mainRepository) as T
-            }
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        val creator = viewModels[modelClass]
+            ?: viewModels.asIterable().firstOrNull { modelClass.isAssignableFrom(it.key) }?.value
+            ?: throw IllegalArgumentException("unknown model class $modelClass")
+        return try {
+            creator.get() as T
+        } catch (e: Exception) {
+            throw RuntimeException(e)
         }
-        throw IllegalArgumentException("Unknown class name")
     }
 }
