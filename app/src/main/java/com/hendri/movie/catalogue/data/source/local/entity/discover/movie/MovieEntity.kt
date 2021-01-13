@@ -44,6 +44,5 @@ data class MovieEntity (
     companion object {
         const val PRIMARY_KEY = "id_movie"
         const val FOREIGN_KEY = "id_movie_foreign"
-
     }
 }
