@@ -3,7 +3,7 @@ package com.hendri.movie.catalogue.data.source.local.entity.discover.movie
 import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(

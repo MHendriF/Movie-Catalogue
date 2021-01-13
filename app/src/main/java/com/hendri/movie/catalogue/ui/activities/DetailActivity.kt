@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R
 import com.hendri.movie.catalogue.base.BaseActivity
 import com.hendri.movie.catalogue.databinding.ActivityDetailBinding
 import com.hendri.movie.catalogue.ui.viewmodels.DetailViewModel
 import com.hendri.movie.catalogue.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity<ActivityDetailBinding>() {
@@ -40,7 +39,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
             viewModel.init(get(DATA_DESTINATION), get(DATA_ID))
         }
 
-        navController = nav_host_detail_fragment.findNavController()
+        navController = Navigation.findNavController(this, R.id.nav_host_detail_fragment)
         savedInstanceState?.let {
             navController.restoreState(it)
         } ?: run {
