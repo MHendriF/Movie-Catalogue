@@ -93,6 +93,7 @@ class RemoteDataSourceTest {
                 assertEquals(dataDummy.results, apiResponse.data.results)
                 assertEquals(dataDummy.results.size, apiResponse.data.results.size)
             }
+            else -> return
         }
     }
 
@@ -117,7 +118,7 @@ class RemoteDataSourceTest {
         when (apiResponse) {
             is ApiResponse.Error -> {
                 assertEquals(errorMessage, apiResponse.message)
-            }
+            } else -> return
         }
     }
 
@@ -142,7 +143,7 @@ class RemoteDataSourceTest {
         when (apiResponse) {
             is ApiResponse.Empty -> {
                 Assert.assertNull(apiResponse.data)
-            }
+            } else -> return
         }
     }
 
@@ -170,7 +171,7 @@ class RemoteDataSourceTest {
                 assertEquals(dataDummy, apiResponse.data)
                 assertEquals(dataDummy.results, apiResponse.data.results)
                 assertEquals(dataDummy.results.size, apiResponse.data.results.size)
-            }
+            } else -> return
         }
     }
 
@@ -196,7 +197,7 @@ class RemoteDataSourceTest {
         when (apiResponse) {
             is ApiResponse.Error -> {
                 assertEquals(errorMessage, apiResponse.message)
-            }
+            } else -> return
         }
     }
 
@@ -222,7 +223,7 @@ class RemoteDataSourceTest {
         when (apiResponse) {
             is ApiResponse.Empty -> {
                 Assert.assertNull(apiResponse.data)
-            }
+            } else -> return
         }
     }
 
@@ -250,7 +251,7 @@ class RemoteDataSourceTest {
         when (apiResponse) {
             is ApiResponse.Success -> {
                 assertEquals(dataDummy, apiResponse.data)
-            }
+            } else -> return
         }
     }
 
@@ -278,7 +279,7 @@ class RemoteDataSourceTest {
         when (apiResponse) {
             is ApiResponse.Success -> {
                 assertEquals(dataDummy, apiResponse.data)
-            }
+            } else -> return
         }
     }
 }

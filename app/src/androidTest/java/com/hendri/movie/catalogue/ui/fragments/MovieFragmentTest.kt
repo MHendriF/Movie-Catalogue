@@ -2,7 +2,6 @@ package com.hendri.movie.catalogue.ui.fragments
 
 import android.app.Activity
 import android.content.Context
-import android.widget.ImageView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -21,8 +20,11 @@ import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.ui.activities.MainActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class MovieFragmentTest {
     private val context = ApplicationProvider.getApplicationContext<Context>()

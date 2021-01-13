@@ -76,7 +76,7 @@ class MovieRepositoryTest{
                 assertEquals(pk, resource.data.id)
                 assertEquals(genre[0].genre_code, resource.data.genres[0].genre_code)
                 assertEquals(genre[0].name, resource.data.genres[0].name)
-            }
+            } else -> return
         }
     }
 

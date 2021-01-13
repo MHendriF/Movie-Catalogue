@@ -2,11 +2,7 @@ package com.hendri.movie.catalogue.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.navGraphViewModels
 import com.hendri.movie.catalogue.MyApp
 import com.hendri.movie.catalogue.R

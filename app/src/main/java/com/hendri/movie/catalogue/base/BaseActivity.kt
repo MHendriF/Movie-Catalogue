@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
-import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseActivity<ActivityBinding : ViewDataBinding> : AppCompatActivity() {
 

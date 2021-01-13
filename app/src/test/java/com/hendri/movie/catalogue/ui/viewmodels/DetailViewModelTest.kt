@@ -71,7 +71,7 @@ class DetailViewModelTest{
             is Resource.Success -> {
                 assertEquals(dummyData, resource.data)
                 assertEquals(dataId, resource.data.id)
-            }
+            } else -> return
         }
     }
 
@@ -99,7 +99,7 @@ class DetailViewModelTest{
             is Resource.Success -> {
                 assertEquals(dummyData, resource.data)
                 assertEquals(dataId, resource.data.id)
-            }
+            } else -> return
         }
     }
 }
