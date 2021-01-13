@@ -22,8 +22,6 @@ import com.hendri.movie.catalogue.ui.activities.MainActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
-import kotlinx.android.synthetic.main.fragment_movie.*
-import kotlinx.android.synthetic.main.fragment_tv_show.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -58,7 +56,8 @@ class FavoriteFragmentTest {
         onView(withId(view_pager)).check(matches(isDisplayed()))
         onView(withId(rvMovie)).check(matches(isDisplayed()))
         scenarioRule.scenario.onActivity { activity ->
-            (activity.rvMovie.adapter as MovieAdapter).currentList?.map { data.add(it) }
+            val rvMovie: RecyclerView = activity.findViewById(R.id.rvMovie)
+            (rvMovie.adapter as MovieAdapter).currentList?.map { data.add(it) }
         }
         if (data.size > 0) {
             assertNotNull(data)
@@ -82,7 +81,8 @@ class FavoriteFragmentTest {
         onView(withId(view_pager)).perform(ViewPagerActions.scrollRight())
         onView(withId(rvTvShow)).check(matches(isDisplayed()))
         scenarioRule.scenario.onActivity { activity ->
-            (activity.rvTvShow.adapter as TvShowAdapter).currentList?.map { data.add(it) }
+            val rvTvShow: RecyclerView = activity.findViewById(R.id.rvTvShow)
+            (rvTvShow.adapter as TvShowAdapter).currentList?.map { data.add(it) }
         }
         if (data.size > 0) {
             assertNotNull(data)

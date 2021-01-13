@@ -2,7 +2,9 @@ package com.hendri.movie.catalogue.ui.fragments
 
 import android.app.Activity
 import android.content.Context
+import android.widget.ImageView
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -19,7 +21,6 @@ import com.hendri.movie.catalogue.data.model.Movie
 import com.hendri.movie.catalogue.ui.activities.MainActivity
 import com.hendri.movie.catalogue.ui.adapters.MovieAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
-import kotlinx.android.synthetic.main.fragment_movie.*
 import org.junit.*
 import org.junit.Assert.*
 
@@ -43,12 +44,14 @@ class MovieFragmentTest {
     @Test
     fun loadFragmentMovie() {
         val data = mutableListOf<Movie>()
+
         scenarioRule.scenario.onActivity {
             assertEquals(context.getString(R.string.movie), currentDes(it)?.label)
         }
         onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
         scenarioRule.scenario.onActivity { activity ->
-            (activity.rvMovie.adapter as MovieAdapter).currentList?.map { data.add(it) }
+            val rvMovie: RecyclerView = activity.findViewById(R.id.rvMovie)
+            (rvMovie.adapter as MovieAdapter).currentList?.map { data.add(it) }
         }
         assertNotNull(data)
         assertTrue(data.size > 0)

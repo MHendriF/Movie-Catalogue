@@ -3,6 +3,7 @@ package com.hendri.movie.catalogue.ui.fragments
 import android.app.Activity
 import android.content.Context
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -19,7 +20,6 @@ import com.hendri.movie.catalogue.data.model.TvShow
 import com.hendri.movie.catalogue.ui.activities.MainActivity
 import com.hendri.movie.catalogue.ui.adapters.TvShowAdapter
 import com.hendri.movie.catalogue.utils.EspressoIdlingResource
-import kotlinx.android.synthetic.main.fragment_tv_show.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -53,7 +53,8 @@ class TvShowFragmentTest {
         onView(withId(R.id.bottom_navigation_view)).check(matches(isDisplayed()))
         onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
         scenarioRule.scenario.onActivity { activity ->
-            (activity.rvTvShow.adapter as TvShowAdapter).currentList?.map { data.add(it) }
+            val rvTvShow: RecyclerView = activity.findViewById(R.id.rvTvShow)
+            (rvTvShow.adapter as TvShowAdapter).currentList?.map { data.add(it) }
         }
         assertNotNull(data)
         assertTrue(data.size > 0)
